@@ -1,6 +1,6 @@
 sudo: required
 language: go
-go_import_path: github.com/tomochain/tomochain
+go_import_path: github.com/Tao-Network/tao2
 
 env:
   global:
@@ -42,13 +42,13 @@ jobs:
   - stage: Github release
     go: '1.12.x'
     script:
-      - GOARCH=amd64 GOOS=linux go build -o ./build/bin/tomo-linux-amd64 -v ./cmd/tomo
+      - GOARCH=amd64 GOOS=linux go build -o ./build/bin/tao-linux-amd64 -v ./cmd/tao
     deploy:
       provider: releases
       api_key: $GITHUB_TOKEN
       overwrite: true
       file_glob: true
-      file: build/bin/tomo-*
+      file: build/bin/tao-*
       skip_cleanup: true
       on:
         tags: true

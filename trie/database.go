@@ -20,9 +20,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // secureKeyPrefix is the database key prefix used to store trie node preimages.

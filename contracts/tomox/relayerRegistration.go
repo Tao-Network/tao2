@@ -1,11 +1,11 @@
-package tomox
+package taox
 
 import (
 	"math/big"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox/contract"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox/contract"
 )
 
 type RelayerRegistration struct {
@@ -28,8 +28,8 @@ func NewRelayerRegistration(transactOpts *bind.TransactOpts, contractAddr common
 	}, nil
 }
 
-func DeployRelayerRegistration(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend, tomoxListing common.Address, maxRelayers *big.Int, maxTokenList *big.Int, minDeposit *big.Int) (common.Address, *RelayerRegistration, error) {
-	contractAddr, _, _, err := contract.DeployRelayerRegistration(transactOpts, contractBackend, tomoxListing, maxRelayers, maxTokenList, minDeposit)
+func DeployRelayerRegistration(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend, taoxListing common.Address, maxRelayers *big.Int, maxTokenList *big.Int, minDeposit *big.Int) (common.Address, *RelayerRegistration, error) {
+	contractAddr, _, _, err := contract.DeployRelayerRegistration(transactOpts, contractBackend, taoxListing, maxRelayers, maxTokenList, minDeposit)
 	if err != nil {
 		return contractAddr, nil, err
 	}

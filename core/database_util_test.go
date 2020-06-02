@@ -21,11 +21,11 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/crypto/sha3"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/crypto/sha3"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // Tests block header storage and retrieval operations.

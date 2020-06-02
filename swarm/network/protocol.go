@@ -37,13 +37,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/tomochain/tomochain/contracts/chequebook"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/p2p"
-	bzzswap "github.com/tomochain/tomochain/swarm/services/swap"
-	"github.com/tomochain/tomochain/swarm/services/swap/swap"
-	"github.com/tomochain/tomochain/swarm/storage"
+	"github.com/Tao-Network/tao2/contracts/chequebook"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/p2p"
+	bzzswap "github.com/Tao-Network/tao2/swarm/services/swap"
+	"github.com/Tao-Network/tao2/swarm/services/swap/swap"
+	"github.com/Tao-Network/tao2/swarm/storage"
 )
 
 //metrics variables

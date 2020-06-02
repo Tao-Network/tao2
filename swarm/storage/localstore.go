@@ -19,7 +19,7 @@ package storage
 import (
 	"encoding/binary"
 
-	"github.com/tomochain/tomochain/metrics"
+	"github.com/Tao-Network/tao2/metrics"
 )
 
 //metrics variables

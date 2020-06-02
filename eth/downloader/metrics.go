@@ -19,7 +19,7 @@
 package downloader
 
 import (
-	"github.com/tomochain/tomochain/metrics"
+	"github.com/Tao-Network/tao2/metrics"
 )
 
 var (

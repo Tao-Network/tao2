@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Tomochain
+// Copyright (c) 2020 Tao Network
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -30,21 +30,21 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/posv"
-	"github.com/tomochain/tomochain/contracts/blocksigner/contract"
-	randomizeContract "github.com/tomochain/tomochain/contracts/randomize/contract"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	stateDatabase "github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	"github.com/Tao-Network/tao2/contracts/blocksigner/contract"
+	randomizeContract "github.com/Tao-Network/tao2/contracts/randomize/contract"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	stateDatabase "github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
 )
 
 const (

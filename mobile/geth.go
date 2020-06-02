@@ -24,17 +24,17 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/eth"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/ethstats"
-	"github.com/tomochain/tomochain/les"
-	"github.com/tomochain/tomochain/node"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/p2p/nat"
-	"github.com/tomochain/tomochain/params"
-	whisper "github.com/tomochain/tomochain/whisper/whisperv6"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/eth"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/ethstats"
+	"github.com/Tao-Network/tao2/les"
+	"github.com/Tao-Network/tao2/node"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/p2p/nat"
+	"github.com/Tao-Network/tao2/params"
+	whisper "github.com/Tao-Network/tao2/whisper/whisperv6"
 )
 
 // NodeConfig represents the collection of configuration values to fine tune the Geth

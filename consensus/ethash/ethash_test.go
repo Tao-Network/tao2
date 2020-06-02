@@ -24,7 +24,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/tomochain/tomochain/core/types"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // Tests that ethash works correctly in test mode.
@@ -44,7 +44,7 @@ func TestTestMode(t *testing.T) {
 }
 
 // This test checks that cache lru logic doesn't crash under load.
-// It reproduces https://github.com/tomochain/tomochain/issues/14943
+// It reproduces https://github.com/Tao-Network/tao2/issues/14943
 func TestCacheFileEvict(t *testing.T) {
 	tmpdir, err := ioutil.TempDir("", "ethash-test")
 	if err != nil {

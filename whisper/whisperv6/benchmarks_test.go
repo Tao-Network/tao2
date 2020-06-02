@@ -20,7 +20,7 @@ import (
 	"crypto/sha256"
 	"testing"
 
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/crypto"
 	"golang.org/x/crypto/pbkdf2"
 )
 

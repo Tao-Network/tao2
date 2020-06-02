@@ -24,12 +24,12 @@ import (
 	"fmt"
 	"math/big"
 
-	ethereum "github.com/tomochain/tomochain"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/rlp"
-	"github.com/tomochain/tomochain/rpc"
+	ethereum "github.com/Tao-Network/tao2"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/rlp"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 // Client defines typed wrappers for the Ethereum RPC API.
@@ -495,7 +495,7 @@ func (ec *Client) SendOrderTransaction(ctx context.Context, tx *types.OrderTrans
 	if err != nil {
 		return err
 	}
-	return ec.c.CallContext(ctx, nil, "tomox_sendOrderRawTransaction", common.ToHex(data))
+	return ec.c.CallContext(ctx, nil, "taox_sendOrderRawTransaction", common.ToHex(data))
 }
 
 // SendLendingTransaction send lending to pool
@@ -504,7 +504,7 @@ func (ec *Client) SendLendingTransaction(ctx context.Context, tx *types.LendingT
 	if err != nil {
 		return err
 	}
-	return ec.c.CallContext(ctx, nil, "tomox_sendLendingRawTransaction", common.ToHex(data))
+	return ec.c.CallContext(ctx, nil, "taox_sendLendingRawTransaction", common.ToHex(data))
 }
 
 func toCallArg(msg ethereum.CallMsg) interface{} {

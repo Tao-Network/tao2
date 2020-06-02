@@ -31,9 +31,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/crypto/secp256k1"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/crypto/secp256k1"
 )
 
 const NodeIDBits = 512

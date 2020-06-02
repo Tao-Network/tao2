@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 //go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go

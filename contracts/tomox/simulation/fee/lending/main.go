@@ -3,17 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/tomochain/tomochain/contracts/tomox/simulation"
+	"github.com/Tao-Network/tao2/contracts/taox/simulation"
 	"math/big"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethclient"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethclient"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 
 	auth.Nonce = big.NewInt(int64(nonce))
 
-	lendContract, _ := tomox.NewLendingRelayerRegistration(auth, common.HexToAddress("0x4d7eA2cE949216D6b120f3AA10164173615A2b6C"), client)
+	lendContract, _ := taox.NewLendingRelayerRegistration(auth, common.HexToAddress("0x4d7eA2cE949216D6b120f3AA10164173615A2b6C"), client)
 
 	tx, err := lendContract.UpdateFee(coinbase, uint16(fee))
 	if err != nil {

@@ -23,9 +23,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/params"
 )
 
 type diffTest struct {

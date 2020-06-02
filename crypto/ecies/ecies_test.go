@@ -39,7 +39,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/crypto"
 )
 
 //var dumpEnc bool

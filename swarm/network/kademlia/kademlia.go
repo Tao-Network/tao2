@@ -23,8 +23,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
 )
 
 //metrics variables

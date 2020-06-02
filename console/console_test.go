@@ -19,20 +19,20 @@ package console
 import (
 	"bytes"
 	"errors"
-	"github.com/tomochain/tomochain/tomox"
-	"github.com/tomochain/tomochain/tomoxlending"
+	"github.com/Tao-Network/tao2/taox"
+	"github.com/Tao-Network/tao2/taoxlending"
 	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus/ethash"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/eth"
-	"github.com/tomochain/tomochain/internal/jsre"
-	"github.com/tomochain/tomochain/node"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus/ethash"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/eth"
+	"github.com/Tao-Network/tao2/internal/jsre"
+	"github.com/Tao-Network/tao2/node"
 )
 
 const (
@@ -106,7 +106,7 @@ func newTester(t *testing.T, confOverride func(*eth.Config)) *tester {
 	if confOverride != nil {
 		confOverride(ethConf)
 	}
-	if err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) { return eth.New(ctx, ethConf, &tomox.TomoX{},&tomoxlending.Lending{}) }); err != nil {
+	if err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) { return eth.New(ctx, ethConf, &taox.TaoX{},&taoxlending.Lending{}) }); err != nil {
 		t.Fatalf("failed to register Ethereum protocol: %v", err)
 	}
 	// Start the node and assemble the JavaScript console around it

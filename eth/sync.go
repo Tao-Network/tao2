@@ -21,11 +21,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/p2p/discover"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/p2p/discover"
 )
 
 const (

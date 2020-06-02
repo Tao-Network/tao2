@@ -24,10 +24,10 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 //go:generate gencodec -type txdata -field-override txdataMarshaling -out gen_tx_json.go
@@ -36,10 +36,10 @@ var (
 	ErrInvalidSig               = errors.New("invalid transaction v, r, s values")
 	errNoSigner                 = errors.New("missing signing methods")
 	skipNonceDestinationAddress = map[string]bool{
-		common.TomoXAddr:                         true,
+		common.TaoXAddr:                         true,
 		common.TradingStateAddr:                  true,
-		common.TomoXLendingAddress:               true,
-		common.TomoXLendingFinalizedTradeAddress: true,
+		common.TaoXLendingAddress:               true,
+		common.TaoXLendingFinalizedTradeAddress: true,
 	}
 )
 
@@ -312,7 +312,7 @@ func (tx *Transaction) IsTradingTransaction() bool {
 		return false
 	}
 
-	if tx.To().String() != common.TomoXAddr {
+	if tx.To().String() != common.TaoXAddr {
 		return false
 	}
 
@@ -324,7 +324,7 @@ func (tx *Transaction) IsLendingTransaction() bool {
 		return false
 	}
 
-	if tx.To().String() != common.TomoXLendingAddress {
+	if tx.To().String() != common.TaoXLendingAddress {
 		return false
 	}
 	return true
@@ -335,7 +335,7 @@ func (tx *Transaction) IsLendingFinalizedTradeTransaction() bool {
 		return false
 	}
 
-	if tx.To().String() != common.TomoXLendingFinalizedTradeAddress {
+	if tx.To().String() != common.TaoXLendingFinalizedTradeAddress {
 		return false
 	}
 	return true
@@ -411,14 +411,14 @@ func (tx *Transaction) IsVotingTransaction() (bool, *common.Address) {
 	return b, nil
 }
 
-func (tx *Transaction) IsTomoXApplyTransaction() bool {
+func (tx *Transaction) IsTaoXApplyTransaction() bool {
 	if tx.To() == nil {
 		return false
 	}
 
-	addr := common.TomoXListingSMC
+	addr := common.TaoXListingSMC
 	if common.IsTestnet {
-		addr = common.TomoXListingSMCTestNet
+		addr = common.TaoXListingSMCTestNet
 	}
 	if tx.To().String() != addr.String() {
 		return false
@@ -426,7 +426,7 @@ func (tx *Transaction) IsTomoXApplyTransaction() bool {
 
 	method := common.ToHex(tx.Data()[0:4])
 
-	if method != common.TomoXApplyMethod {
+	if method != common.TaoXApplyMethod {
 		return false
 	}
 

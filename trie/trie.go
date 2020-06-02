@@ -20,10 +20,10 @@ package trie
 import (
 	"bytes"
 	"fmt"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
 )
 
 var (

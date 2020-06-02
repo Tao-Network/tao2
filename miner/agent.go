@@ -21,8 +21,8 @@ import (
 
 	"sync/atomic"
 
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/log"
 )
 
 type CpuAgent struct {

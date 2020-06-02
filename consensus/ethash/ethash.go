@@ -33,10 +33,10 @@ import (
 	"unsafe"
 
 	mmap "github.com/edsrzf/mmap-go"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/rpc"
 	"github.com/hashicorp/golang-lru/simplelru"
 )
 

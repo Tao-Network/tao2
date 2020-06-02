@@ -20,8 +20,8 @@ import (
 	"math/big"
 	"reflect"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/math"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/math"
 )
 
 var (

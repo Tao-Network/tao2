@@ -1,64 +1,64 @@
-# TomoChain
+# Tao
 
 [![Build Status](https://travis-ci.org/tomochain/tomochain.svg?branch=master)](https://travis-ci.org/tomochain/tomochain)
 [![Join the chat at https://gitter.im/tomochain/tomochain](https://badges.gitter.im/tomochain/tomochain.svg)](https://gitter.im/tomochain/tomochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## About TomoChain
+## About Tao
 
-TomoChain is an innovative solution to the scalability problem with the Ethereum blockchain.
+Tao is an innovative solution to the scalability problem with the Ethereum blockchain.
 Our mission is to be a leading force in building the Internet of Value, and its infrastructure.
 We are working to create an alternative, scalable financial system which is more secure, transparent, efficient, inclusive, and equitable for everyone.
 
-TomoChain relies on a system of 150 Masternodes with a Proof of Stake Voting consensus that can support near-zero fee, and 2-second transaction confirmation times.
+Tao relies on a system of 150 Masternodes with a Proof of Stake Voting consensus that can support near-zero fee, and 2-second transaction confirmation times.
 Security, stability, and chain finality are guaranteed via novel techniques such as double validation, staking via smart-contracts, and "true" randomization processes.
 
-Tomochain supports all EVM-compatible smart-contracts, protocols, and atomic cross-chain token transfers.
-New scaling techniques such as sharding, private-chain generation, and hardware integration will be continuously researched and incorporated into Tomochain's masternode architecture. This architecture will be an ideal scalable smart-contract public blockchain for decentralized apps, token issuances, and token integrations for small and big businesses.
+Tao supports all EVM-compatible smart-contracts, protocols, and atomic cross-chain token transfers.
+New scaling techniques such as sharding, private-chain generation, and hardware integration will be continuously researched and incorporated into Tao's masternode architecture. This architecture will be an ideal scalable smart-contract public blockchain for decentralized apps, token issuances, and token integrations for small and big businesses.
 
-More details can be found at our [technical white paper](https://tomochain.com/docs/technical-whitepaper---1.0.pdf)
+More details can be found at our [technical white paper](https://tao.network/docs/technical-whitepaper---1.0.pdf)
 
 Read more about us on:
 
-- our website: http://tomochain.com
+- our website: http://tao.network
 - our blogs and announcements: https://medium.com/tomochain
-- our documentation portal: https://docs.tomochain.com
+- our documentation portal: https://docs.tao.network
 
 ## Building the source
 
-Tomochain provides a client binary called `tomo` for both running a masternode and running a full-node.
-Building `tomo` requires both a Go (1.7+) and C compiler; install both of these.
+Tao provides a client binary called `tao` for both running a masternode and running a full-node.
+Building `tao` requires both a Go (1.7+) and C compiler; install both of these.
 
 Once the dependencies are installed, just run the below commands:
 
 ```bash
-$ git clone https://github.com/tomochain/tomochain tomochain
+$ git clone https://github.com/Tao-Network/tao2 tomochain
 $ cd tomochain
-$ make tomo
+$ make tao
 ```
 
-Alternatively, you could quickly download our pre-complied binary from our [github release page](https://github.com/tomochain/tomochain/releases)
+Alternatively, you could quickly download our pre-complied binary from our [github release page](https://github.com/Tao-Network/tao2/releases)
 
-## Running `tomo`
+## Running `tao`
 
-### Running a tomo masternode
+### Running a tao masternode
 
-Please refer to the [official documentation](https://docs.tomochain.com/get-started/run-node/) on how to run a node if your goal is to run a masternode.
+Please refer to the [official documentation](https://docs.tao.network/get-started/run-node/) on how to run a node if your goal is to run a masternode.
 The recommanded ways of running a node and applying to become a masternode are explained in detail there.
 
-### Attaching to the Tomochain test network
+### Attaching to the Tao test network
 
-We published our test network 2.0 with full implementation of PoSV consensus at https://stats.testnet.tomochain.com.
+We published our test network 2.0 with full implementation of PoSV consensus at https://stats.testnet.tao.network.
 If you'd like to experiment with smart contract creation and DApps, you might be interested to give these a try on our Testnet.
 
 In order to connect to one of the masternodes on the Testnet, just run the command below:
 
 ```bash
-$ tomo attach https://testnet.tomochain.com
+$ tao attach https://testnet.tao.network
 ```
 
 This will open the JavaScript console and let you query the blockchain directly via RPC.
 
-### Running `tomo` locally
+### Running `tao` locally
 
 #### Download genesis block
 $GENESIS_PATH : location of genesis file you would like to put
@@ -80,12 +80,12 @@ curl -L https://raw.githubusercontent.com/tomochain/tomochain/master/genesis/mai
 
 ```bash
 export DATA_DIR=/path/to/your/data/folder 
-mkdir -p $DATA_DIR/tomo
+mkdir -p $DATA_DIR/tao
 ```
 #### Initialize the chain from genesis
 
 ```bash
-tomo init $GENESIS_PATH --datadir $DATA_DIR
+tao init $GENESIS_PATH --datadir $DATA_DIR
 ```
 
 #### Initialize / Import accounts for the nodes's keystore
@@ -97,14 +97,14 @@ export KEYSTORE_DIR=path/to/keystore
 
 ##### Initialize new accounts
 ```bash
-tomo account new \
+tao account new \
   --password [YOUR_PASSWORD_FILE_TO_LOCK_YOUR_ACCOUNT] \
   --keystore $KEYSTORE_DIR
 ```
     
 ##### Import accounts
 ```bash
-tomo  account import [PRIVATE_KEY_FILE_OF_YOUR_ACCOUNT] \
+tao  account import [PRIVATE_KEY_FILE_OF_YOUR_ACCOUNT] \
      --keystore $KEYSTORE_DIR \
      --password [YOUR_PASSWORD_FILE_TO_LOCK_YOUR_ACCOUNT]
 ```
@@ -112,7 +112,7 @@ tomo  account import [PRIVATE_KEY_FILE_OF_YOUR_ACCOUNT] \
 ##### List all available accounts in keystore folder
 
 ```bash
-tomo account list --datadir ./  --keystore $KEYSTORE_DIR
+tao account list --datadir ./  --keystore $KEYSTORE_DIR
 ```
 
 #### Start a node
@@ -120,15 +120,15 @@ tomo account list --datadir ./  --keystore $KEYSTORE_DIR
    - $IDENTITY: the name of your node
    - $PASSWORD: the password file to unlock your account
    - $YOUR_COINBASE_ADDRESS: address of your account which generated in the previous step
-   - $NETWORK_ID: the networkId. Mainnet: 88. Testnet: 89
-   - $BOOTNODES: The comma separated list of bootnodes. Find them [here](https://docs.tomochain.com/general/networks/)
-   - $WS_SECRET: The password to send data to the stats website. Find them [here](https://docs.tomochain.com/general/networks/)
-   - $NETSTATS_HOST: The stats website to report to, regarding to your environment. Find them [here](https://docs.tomochain.com/general/networks/)
+   - $NETWORK_ID: the networkId. Mainnet: 558. Testnet: 89
+   - $BOOTNODES: The comma separated list of bootnodes. Find them [here](https://docs.tao.network/general/networks/)
+   - $WS_SECRET: The password to send data to the stats website. Find them [here](https://docs.tao.network/general/networks/)
+   - $NETSTATS_HOST: The stats website to report to, regarding to your environment. Find them [here](https://docs.tao.network/general/networks/)
    - $NETSTATS_PORT: The port used by the stats website (usually 443)
     
 ##### Let's start a node
 ```bash
-tomo  --syncmode "full" \    
+tao  --syncmode "full" \    
     --datadir $DATA_DIR --networkid $NETWORK_ID --port 30303 \   
     --keystore $KEYSTORE_DIR --password $PASSWORD \    
     --rpc --rpccorsdomain "*" --rpcaddr 0.0.0.0 --rpcport 8545 --rpcvhosts "*" \   
@@ -151,7 +151,7 @@ tomo  --syncmode "full" \
 --identity: your full-node's name.
 --password: your account's password.
 --networkid: our network ID.
---tomo-testnet: required when the networkid is testnet(89).
+--tao-testnet: required when the networkid is testnet(89).
 --port: your full-node's listening port (default to 30303)
 --rpc, --rpccorsdomain, --rpcaddr, --rpcport, --rpcvhosts: your full-node will accept RPC requests at 8545 TCP.
 --ws, --wsaddr, --wsport, --wsorigins: your full-node will accept Websocket requests at 8546 TCP.
@@ -160,18 +160,18 @@ tomo  --syncmode "full" \
 --targetgaslimit: Target gas limit sets the artificial target gas floor for the blocks to mine (default: 4712388)
 --bootnode: bootnode information to help to discover other nodes in the network
 --gcmode: blockchain garbage collection mode ("full", "archive")
---synmode: blockchain sync mode ("fast", "full", or "light". More detail: https://github.com/tomochain/tomochain/blob/master/eth/downloader/modes.go#L24)           
+--synmode: blockchain sync mode ("fast", "full", or "light". More detail: https://github.com/Tao-Network/tao2/blob/master/eth/downloader/modes.go#L24)           
 --ethstats: send data to stats website
 ```
 To see all flags usage
    
 ```bash
-tomo --help
+tao --help
 ```
 
 #### See your node on stats page
-   - Testnet: https://stats.testnet.tomochain.com
-   - Mainnet: http://stats.tomochain.com
+   - Testnet: https://stats.testnet.tao.network
+   - Mainnet: http://stats.tao.network
 
 
 ## Contributing and technical discussion
@@ -187,7 +187,7 @@ Please also make sure your contributions adhere to the base coding guidelines:
 - Code must adhere to official Go [formatting](https://golang.org/doc/effective_go.html#formatting) guidelines (i.e uses [gofmt](https://golang.org/cmd/gofmt/)).
 - Code comments must adhere to the official Go [commentary](https://golang.org/doc/effective_go.html#commentary) guidelines.
 - Pull requests need to be based on and opened against the `master` branch.
-- Any code you are trying to contribute must be well-explained as an issue on our [github issue page](https://github.com/tomochain/tomochain/issues)
+- Any code you are trying to contribute must be well-explained as an issue on our [github issue page](https://github.com/Tao-Network/tao2/issues)
 - Commit messages should be short but clear enough and should refer to the corresponding pre-logged issue mentioned above.
 
 For technical discussion, feel free to join our chat at [Gitter](https://gitter.im/tomochain/tomochain).

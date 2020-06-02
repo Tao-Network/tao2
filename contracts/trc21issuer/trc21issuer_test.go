@@ -1,11 +1,11 @@
 package trc21issuer
 
 import (
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/accounts/abi/bind/backends"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/accounts/abi/bind/backends"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/crypto"
 	"math/big"
 	"testing"
 )
@@ -71,7 +71,7 @@ func TestFeeTxWithTRC21Token(t *testing.T) {
 	}
 	trc21Issuer.TransactOpts.Value = big.NewInt(0)
 	airDropAmount := big.NewInt(1000000000)
-	// airdrop token trc21 to a address no tomo
+	// airdrop token trc21 to a address no tao
 	tx, err := trc21.Transfer(airdropAddr, airDropAmount)
 	if err != nil {
 		t.Fatal("can't execute transfer in tr20: ", err)
@@ -104,7 +104,7 @@ func TestFeeTxWithTRC21Token(t *testing.T) {
 		t.Fatal("can't get balance token fee in  smart contract: ", err, "got", balanceIssuerFee, "wanted", remainFee)
 	}
 
-	// access to address which received token trc21 but dont have tomo
+	// access to address which received token trc21 but dont have tao
 	key1TransactOpts := bind.NewKeyedTransactor(airdropKey)
 	key1Trc20, _ := NewTRC21(key1TransactOpts, trc21TokenAddr, contractBackend)
 

@@ -4,8 +4,8 @@ import (
 	"math/big"
 	"os"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
 )
 
 var (
@@ -18,9 +18,9 @@ var (
 	MinTRC21Apply   = big.NewInt(0).Mul(big.NewInt(10), BaseTOMO) // 10 TOMO
 	TRC21TokenCap   = big.NewInt(0).Mul(big.NewInt(1000000000000), BaseTOMO)
 	TRC21TokenFee   = big.NewInt(100)
-	TomoXListingFee = big.NewInt(0).Mul(big.NewInt(1000), BaseTOMO) // 1000 TOMO
+	TaoXListingFee = big.NewInt(0).Mul(big.NewInt(1000), BaseTOMO) // 1000 TOMO
 
-	// TOMOX
+	// TAOX
 	MaxRelayers               = big.NewInt(200)
 	MaxTokenList              = big.NewInt(200)
 	MinDeposit                = big.NewInt(0).Mul(big.NewInt(25000), BaseTOMO) // 25000 TOMO

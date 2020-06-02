@@ -30,8 +30,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts/keystore"
-	"github.com/tomochain/tomochain/core/types"
+	"github.com/Tao-Network/tao2/accounts/keystore"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // Tests that the account management snippets work correctly.

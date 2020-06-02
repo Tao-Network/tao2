@@ -19,10 +19,10 @@ package core
 import (
 	"math/big"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
 )
 
 

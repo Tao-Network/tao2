@@ -1,9 +1,9 @@
-package tomox
+package taox
 
 import (
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox/contract"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox/contract"
 	"math/big"
 )
 

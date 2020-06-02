@@ -24,17 +24,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/consensus/posv"
+	"github.com/Tao-Network/tao2/consensus/posv"
 
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 
@@ -71,7 +71,7 @@ type LendingPoolConfig struct {
 	Lifetime time.Duration // Maximum amount of time non-executable transaction are queued
 }
 
-// blockChain_tomox add order state
+// blockChain_taox add order state
 type blockChainLending interface {
 	CurrentBlock() *types.Block
 	GetBlock(hash common.Hash, number uint64) *types.Block
@@ -273,7 +273,7 @@ func (pool *LendingPool) loop() {
 // reset retrieves the current state of the blockchain and ensures the content
 // of the transaction pool is valid with regard to the chain state.
 func (pool *LendingPool) reset(oldHead, newblock *types.Block) {
-	if !pool.chainconfig.IsTIPTomoX(pool.chain.CurrentBlock().Number()) {
+	if !pool.chainconfig.IsTIPTaoX(pool.chain.CurrentBlock().Number()) {
 		return
 	}
 	// If we're reorging an old state, reinject all dropped transactions
@@ -518,10 +518,10 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 	if !ok {
 		return ErrNotPoSV
 	}
-	tomoXServ := posvEngine.GetTomoXService()
+	tomoXServ := posvEngine.GetTaoXService()
 	lendingServ := posvEngine.GetLendingService()
 	if tomoXServ == nil {
-		return fmt.Errorf("tomox not found in order validation")
+		return fmt.Errorf("taox not found in order validation")
 	}
 	lendingTokenDecimal, err := tomoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.LendingToken())
 	if err != nil {
@@ -565,8 +565,8 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 			}
 		}
 	}
-	isTomoXLendingFork := pool.chain.Config().IsTIPTomoXLending(pool.chain.CurrentHeader().Number)
-	if err := lendingstate.VerifyBalance(isTomoXLendingFork,
+	isTaoXLendingFork := pool.chain.Config().IsTIPTaoXLending(pool.chain.CurrentHeader().Number)
+	if err := lendingstate.VerifyBalance(isTaoXLendingFork,
 		cloneStateDb,
 		cloneLendingStateDb,
 		tx.Type(),
@@ -814,7 +814,7 @@ func (pool *LendingPool) AddRemotes(txs []*types.LendingTransaction) []error {
 
 // addTx enqueues a single transaction into the pool if it is valid.
 func (pool *LendingPool) addTx(tx *types.LendingTransaction, local bool) error {
-	if !pool.chainconfig.IsTIPTomoX(pool.chain.CurrentBlock().Number()) {
+	if !pool.chainconfig.IsTIPTaoX(pool.chain.CurrentBlock().Number()) {
 		return nil
 	}
 	tx.CacheHash()

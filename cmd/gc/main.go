@@ -10,21 +10,21 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/cmd/utils"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/eth"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/rlp"
-	"github.com/tomochain/tomochain/trie"
+	"github.com/Tao-Network/tao2/cmd/utils"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/eth"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/rlp"
+	"github.com/Tao-Network/tao2/trie"
 	"github.com/hashicorp/golang-lru"
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
 var (
-	dir          = flag.String("dir", "", "directory to TomoChain chaindata")
+	dir          = flag.String("dir", "", "directory to Tao chaindata")
 	cacheSize    = flag.Int("size", 1000000, "LRU cache size")
 	sercureKey   = []byte("secure-key-")
 	nWorker      = runtime.NumCPU() / 2

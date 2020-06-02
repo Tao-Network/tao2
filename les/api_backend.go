@@ -20,30 +20,30 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/tomochain/tomochain/tomoxlending"
+	"github.com/Tao-Network/tao2/taoxlending"
 	"io/ioutil"
 	"math/big"
 	"path/filepath"
 
-	"github.com/tomochain/tomochain/tomox"
+	"github.com/Tao-Network/tao2/taox"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/bloombits"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/eth/gasprice"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/light"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/bloombits"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/eth/gasprice"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/light"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 type LesApiBackend struct {
@@ -273,13 +273,13 @@ func (b *LesApiBackend) AreTwoBlockSamePath(bh1 common.Hash, bh2 common.Hash) bo
 
 // GetOrderNonce get order nonce
 func (b *LesApiBackend) GetOrderNonce(address common.Hash) (uint64, error) {
-	return 0, errors.New("cannot find tomox service")
+	return 0, errors.New("cannot find taox service")
 }
 
-func (b *LesApiBackend) TomoxService() *tomox.TomoX {
+func (b *LesApiBackend) TomoxService() *taox.TaoX {
 	return nil
 }
 
-func (b *LesApiBackend) LendingService() *tomoxlending.Lending {
+func (b *LesApiBackend) LendingService() *taoxlending.Lending {
 	return nil
 }

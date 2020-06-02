@@ -24,13 +24,13 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/consensus/ethash"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/eth/gasprice"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/consensus/ethash"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/eth/gasprice"
+	"github.com/Tao-Network/tao2/params"
 )
 
 // DefaultConfig contains default settings for use on the Ethereum main net.
@@ -43,7 +43,7 @@ var DefaultConfig = Config{
 		DatasetsInMem:  1,
 		DatasetsOnDisk: 2,
 	},
-	NetworkId:     88,
+	NetworkId:     558,
 	LightPeers:    100,
 	DatabaseCache: 768,
 	TrieCache:     256,

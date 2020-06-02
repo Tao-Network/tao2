@@ -22,9 +22,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethdb"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethdb"
 )
 
 func newEmptySecure() *SecureTrie {

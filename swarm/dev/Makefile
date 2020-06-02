@@ -3,12 +3,12 @@
 default: build
 
 build:
-	go build -o bin/swarm    github.com/tomochain/tomochain/cmd/swarm
-	go build -o bin/tomo     github.com/tomochain/tomochain/cmd/tomo
-	go build -o bin/bootnode github.com/tomochain/tomochain/cmd/bootnode
+	go build -o bin/swarm    github.com/Tao-Network/tao2/cmd/swarm
+	go build -o bin/tao     github.com/Tao-Network/tao2/cmd/tao
+	go build -o bin/bootnode github.com/Tao-Network/tao2/cmd/bootnode
 
 cluster: build
 	scripts/boot-cluster.sh
 
 test:
-	go test -v github.com/tomochain/tomochain/swarm/...
+	go test -v github.com/Tao-Network/tao2/swarm/...

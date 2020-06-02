@@ -18,15 +18,15 @@ package core
 
 import (
 	"fmt"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/posv"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/tomox/tradingstate"
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/taox/tradingstate"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 )
 
 // BlockValidator is responsible for validating block headers, uncles and
@@ -105,14 +105,14 @@ func (v *BlockValidator) ValidateState(block, parent *types.Block, statedb *stat
 	return nil
 }
 
-func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, tomoxStatedb *tradingstate.TradingStateDB, txMatchBatch tradingstate.TxMatchBatch, coinbase common.Address) error {
+func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, taoxStatedb *tradingstate.TradingStateDB, txMatchBatch tradingstate.TxMatchBatch, coinbase common.Address) error {
 	posvEngine, ok := v.bc.Engine().(*posv.Posv)
 	if posvEngine == nil || !ok {
 		return ErrNotPoSV
 	}
-	tomoXService := posvEngine.GetTomoXService()
+	tomoXService := posvEngine.GetTaoXService()
 	if tomoXService == nil {
-		return fmt.Errorf("tomox not found")
+		return fmt.Errorf("taox not found")
 	}
 	log.Debug("verify matching transaction found a TxMatches Batch", "numTxMatches", len(txMatchBatch.Data))
 	tradingResult := map[common.Hash]tradingstate.MatchingResult{}
@@ -126,7 +126,7 @@ func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, tomoxState
 
 		log.Debug("process tx match", "order", order)
 		// process Matching Engine
-		newTrades, newRejectedOrders, err := tomoXService.ApplyOrder(coinbase, v.bc, statedb, tomoxStatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
+		newTrades, newRejectedOrders, err := tomoXService.ApplyOrder(coinbase, v.bc, statedb, taoxStatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
 		if err != nil {
 			return err
 		}
@@ -141,14 +141,14 @@ func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, tomoxState
 	return nil
 }
 
-func (v *BlockValidator) ValidateLendingOrder(statedb *state.StateDB, lendingStateDb *lendingstate.LendingStateDB, tomoxStatedb *tradingstate.TradingStateDB, batch lendingstate.TxLendingBatch, coinbase common.Address, header *types.Header) error {
+func (v *BlockValidator) ValidateLendingOrder(statedb *state.StateDB, lendingStateDb *lendingstate.LendingStateDB, taoxStatedb *tradingstate.TradingStateDB, batch lendingstate.TxLendingBatch, coinbase common.Address, header *types.Header) error {
 	posvEngine, ok := v.bc.Engine().(*posv.Posv)
 	if posvEngine == nil || !ok {
 		return ErrNotPoSV
 	}
-	tomoXService := posvEngine.GetTomoXService()
+	tomoXService := posvEngine.GetTaoXService()
 	if tomoXService == nil {
-		return fmt.Errorf("tomox not found")
+		return fmt.Errorf("taox not found")
 	}
 	lendingService := posvEngine.GetLendingService()
 	if lendingService == nil {
@@ -161,7 +161,7 @@ func (v *BlockValidator) ValidateLendingOrder(statedb *state.StateDB, lendingSta
 
 		log.Debug("process lending tx", "lendingItem", lendingstate.ToJSON(l))
 		// process Matching Engine
-		newTrades, newRejectedOrders, err := lendingService.ApplyOrder(header, coinbase, v.bc, statedb, lendingStateDb, tomoxStatedb, lendingstate.GetLendingOrderBookHash(l.LendingToken, l.Term), l)
+		newTrades, newRejectedOrders, err := lendingService.ApplyOrder(header, coinbase, v.bc, statedb, lendingStateDb, taoxStatedb, lendingstate.GetLendingOrderBookHash(l.LendingToken, l.Term), l)
 		if err != nil {
 			return err
 		}

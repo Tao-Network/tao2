@@ -25,10 +25,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 

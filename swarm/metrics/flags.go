@@ -19,10 +19,10 @@ package metrics
 import (
 	"time"
 
-	"github.com/tomochain/tomochain/cmd/utils"
-	"github.com/tomochain/tomochain/log"
-	gethmetrics "github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/metrics/influxdb"
+	"github.com/Tao-Network/tao2/cmd/utils"
+	"github.com/Tao-Network/tao2/log"
+	gethmetrics "github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/metrics/influxdb"
 	"gopkg.in/urfave/cli.v1"
 )
 

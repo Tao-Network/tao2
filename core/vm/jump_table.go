@@ -20,7 +20,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 )
 
 type (

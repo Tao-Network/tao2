@@ -20,9 +20,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/light"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/light"
 )
 
 const (

@@ -24,7 +24,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 type brokenLimitedReader struct {

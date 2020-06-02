@@ -20,9 +20,9 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/rlp"
-	"github.com/tomochain/tomochain/trie"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/rlp"
+	"github.com/Tao-Network/tao2/trie"
 )
 
 // NodeIterator is an iterator to traverse the entire state trie post-order,

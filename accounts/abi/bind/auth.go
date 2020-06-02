@@ -22,10 +22,10 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/tomochain/tomochain/accounts/keystore"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/accounts/keystore"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/crypto"
 )
 
 // NewTransactor is a utility method to easily create a transaction signer from

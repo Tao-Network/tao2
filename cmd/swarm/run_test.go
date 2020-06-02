@@ -27,13 +27,13 @@ import (
 	"time"
 
 	"github.com/docker/docker/pkg/reexec"
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/accounts/keystore"
-	"github.com/tomochain/tomochain/internal/cmdtest"
-	"github.com/tomochain/tomochain/node"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/rpc"
-	"github.com/tomochain/tomochain/swarm"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/accounts/keystore"
+	"github.com/Tao-Network/tao2/internal/cmdtest"
+	"github.com/Tao-Network/tao2/node"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/rpc"
+	"github.com/Tao-Network/tao2/swarm"
 )
 
 func init() {

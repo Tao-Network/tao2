@@ -23,9 +23,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // The values in those tests are from the Transaction Tests

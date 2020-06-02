@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/p2p/discover"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/p2p/discover"
 )
 
 type TestPeer interface {

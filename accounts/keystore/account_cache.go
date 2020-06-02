@@ -27,9 +27,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/log"
 	mapset "github.com/deckarep/golang-set"
 )
 

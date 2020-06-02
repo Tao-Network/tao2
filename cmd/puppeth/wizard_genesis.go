@@ -24,22 +24,22 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
 
 	"context"
 	"math/big"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/accounts/abi/bind/backends"
-	blockSignerContract "github.com/tomochain/tomochain/contracts/blocksigner"
-	multiSignWalletContract "github.com/tomochain/tomochain/contracts/multisigwallet"
-	randomizeContract "github.com/tomochain/tomochain/contracts/randomize"
-	validatorContract "github.com/tomochain/tomochain/contracts/validator"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/accounts/abi/bind/backends"
+	blockSignerContract "github.com/Tao-Network/tao2/contracts/blocksigner"
+	multiSignWalletContract "github.com/Tao-Network/tao2/contracts/multisigwallet"
+	randomizeContract "github.com/Tao-Network/tao2/contracts/randomize"
+	validatorContract "github.com/Tao-Network/tao2/contracts/validator"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // makeGenesis creates a new genesis struct based on some user input.
@@ -312,7 +312,7 @@ func (w *wizard) makeGenesis() {
 		}
 
 		fmt.Println()
-		fmt.Println("What is swap wallet address for fund 55m tomo?")
+		fmt.Println("What is swap wallet address for fund 55m tao?")
 		swapAddr := *w.readAddress()
 		baseBalance := big.NewInt(0) // 55m
 		baseBalance.Add(baseBalance, big.NewInt(55*1000*1000))

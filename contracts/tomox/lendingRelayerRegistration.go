@@ -1,9 +1,9 @@
-package tomox
+package taox
 
 import (
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox/contract"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox/contract"
 )
 
 type LendingRelayerRegistration struct {
@@ -26,8 +26,8 @@ func NewLendingRelayerRegistration(transactOpts *bind.TransactOpts, contractAddr
 	}, nil
 }
 
-func DeployLendingRelayerRegistration(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend, relayerAddr common.Address, tomoxListtingAddr common.Address) (common.Address, *LendingRelayerRegistration, error) {
-	contractAddr, _, _, err := contract.DeployLending(transactOpts, contractBackend, relayerAddr, tomoxListtingAddr)
+func DeployLendingRelayerRegistration(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend, relayerAddr common.Address, taoxListtingAddr common.Address) (common.Address, *LendingRelayerRegistration, error) {
+	contractAddr, _, _, err := contract.DeployLending(transactOpts, contractBackend, relayerAddr, taoxListtingAddr)
 	if err != nil {
 		return contractAddr, nil, err
 	}

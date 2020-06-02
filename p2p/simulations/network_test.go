@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/p2p/discover"
-	"github.com/tomochain/tomochain/p2p/simulations/adapters"
+	"github.com/Tao-Network/tao2/p2p/discover"
+	"github.com/Tao-Network/tao2/p2p/simulations/adapters"
 )
 
 // TestNetworkSimulation creates a multi-node simulation network with each node

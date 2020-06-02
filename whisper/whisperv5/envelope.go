@@ -26,11 +26,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/crypto/ecies"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/crypto/ecies"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // Envelope represents a clear-text data packet to transmit through the Whisper

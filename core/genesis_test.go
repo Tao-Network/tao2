@@ -22,17 +22,17 @@ import (
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus/ethash"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus/ethash"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/params"
 )
 
 func TestDefaultGenesisBlock(t *testing.T) {
 	block := DefaultGenesisBlock().ToBlock(nil)
-	if block.Hash() != params.TomoMainnetGenesisHash {
-		t.Errorf("wrong mainnet genesis hash, got %v, want %v", block.Hash().String(), params.TomoMainnetGenesisHash.String())
+	if block.Hash() != params.TaoMainnetGenesisHash {
+		t.Errorf("wrong mainnet genesis hash, got %v, want %v", block.Hash().String(), params.TaoMainnetGenesisHash.String())
 	}
 	block = DefaultTestnetGenesisBlock().ToBlock(nil)
 	if block.Hash() != params.TestnetGenesisHash {
@@ -72,8 +72,8 @@ func TestSetupGenesis(t *testing.T) {
 			fn: func(db ethdb.Database) (*params.ChainConfig, common.Hash, error) {
 				return SetupGenesisBlock(db, nil)
 			},
-			wantHash:   params.TomoMainnetGenesisHash,
-			wantConfig: params.TomoMainnetChainConfig,
+			wantHash:   params.TaoMainnetGenesisHash,
+			wantConfig: params.TaoMainnetChainConfig,
 		},
 		{
 			name: "mainnet block in DB, genesis == nil",
@@ -81,8 +81,8 @@ func TestSetupGenesis(t *testing.T) {
 				DefaultGenesisBlock().MustCommit(db)
 				return SetupGenesisBlock(db, nil)
 			},
-			wantHash:   params.TomoMainnetGenesisHash,
-			wantConfig: params.TomoMainnetChainConfig,
+			wantHash:   params.TaoMainnetGenesisHash,
+			wantConfig: params.TaoMainnetChainConfig,
 		},
 		{
 			name: "custom block in DB, genesis == nil",

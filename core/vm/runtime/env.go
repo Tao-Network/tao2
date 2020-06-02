@@ -17,9 +17,9 @@
 package runtime
 
 import (
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/vm"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/vm"
 )
 
 func NewEnv(cfg *Config) *vm.EVM {

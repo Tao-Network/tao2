@@ -5,7 +5,7 @@ package whisperv6
 import (
 	"encoding/json"
 
-	"github.com/tomochain/tomochain/common/hexutil"
+	"github.com/Tao-Network/tao2/common/hexutil"
 )
 
 var _ = (*criteriaOverride)(nil)

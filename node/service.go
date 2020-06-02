@@ -19,11 +19,11 @@ package node
 import (
 	"reflect"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 // ServiceContext is a collection of service independent options inherited from

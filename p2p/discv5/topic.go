@@ -23,8 +23,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/tomochain/tomochain/common/mclock"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/common/mclock"
+	"github.com/Tao-Network/tao2/log"
 )
 
 const (

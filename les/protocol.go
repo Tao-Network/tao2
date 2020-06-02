@@ -26,11 +26,11 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/crypto/secp256k1"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/crypto/secp256k1"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // Constants to match up protocol versions and messages

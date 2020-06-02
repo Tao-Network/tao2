@@ -28,32 +28,32 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/accounts/keystore"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/fdlimit"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/ethash"
-	"github.com/tomochain/tomochain/consensus/posv"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/eth"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/eth/gasprice"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/node"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/p2p/discover"
-	"github.com/tomochain/tomochain/p2p/discv5"
-	"github.com/tomochain/tomochain/p2p/nat"
-	"github.com/tomochain/tomochain/p2p/netutil"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/tomox"
-	whisper "github.com/tomochain/tomochain/whisper/whisperv6"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/accounts/keystore"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/fdlimit"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/ethash"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/eth"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/eth/gasprice"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/node"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/p2p/discover"
+	"github.com/Tao-Network/tao2/p2p/discv5"
+	"github.com/Tao-Network/tao2/p2p/nat"
+	"github.com/Tao-Network/tao2/p2p/netutil"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/taox"
+	whisper "github.com/Tao-Network/tao2/whisper/whisperv6"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -110,7 +110,7 @@ func NewApp(gitCommit, usage string) *cli.App {
 // are the same for all commands.
 
 var (
-	// Tomo flags.
+	// Tao flags.
 	RollbackFlag = cli.StringFlag{
 		Name:  "rollback",
 		Usage: "Rollback chain at hash",
@@ -140,7 +140,7 @@ var (
 	}
 	NetworkIdFlag = cli.Uint64Flag{
 		Name:  "networkid",
-		Usage: "Network identifier (integer, 89=Tomochain)",
+		Usage: "Network identifier (integer, 558=Tao)",
 		Value: eth.DefaultConfig.NetworkId,
 	}
 	TestnetFlag = cli.BoolFlag{
@@ -148,8 +148,8 @@ var (
 		Usage: "Ropsten network: pre-configured proof-of-work test network",
 	}
 	TomoTestnetFlag = cli.BoolFlag{
-		Name:  "tomo-testnet",
-		Usage: "Tomo test network",
+		Name:  "tao-testnet",
+		Usage: "Tao test network",
 	}
 	RinkebyFlag = cli.BoolFlag{
 		Name:  "rinkeby",
@@ -205,9 +205,9 @@ var (
 		Name:  "lightkdf",
 		Usage: "Reduce key-derivation RAM & CPU usage at some expense of KDF strength",
 	}
-	// TomoX settings
-	TomoXEnabledFlag = cli.BoolFlag{
-		Name:  "tomox",
+	// TaoX settings
+	TaoXEnabledFlag = cli.BoolFlag{
+		Name:  "taox",
 		Usage: "Enable the tomoX protocol",
 	}
 	// Ethash settings
@@ -538,28 +538,28 @@ var (
 		Usage: "Minimum POW accepted",
 		Value: whisper.DefaultMinimumPoW,
 	}
-	TomoXDataDirFlag = DirectoryFlag{
-		Name:  "tomox.datadir",
-		Usage: "Data directory for the TomoX databases",
+	TaoXDataDirFlag = DirectoryFlag{
+		Name:  "taox.datadir",
+		Usage: "Data directory for the TaoX databases",
 		Value: DirectoryString{node.DefaultDataDir()},
 	}
-	TomoXDBEngineFlag = cli.StringFlag{
-		Name:  "tomox.dbengine",
-		Usage: "Database engine for TomoX (leveldb, mongodb)",
+	TaoXDBEngineFlag = cli.StringFlag{
+		Name:  "taox.dbengine",
+		Usage: "Database engine for TaoX (leveldb, mongodb)",
 		Value: "leveldb",
 	}
-	TomoXDBNameFlag = cli.StringFlag{
-		Name:  "tomox.dbName",
-		Usage: "Database name for TomoX",
+	TaoXDBNameFlag = cli.StringFlag{
+		Name:  "taox.dbName",
+		Usage: "Database name for TaoX",
 		Value: "tomodex",
 	}
-	TomoXDBConnectionUrlFlag = cli.StringFlag{
-		Name:  "tomox.dbConnectionUrl",
+	TaoXDBConnectionUrlFlag = cli.StringFlag{
+		Name:  "taox.dbConnectionUrl",
 		Usage: "ConnectionUrl to database if dbEngine is mongodb. Host:port. If there are multiple instances, separated by comma. Eg: localhost:27017,localhost:27018",
 		Value: "localhost:27017",
 	}
-	TomoXDBReplicaSetNameFlag = cli.StringFlag{
-		Name:  "tomox.dbReplicaSetName",
+	TaoXDBReplicaSetNameFlag = cli.StringFlag{
+		Name:  "taox.dbReplicaSetName",
 		Usage: "ReplicaSetName if Master-Slave is setup",
 	}
 	TomoSlaveModeFlag = cli.BoolFlag{
@@ -767,7 +767,7 @@ func setIPC(ctx *cli.Context, cfg *node.Config) {
 }
 
 // MakeDatabaseHandles raises out the number of allowed file handles per process
-// for tomo and returns half of the allowance to assign to the database.
+// for tao and returns half of the allowance to assign to the database.
 func MakeDatabaseHandles() int {
 	limit, err := fdlimit.Current()
 	if err != nil {
@@ -799,7 +799,7 @@ func MakeAddress(ks *keystore.KeyStore, account string) (accounts.Account, error
 	log.Warn("-------------------------------------------------------------------")
 	log.Warn("Referring to accounts by order in the keystore folder is dangerous!")
 	log.Warn("This functionality is deprecated and will be removed in the future!")
-	log.Warn("Please use explicit addresses! (can search via `tomo account list`)")
+	log.Warn("Please use explicit addresses! (can search via `tao account list`)")
 	log.Warn("-------------------------------------------------------------------")
 
 	accs := ks.Accounts()
@@ -1050,31 +1050,31 @@ func SetShhConfig(ctx *cli.Context, stack *node.Node, cfg *whisper.Config) {
 	}
 }
 
-func SetTomoXConfig(ctx *cli.Context, cfg *tomox.Config) {
+func SetTaoXConfig(ctx *cli.Context, cfg *taox.Config) {
 	if len(cfg.DataDir) == 0 {
-		if ctx.GlobalIsSet(TomoXDataDirFlag.Name) {
-			cfg.DataDir = ctx.GlobalString(TomoXDataDirFlag.Name)
+		if ctx.GlobalIsSet(TaoXDataDirFlag.Name) {
+			cfg.DataDir = ctx.GlobalString(TaoXDataDirFlag.Name)
 		} else {
-			cfg.DataDir = TomoXDataDirFlag.Value.String()
+			cfg.DataDir = TaoXDataDirFlag.Value.String()
 		}
 	}
-	if ctx.GlobalIsSet(TomoXDBEngineFlag.Name) {
-		cfg.DBEngine = ctx.GlobalString(TomoXDBEngineFlag.Name)
+	if ctx.GlobalIsSet(TaoXDBEngineFlag.Name) {
+		cfg.DBEngine = ctx.GlobalString(TaoXDBEngineFlag.Name)
 	} else {
-		cfg.DBEngine = TomoXDBEngineFlag.Value
+		cfg.DBEngine = TaoXDBEngineFlag.Value
 	}
-	if ctx.GlobalIsSet(TomoXDBNameFlag.Name) {
-		cfg.DBName = ctx.GlobalString(TomoXDBNameFlag.Name)
+	if ctx.GlobalIsSet(TaoXDBNameFlag.Name) {
+		cfg.DBName = ctx.GlobalString(TaoXDBNameFlag.Name)
 	} else {
-		cfg.DBName = TomoXDBNameFlag.Value
+		cfg.DBName = TaoXDBNameFlag.Value
 	}
-	if ctx.GlobalIsSet(TomoXDBConnectionUrlFlag.Name) {
-		cfg.ConnectionUrl = ctx.GlobalString(TomoXDBConnectionUrlFlag.Name)
+	if ctx.GlobalIsSet(TaoXDBConnectionUrlFlag.Name) {
+		cfg.ConnectionUrl = ctx.GlobalString(TaoXDBConnectionUrlFlag.Name)
 	} else {
-		cfg.ConnectionUrl = TomoXDBConnectionUrlFlag.Value
+		cfg.ConnectionUrl = TaoXDBConnectionUrlFlag.Value
 	}
-	if ctx.GlobalIsSet(TomoXDBReplicaSetNameFlag.Name) {
-		cfg.ReplicaSetName = ctx.GlobalString(TomoXDBReplicaSetNameFlag.Name)
+	if ctx.GlobalIsSet(TaoXDBReplicaSetNameFlag.Name) {
+		cfg.ReplicaSetName = ctx.GlobalString(TaoXDBReplicaSetNameFlag.Name)
 	}
 }
 
@@ -1140,7 +1140,7 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *eth.Config) {
 		cfg.EnablePreimageRecording = ctx.GlobalBool(VMEnableDebugFlag.Name)
 	}
 	if ctx.GlobalIsSet(StoreRewardFlag.Name) {
-		common.StoreRewardFolder = filepath.Join(stack.DataDir(), "tomo", "rewards")
+		common.StoreRewardFolder = filepath.Join(stack.DataDir(), "tao", "rewards")
 		if _, err := os.Stat(common.StoreRewardFolder); os.IsNotExist(err) {
 			os.Mkdir(common.StoreRewardFolder, os.ModePerm)
 		}
@@ -1289,11 +1289,11 @@ func MakeConsolePreloads(ctx *cli.Context) []string {
 // This is a temporary function used for migrating old command/flags to the
 // new format.
 //
-// e.g. tomo account new --keystore /tmp/mykeystore --lightkdf
+// e.g. tao account new --keystore /tmp/mykeystore --lightkdf
 //
 // is equivalent after calling this method with:
 //
-// tomo --keystore /tmp/mykeystore --lightkdf account new
+// tao --keystore /tmp/mykeystore --lightkdf account new
 //
 // This allows the use of the existing configuration functionality.
 // When all flags are migrated this function can be removed and the existing

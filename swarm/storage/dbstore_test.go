@@ -21,7 +21,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
+	"github.com/Tao-Network/tao2/common"
 )
 
 func initDbStore(t *testing.T) *DbStore {

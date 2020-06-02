@@ -26,8 +26,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // faucetDockerfile is the Dockerfile required to build an faucet container to

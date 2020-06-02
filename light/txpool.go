@@ -22,15 +22,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 const (
@@ -360,10 +360,10 @@ func (pool *TxPool) validateTx(ctx context.Context, tx *types.Transaction) error
 			return err
 		}
 	}
-	// validate balance slot, token decimal for TomoX
-	if tx.IsTomoXApplyTransaction() {
+	// validate balance slot, token decimal for TaoX
+	if tx.IsTaoXApplyTransaction() {
 		copyState := pool.currentState(ctx).Copy()
-		if err := core.ValidateTomoXApplyTransaction(pool.chain, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
+		if err := core.ValidateTaoXApplyTransaction(pool.chain, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
 			return err
 		}
 	}

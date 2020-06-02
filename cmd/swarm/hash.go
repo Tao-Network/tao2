@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/tomochain/tomochain/cmd/utils"
-	"github.com/tomochain/tomochain/swarm/storage"
+	"github.com/Tao-Network/tao2/cmd/utils"
+	"github.com/Tao-Network/tao2/swarm/storage"
 	"gopkg.in/urfave/cli.v1"
 )
 

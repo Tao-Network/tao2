@@ -1,4 +1,4 @@
-export ROOT="${GOPATH}/src/github.com/tomochain/tomochain"
+export ROOT="${GOPATH}/src/github.com/Tao-Network/tao2"
 export PATH="${ROOT}/swarm/dev/bin:${PATH}"
 
 cd "${ROOT}/swarm/dev"

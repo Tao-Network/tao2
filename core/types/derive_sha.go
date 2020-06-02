@@ -19,9 +19,9 @@ package types
 import (
 	"bytes"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/rlp"
-	"github.com/tomochain/tomochain/trie"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/rlp"
+	"github.com/Tao-Network/tao2/trie"
 )
 
 type DerivableList interface {

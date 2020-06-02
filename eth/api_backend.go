@@ -21,34 +21,34 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/tomochain/tomochain/tomoxlending"
+	"github.com/Tao-Network/tao2/taoxlending"
 	"io/ioutil"
 	"math/big"
 	"path/filepath"
 
-	"github.com/tomochain/tomochain/tomox"
+	"github.com/Tao-Network/tao2/taox"
 
-	"github.com/tomochain/tomochain/consensus/posv"
+	"github.com/Tao-Network/tao2/consensus/posv"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/contracts"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/bloombits"
-	"github.com/tomochain/tomochain/core/state"
-	stateDatabase "github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/eth/gasprice"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/contracts"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/bloombits"
+	"github.com/Tao-Network/tao2/core/state"
+	stateDatabase "github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/eth/gasprice"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 // EthApiBackend implements ethapi.Backend for full nodes
@@ -425,25 +425,25 @@ func (b *EthApiBackend) AreTwoBlockSamePath(bh1 common.Hash, bh2 common.Hash) bo
 
 // GetOrderNonce get order nonce
 func (b *EthApiBackend) GetOrderNonce(address common.Hash) (uint64, error) {
-	tomoxService := b.eth.GetTomoX()
-	if tomoxService != nil {
+	taoxService := b.eth.GetTaoX()
+	if taoxService != nil {
 		author, err := b.GetEngine().Author(b.CurrentBlock().Header())
 		if err != nil {
 			return 0, err
 		}
-		tomoxState, err := tomoxService.GetTradingState(b.CurrentBlock(), author)
+		taoxState, err := taoxService.GetTradingState(b.CurrentBlock(), author)
 		if err != nil {
 			return 0, err
 		}
-		return tomoxState.GetNonce(address), nil
+		return taoxState.GetNonce(address), nil
 	}
-	return 0, errors.New("cannot find tomox service")
+	return 0, errors.New("cannot find taox service")
 }
 
-func (b *EthApiBackend) TomoxService() *tomox.TomoX {
-	return b.eth.TomoX
+func (b *EthApiBackend) TomoxService() *taox.TaoX {
+	return b.eth.TaoX
 }
 
-func (b *EthApiBackend) LendingService() *tomoxlending.Lending {
+func (b *EthApiBackend) LendingService() *taoxlending.Lending {
 	return b.eth.Lending
 }

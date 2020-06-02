@@ -1,7 +1,7 @@
 package eth
 
 import (
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 	"math/big"
 	"testing"
 )

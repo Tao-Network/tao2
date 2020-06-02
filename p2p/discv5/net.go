@@ -24,13 +24,13 @@ import (
 	"net"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/mclock"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/crypto/sha3"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/p2p/netutil"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/mclock"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/crypto/sha3"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/p2p/netutil"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 var (

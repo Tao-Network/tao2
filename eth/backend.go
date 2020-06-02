@@ -27,41 +27,41 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/tomoxlending"
+	"github.com/Tao-Network/tao2/taoxlending"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/eth/filters"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/eth/filters"
+	"github.com/Tao-Network/tao2/rlp"
 
 	"bytes"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/ethash"
-	"github.com/tomochain/tomochain/consensus/posv"
-	"github.com/tomochain/tomochain/contracts"
-	contractValidator "github.com/tomochain/tomochain/contracts/validator/contract"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/bloombits"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/ethash"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	"github.com/Tao-Network/tao2/contracts"
+	contractValidator "github.com/Tao-Network/tao2/contracts/validator/contract"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/bloombits"
 
-	//"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/eth/gasprice"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/internal/ethapi"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/miner"
-	"github.com/tomochain/tomochain/node"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rpc"
-	"github.com/tomochain/tomochain/tomox"
+	//"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/eth/gasprice"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/internal/ethapi"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/miner"
+	"github.com/Tao-Network/tao2/node"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rpc"
+	"github.com/Tao-Network/tao2/taox"
 )
 
 type LesServer interface {
@@ -108,8 +108,8 @@ type Ethereum struct {
 	netRPCService *ethapi.PublicNetAPI
 
 	lock    sync.RWMutex // Protects the variadic fields (e.g. gas price and etherbase)
-	TomoX   *tomox.TomoX
-	Lending *tomoxlending.Lending
+	TaoX   *taox.TaoX
+	Lending *taoxlending.Lending
 }
 
 func (s *Ethereum) AddLesServer(ls LesServer) {
@@ -119,7 +119,7 @@ func (s *Ethereum) AddLesServer(ls LesServer) {
 
 // New creates a new Ethereum object (including the
 // initialisation of the common Ethereum object)
-func New(ctx *node.ServiceContext, config *Config, tomoXServ *tomox.TomoX, lendingServ *tomoxlending.Lending) (*Ethereum, error) {
+func New(ctx *node.ServiceContext, config *Config, tomoXServ *taox.TaoX, lendingServ *taoxlending.Lending) (*Ethereum, error) {
 	if config.SyncMode == downloader.LightSync {
 		return nil, errors.New("can't run eth.Ethereum in light sync mode, use les.LightEthereum")
 	}
@@ -153,9 +153,9 @@ func New(ctx *node.ServiceContext, config *Config, tomoXServ *tomox.TomoX, lendi
 		bloomRequests:  make(chan chan *bloombits.Retrieval),
 		bloomIndexer:   NewBloomIndexer(chainDb, params.BloomBitsBlocks),
 	}
-	// Inject TomoX Service into main Eth Service.
+	// Inject TaoX Service into main Eth Service.
 	if tomoXServ != nil {
-		eth.TomoX = tomoXServ
+		eth.TaoX = tomoXServ
 	}
 	if lendingServ != nil {
 		eth.Lending = lendingServ
@@ -175,8 +175,8 @@ func New(ctx *node.ServiceContext, config *Config, tomoXServ *tomox.TomoX, lendi
 	)
 	if eth.chainConfig.Posv != nil {
 		c := eth.engine.(*posv.Posv)
-		c.GetTomoXService = func() posv.TradingService {
-			return eth.TomoX
+		c.GetTaoXService = func() posv.TradingService {
+			return eth.TaoX
 		}
 		c.GetLendingService = func() posv.LendingService {
 			return eth.Lending
@@ -604,7 +604,7 @@ func makeExtraData(extra []byte) []byte {
 		// create default extradata
 		extra, _ = rlp.EncodeToBytes([]interface{}{
 			uint(params.VersionMajor<<16 | params.VersionMinor<<8 | params.VersionPatch),
-			"tomo",
+			"tao",
 			runtime.Version(),
 			runtime.GOOS,
 		})
@@ -947,15 +947,15 @@ func (s *Ethereum) GetPeer() int {
 	return len(s.protocolManager.peers.peers)
 }
 
-func (s *Ethereum) GetTomoX() *tomox.TomoX {
-	return s.TomoX
+func (s *Ethereum) GetTaoX() *taox.TaoX {
+	return s.TaoX
 }
 
 func (s *Ethereum) OrderPool() *core.OrderPool {
 	return s.orderPool
 }
 
-func (s *Ethereum) GetTomoXLending() *tomoxlending.Lending {
+func (s *Ethereum) GetTaoXLending() *taoxlending.Lending {
 	return s.Lending
 }
 

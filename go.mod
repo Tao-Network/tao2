@@ -1,4 +1,4 @@
-module github.com/tomochain/tomochain
+module github.com/Tao-Network/tao2
 
 go 1.13
 

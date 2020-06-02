@@ -22,8 +22,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/ethdb"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/ethdb"
 )
 
 func TestIterator(t *testing.T) {

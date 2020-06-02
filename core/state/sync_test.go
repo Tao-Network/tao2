@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/trie"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/trie"
 )
 
 // testAccount is the data associated with an account used by the state tests.

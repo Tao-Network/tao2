@@ -33,7 +33,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tomochain/tomochain/swarm/api"
+	"github.com/Tao-Network/tao2/swarm/api"
 )
 
 var (

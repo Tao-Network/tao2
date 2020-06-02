@@ -20,7 +20,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 )
 
 func TestTransaction(t *testing.T) {

@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/contracts/trc21issuer"
-	"github.com/tomochain/tomochain/contracts/trc21issuer/simulation"
-	"github.com/tomochain/tomochain/ethclient"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/contracts/trc21issuer"
+	"github.com/Tao-Network/tao2/contracts/trc21issuer/simulation"
+	"github.com/Tao-Network/tao2/ethclient"
 	"log"
 	"math/big"
 	"time"
@@ -69,7 +69,7 @@ func testTransferTRC21TokenWithAccountNoTomo() {
 		fmt.Println(err, client)
 	}
 
-	// access to address which received token trc20 but dont have tomo
+	// access to address which received token trc20 but dont have tao
 	nonce, _ := client.NonceAt(context.Background(), simulation.AirdropAddr, nil)
 	airDropAccount := bind.NewKeyedTransactor(simulation.AirdropKey)
 	airDropAccount.Nonce = big.NewInt(int64(nonce))
@@ -207,9 +207,9 @@ func main() {
 		airDropTokenToAccountNoTomo()
 		fmt.Println("Finish airdrop token to a account")
 		testTransferTRC21TokenWithAccountNoTomo()
-		fmt.Println("Finish transfer trc21 token with a account no tomo")
+		fmt.Println("Finish transfer trc21 token with a account no tao")
 		testTransferTrc21Fail()
-		fmt.Println("Finish testing ! Success transferAmount token trc20 with a account no tomo")
+		fmt.Println("Finish testing ! Success transferAmount token trc20 with a account no tao")
 	}
 	fmt.Println(common.PrettyDuration(time.Since(start)))
 }

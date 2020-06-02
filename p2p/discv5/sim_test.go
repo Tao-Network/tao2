@@ -28,7 +28,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
+	"github.com/Tao-Network/tao2/common"
 )
 
 // In this test, nodes try to randomly resolve each other.

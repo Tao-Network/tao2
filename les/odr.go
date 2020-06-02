@@ -19,10 +19,10 @@ package les
 import (
 	"context"
 
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/light"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/light"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // LesOdr implements light.OdrBackend

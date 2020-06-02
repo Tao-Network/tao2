@@ -26,7 +26,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // makeWizard creates and returns a new puppeth wizard.

@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 )
 
 // This table defines supported forks and their chain config.

@@ -22,10 +22,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/p2p/discover"
-	"github.com/tomochain/tomochain/p2p/simulations/adapters"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/p2p/discover"
+	"github.com/Tao-Network/tao2/p2p/simulations/adapters"
 )
 
 var errTimedOut = errors.New("timed out")

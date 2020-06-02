@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // Enabled is checked by the constructor functions for all of the

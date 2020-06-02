@@ -22,13 +22,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/mclock"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/light"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/mclock"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/light"
+	"github.com/Tao-Network/tao2/log"
 )
 
 const (

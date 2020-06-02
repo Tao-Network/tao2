@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-contract TOMOXListing {
+contract TAOXListing {
 
     address[] _tokens;
     mapping(address => TokenState) tokensState;

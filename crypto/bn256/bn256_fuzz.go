@@ -22,8 +22,8 @@ import (
 	"bytes"
 	"math/big"
 
-	cloudflare "github.com/tomochain/tomochain/crypto/bn256/cloudflare"
-	google "github.com/tomochain/tomochain/crypto/bn256/google"
+	cloudflare "github.com/Tao-Network/tao2/crypto/bn256/cloudflare"
+	google "github.com/Tao-Network/tao2/crypto/bn256/google"
 )
 
 // FuzzAdd fuzzez bn256 addition between the Google and Cloudflare libraries.

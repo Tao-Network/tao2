@@ -19,7 +19,7 @@ package ethapi
 import (
 	"sync"
 
-	"github.com/tomochain/tomochain/common"
+	"github.com/Tao-Network/tao2/common"
 )
 
 type AddrLocker struct {

@@ -21,7 +21,7 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/tomochain/tomochain/crypto"
+	"github.com/Tao-Network/tao2/crypto"
 )
 
 const (

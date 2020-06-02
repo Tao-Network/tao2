@@ -3,17 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 	"math/big"
 	"os"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethclient"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethclient"
 )
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 	price := new(big.Int)
 	price.SetString(os.Getenv("PRICE"), 10)
 
-	lendContract, _ := tomox.NewLendingRelayerRegistration(auth, common.HexToAddress(os.Getenv("LENDING_ADDRESS")), client)
+	lendContract, _ := taox.NewLendingRelayerRegistration(auth, common.HexToAddress(os.Getenv("LENDING_ADDRESS")), client)
 
 	token := common.HexToAddress(os.Getenv("TOKEN_ADDRESS"))
 	lendingToken := common.HexToAddress(os.Getenv("LENDING_TOKEN_ADDRESS"))

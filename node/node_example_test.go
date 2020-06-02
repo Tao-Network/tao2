@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/tomochain/tomochain/node"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/node"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 // SampleService is a trivial network service that can be attached to a node for

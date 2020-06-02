@@ -28,7 +28,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/crypto/sha3"
+	"github.com/Tao-Network/tao2/crypto/sha3"
 )
 
 const (

@@ -36,7 +36,7 @@ import (
 	"math/big"
 	"unsafe"
 
-	"github.com/tomochain/tomochain/common/math"
+	"github.com/Tao-Network/tao2/common/math"
 )
 
 /*

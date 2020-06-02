@@ -21,8 +21,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 
 	"math/big"
 	"os"
@@ -30,22 +30,22 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/tomox/tradingstate"
+	"github.com/Tao-Network/tao2/taox/tradingstate"
 
 	mapset "github.com/deckarep/golang-set"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/misc"
-	"github.com/tomochain/tomochain/consensus/posv"
-	"github.com/tomochain/tomochain/contracts"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/misc"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	"github.com/Tao-Network/tao2/contracts"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/params"
 )
 
 const (
@@ -455,16 +455,16 @@ func (self *worker) makeCurrent(parent *types.Block, header *types.Header) error
 		return err
 	}
 	author, _ := self.chain.Engine().Author(parent.Header())
-	var tomoxState *tradingstate.TradingStateDB
+	var taoxState *tradingstate.TradingStateDB
 	var lendingState *lendingstate.LendingStateDB
 	if self.config.Posv != nil {
-		tomoX := self.eth.GetTomoX()
-		tomoxState, err = tomoX.GetTradingState(parent, author)
+		tomoX := self.eth.GetTaoX()
+		taoxState, err = tomoX.GetTradingState(parent, author)
 		if err != nil {
-			log.Error("Failed to get tomox state ", "number", parent.Number(), "err", err)
+			log.Error("Failed to get taox state ", "number", parent.Number(), "err", err)
 			return err
 		}
-		lending := self.eth.GetTomoXLending()
+		lending := self.eth.GetTaoXLending()
 		lendingState, err = lending.GetLendingState(parent, author)
 		if err != nil {
 			log.Error("Failed to get lending state ", "number", parent.Number(), "err", err)
@@ -477,7 +477,7 @@ func (self *worker) makeCurrent(parent *types.Block, header *types.Header) error
 		signer:       types.NewEIP155Signer(self.config.ChainId),
 		state:        state,
 		parentState:  state.Copy(),
-		tradingState: tomoxState,
+		tradingState: taoxState,
 		lendingState: lendingState,
 		ancestors:    mapset.NewSet(),
 		family:       mapset.NewSet(),
@@ -651,9 +651,9 @@ func (self *worker) commitNewWork() {
 			log.Warn("Can't find coinbase account wallet", "coinbase", self.coinbase, "err", err)
 			return
 		}
-		if self.config.Posv != nil && self.chain.Config().IsTIPTomoX(header.Number) {
-			tomoX := self.eth.GetTomoX()
-			tomoXLending := self.eth.GetTomoXLending()
+		if self.config.Posv != nil && self.chain.Config().IsTIPTaoX(header.Number) {
+			tomoX := self.eth.GetTaoX()
+			tomoXLending := self.eth.GetTaoXLending()
 			if tomoX != nil && header.Number.Uint64() > self.config.Posv.Epoch {
 				if header.Number.Uint64()%self.config.Posv.Epoch == 0 {
 					err := tomoX.UpdateMediumPriceBeforeEpoch(header.Number.Uint64()/self.config.Posv.Epoch, work.tradingState, work.state)
@@ -663,7 +663,7 @@ func (self *worker) commitNewWork() {
 					}
 				}
 				// won't grasp tx at checkpoint
-				//https://github.com/tomochain/tomochain-v1/pull/416
+				//https://github.com/Tao-Network/tao2-v1/pull/416
 				if header.Number.Uint64()%self.config.Posv.Epoch != 0 {
 					log.Debug("Start processing order pending")
 					tradingOrderPending, _ := self.eth.OrderPool().Pending()
@@ -694,7 +694,7 @@ func (self *worker) commitNewWork() {
 						return
 					}
 					nonce := work.state.GetNonce(self.coinbase)
-					tx := types.NewTransaction(nonce, common.HexToAddress(common.TomoXAddr), big.NewInt(0), txMatchGasLimit, big.NewInt(0), txMatchBytes)
+					tx := types.NewTransaction(nonce, common.HexToAddress(common.TaoXAddr), big.NewInt(0), txMatchGasLimit, big.NewInt(0), txMatchBytes)
 					txM, err := wallet.SignTx(accounts.Account{Address: self.coinbase}, tx, self.config.ChainId)
 					if err != nil {
 						log.Error("Fail to create tx matches", "error", err)
@@ -719,7 +719,7 @@ func (self *worker) commitNewWork() {
 						return
 					}
 					nonce := work.state.GetNonce(self.coinbase)
-					lendingTx := types.NewTransaction(nonce, common.HexToAddress(common.TomoXLendingAddress), big.NewInt(0), txMatchGasLimit, big.NewInt(0), lendingDataBytes)
+					lendingTx := types.NewTransaction(nonce, common.HexToAddress(common.TaoXLendingAddress), big.NewInt(0), txMatchGasLimit, big.NewInt(0), lendingDataBytes)
 					signedLendingTx, err := wallet.SignTx(accounts.Account{Address: self.coinbase}, lendingTx, self.config.ChainId)
 					if err != nil {
 						log.Error("Fail to create lending tx", "error", err)
@@ -740,7 +740,7 @@ func (self *worker) commitNewWork() {
 						return
 					}
 					nonce := work.state.GetNonce(self.coinbase)
-					finalizedTx := types.NewTransaction(nonce, common.HexToAddress(common.TomoXLendingFinalizedTradeAddress), big.NewInt(0), txMatchGasLimit, big.NewInt(0), finalizedTradeData)
+					finalizedTx := types.NewTransaction(nonce, common.HexToAddress(common.TaoXLendingFinalizedTradeAddress), big.NewInt(0), txMatchGasLimit, big.NewInt(0), finalizedTradeData)
 					signedFinalizedTx, err := wallet.SignTx(accounts.Account{Address: self.coinbase}, finalizedTx, self.config.ChainId)
 					if err != nil {
 						log.Error("Fail to create lending tx", "error", err)
@@ -861,11 +861,11 @@ func (env *Work) commitTransactions(mux *event.TypeMux, balanceFee map[common.Ad
 				continue
 			}
 		}
-		// validate balance slot, token decimal for TomoX
-		if tx.IsTomoXApplyTransaction() {
+		// validate balance slot, token decimal for TaoX
+		if tx.IsTaoXApplyTransaction() {
 			copyState, _ := bc.State()
-			if err := core.ValidateTomoXApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
-				log.Debug("TomoXApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
+			if err := core.ValidateTaoXApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
+				log.Debug("TaoXApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
 				txs.Pop()
 				continue
 			}
@@ -976,11 +976,11 @@ func (env *Work) commitTransactions(mux *event.TypeMux, balanceFee map[common.Ad
 				continue
 			}
 		}
-		// validate balance slot, token decimal for TomoX
-		if tx.IsTomoXApplyTransaction() {
+		// validate balance slot, token decimal for TaoX
+		if tx.IsTaoXApplyTransaction() {
 			copyState, _ := bc.State()
-			if err := core.ValidateTomoXApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
-				log.Debug("TomoXApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
+			if err := core.ValidateTaoXApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
+				log.Debug("TaoXApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
 				txs.Pop()
 				continue
 			}

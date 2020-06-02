@@ -31,7 +31,7 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 func TestClientRequest(t *testing.T) {

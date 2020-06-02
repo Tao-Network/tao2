@@ -7,11 +7,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox"
-	"github.com/tomochain/tomochain/contracts/tomox/simulation"
-	"github.com/tomochain/tomochain/ethclient"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox"
+	"github.com/Tao-Network/tao2/contracts/taox/simulation"
+	"github.com/Tao-Network/tao2/ethclient"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 
 	// init trc21 issuer
 	auth.Nonce = big.NewInt(int64(nonce))
-	trc21IssuerAddr, trc21Issuer, err := tomox.DeployTRC21Issuer(auth, client, simulation.MinTRC21Apply)
+	trc21IssuerAddr, trc21Issuer, err := taox.DeployTRC21Issuer(auth, client, simulation.MinTRC21Apply)
 	if err != nil {
 		log.Fatal("DeployTRC21Issuer", err)
 	}
@@ -42,21 +42,21 @@ func main() {
 	fmt.Println("wait 10s to execute init smart contract : TRC Issuer")
 	time.Sleep(2 * time.Second)
 
-	//init TOMOX Listing in
+	//init TAOX Listing in
 	auth.Nonce = big.NewInt(int64(nonce + 1))
-	tomoxListtingAddr, tomoxListing, err := tomox.DeployTOMOXListing(auth, client)
+	taoxListtingAddr, taoxListing, err := taox.DeployTAOXListing(auth, client)
 	if err != nil {
-		log.Fatal("DeployTOMOXListing", err)
+		log.Fatal("DeployTAOXListing", err)
 	}
-	tomoxListing.TransactOpts.GasPrice = big.NewInt(250000000000000)
+	taoxListing.TransactOpts.GasPrice = big.NewInt(250000000000000)
 
-	fmt.Println("===> tomox listing address", tomoxListtingAddr.Hex())
-	fmt.Println("wait 10s to execute init smart contract : tomox listing ")
+	fmt.Println("===> taox listing address", taoxListtingAddr.Hex())
+	fmt.Println("wait 10s to execute init smart contract : taox listing ")
 	time.Sleep(2 * time.Second)
 
 	// init Relayer Registration
 	auth.Nonce = big.NewInt(int64(nonce + 2))
-	relayerRegistrationAddr, relayerRegistration, err := tomox.DeployRelayerRegistration(auth, client, tomoxListtingAddr, simulation.MaxRelayers, simulation.MaxTokenList, simulation.MinDeposit)
+	relayerRegistrationAddr, relayerRegistration, err := taox.DeployRelayerRegistration(auth, client, taoxListtingAddr, simulation.MaxRelayers, simulation.MaxTokenList, simulation.MinDeposit)
 	if err != nil {
 		log.Fatal("DeployRelayerRegistration", err)
 	}
@@ -67,7 +67,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 
 	auth.Nonce = big.NewInt(int64(nonce + 3))
-	lendingRelayerRegistrationAddr, lendingRelayerRegistration, err := tomox.DeployLendingRelayerRegistration(auth, client, relayerRegistrationAddr, tomoxListtingAddr)
+	lendingRelayerRegistrationAddr, lendingRelayerRegistration, err := taox.DeployLendingRelayerRegistration(auth, client, relayerRegistrationAddr, taoxListtingAddr)
 	if err != nil {
 		log.Fatal("DeployLendingRelayerRegistration", err)
 	}
@@ -85,7 +85,7 @@ func main() {
 	applyIssuer(trc21Issuer, tokenList, currentNonce)
 
 	currentNonce = currentNonce + uint64(len(simulation.TokenNameList))
-	applyTomoXListing(tomoxListing, tokenList, currentNonce)
+	applyTaoXListing(taoxListing, tokenList, currentNonce)
 
 	// BTC Collateral
 	nonce = currentNonce + uint64(len(simulation.TokenNameList))
@@ -164,7 +164,7 @@ func main() {
 	// relayer registration
 	ownerRelayer := bind.NewKeyedTransactor(simulation.OwnerRelayerKey)
 	nonce, _ = client.NonceAt(context.Background(), simulation.OwnerRelayerAddr, nil)
-	relayerRegistration, err = tomox.NewRelayerRegistration(ownerRelayer, relayerRegistrationAddr, client)
+	relayerRegistration, err = taox.NewRelayerRegistration(ownerRelayer, relayerRegistrationAddr, client)
 	if err != nil {
 		log.Fatal("NewRelayerRegistration", err)
 	}
@@ -235,12 +235,12 @@ func main() {
 	if err != nil {
 		log.Fatal("relayerRegistration Register ", err)
 	}
-	fmt.Println("wait 2s to apply token to list tomox")
+	fmt.Println("wait 2s to apply token to list taox")
 	time.Sleep(2 * time.Second)
 
 	// Lending apply
 	nonce = nonce + 1
-	lendingRelayerRegistration, err = tomox.NewLendingRelayerRegistration(ownerRelayer, lendingRelayerRegistrationAddr, client)
+	lendingRelayerRegistration, err = taox.NewLendingRelayerRegistration(ownerRelayer, lendingRelayerRegistrationAddr, client)
 	if err != nil {
 		log.Fatal("NewRelayerRegistration", err)
 	}
@@ -355,7 +355,7 @@ func initTRC21(auth *bind.TransactOpts, client *ethclient.Client, nonce uint64, 
 		if tokenName == "ETH" {
 			withdrawFee = big.NewInt(3000000000000000)
 		}
-		tokenAddr, _, err := tomox.DeployTRC21(auth, client, simulation.Owners, simulation.Required, tokenName, tokenName, d, tokenCap, simulation.TRC21TokenFee, depositFee, withdrawFee)
+		tokenAddr, _, err := taox.DeployTRC21(auth, client, simulation.Owners, simulation.Required, tokenName, tokenName, d, tokenCap, simulation.TRC21TokenFee, depositFee, withdrawFee)
 		if err != nil {
 			log.Fatal("DeployTRC21 ", tokenName, err)
 		}
@@ -373,7 +373,7 @@ func initTRC21(auth *bind.TransactOpts, client *ethclient.Client, nonce uint64, 
 	return tokenListResult
 }
 
-func applyIssuer(trc21Issuer *tomox.TRC21Issuer, tokenList []map[string]interface{}, nonce uint64) {
+func applyIssuer(trc21Issuer *taox.TRC21Issuer, tokenList []map[string]interface{}, nonce uint64) {
 	for _, token := range tokenList {
 		trc21Issuer.TransactOpts.Nonce = big.NewInt(int64(nonce))
 		trc21Issuer.TransactOpts.Value = simulation.MinTRC21Apply
@@ -387,15 +387,15 @@ func applyIssuer(trc21Issuer *tomox.TRC21Issuer, tokenList []map[string]interfac
 	time.Sleep(5 * time.Second)
 }
 
-func applyTomoXListing(tomoxListing *tomox.TOMOXListing, tokenList []map[string]interface{}, nonce uint64) {
+func applyTaoXListing(taoxListing *taox.TAOXListing, tokenList []map[string]interface{}, nonce uint64) {
 	for _, token := range tokenList {
-		tomoxListing.TransactOpts.Nonce = big.NewInt(int64(nonce))
-		tomoxListing.TransactOpts.Value = simulation.TomoXListingFee
-		_, err := tomoxListing.Apply(token["address"].(common.Address))
+		taoxListing.TransactOpts.Nonce = big.NewInt(int64(nonce))
+		taoxListing.TransactOpts.Value = simulation.TaoXListingFee
+		_, err := taoxListing.Apply(token["address"].(common.Address))
 		if err != nil {
-			log.Fatal("tomoxListing Apply ", token["name"].(string), err)
+			log.Fatal("taoxListing Apply ", token["name"].(string), err)
 		}
-		fmt.Println("applyTomoXListing ", token["name"].(string))
+		fmt.Println("applyTaoXListing ", token["name"].(string))
 		nonce = nonce + 1
 	}
 	time.Sleep(5 * time.Second)
@@ -404,7 +404,7 @@ func applyTomoXListing(tomoxListing *tomox.TOMOXListing, tokenList []map[string]
 func airdrop(auth *bind.TransactOpts, client *ethclient.Client, tokenList []map[string]interface{}, addresses []common.Address, nonce uint64) {
 	for _, token := range tokenList {
 		for _, address := range addresses {
-			trc21Contract, _ := tomox.NewTRC21(auth, token["address"].(common.Address), client)
+			trc21Contract, _ := taox.NewTRC21(auth, token["address"].(common.Address), client)
 			trc21Contract.TransactOpts.Nonce = big.NewInt(int64(nonce))
 			baseAmount := new(big.Int).Exp(big.NewInt(10), big.NewInt(int64(token["decimals"].(uint8))), nil)
 			amount := big.NewInt(0).Mul(baseAmount, big.NewInt(1000000))

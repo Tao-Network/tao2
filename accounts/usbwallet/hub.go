@@ -22,9 +22,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
 	"github.com/karalabe/hid"
 )
 

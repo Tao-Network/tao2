@@ -1,24 +1,24 @@
-package tomox
+package taox
 
 import (
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/contracts/tomox/contract"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/contracts/taox/contract"
 )
 
-type TOMOXListing struct {
-	*contract.TOMOXListingSession
+type TAOXListing struct {
+	*contract.TAOXListingSession
 	contractBackend bind.ContractBackend
 }
 
-func NewMyTOMOXListing(transactOpts *bind.TransactOpts, contractAddr common.Address, contractBackend bind.ContractBackend) (*TOMOXListing, error) {
-	smartContract, err := contract.NewTOMOXListing(contractAddr, contractBackend)
+func NewMyTAOXListing(transactOpts *bind.TransactOpts, contractAddr common.Address, contractBackend bind.ContractBackend) (*TAOXListing, error) {
+	smartContract, err := contract.NewTAOXListing(contractAddr, contractBackend)
 	if err != nil {
 		return nil, err
 	}
 
-	return &TOMOXListing{
-		&contract.TOMOXListingSession{
+	return &TAOXListing{
+		&contract.TAOXListingSession{
 			Contract:     smartContract,
 			TransactOpts: *transactOpts,
 		},
@@ -26,12 +26,12 @@ func NewMyTOMOXListing(transactOpts *bind.TransactOpts, contractAddr common.Addr
 	}, nil
 }
 
-func DeployTOMOXListing(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend) (common.Address, *TOMOXListing, error) {
-	contractAddr, _, _, err := contract.DeployTOMOXListing(transactOpts, contractBackend)
+func DeployTAOXListing(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend) (common.Address, *TAOXListing, error) {
+	contractAddr, _, _, err := contract.DeployTAOXListing(transactOpts, contractBackend)
 	if err != nil {
 		return contractAddr, nil, err
 	}
-	smartContract, err := NewMyTOMOXListing(transactOpts, contractAddr, contractBackend)
+	smartContract, err := NewMyTAOXListing(transactOpts, contractAddr, contractBackend)
 	if err != nil {
 		return contractAddr, nil, err
 	}

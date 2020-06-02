@@ -28,29 +28,29 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 
-	"github.com/tomochain/tomochain/accounts/abi/bind"
-	"github.com/tomochain/tomochain/tomox/tradingstate"
+	"github.com/Tao-Network/tao2/accounts/abi/bind"
+	"github.com/Tao-Network/tao2/taox/tradingstate"
 
 	lru "github.com/hashicorp/golang-lru"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/mclock"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/consensus/posv"
-	contractValidator "github.com/tomochain/tomochain/contracts/validator/contract"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rlp"
-	"github.com/tomochain/tomochain/trie"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/mclock"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/consensus/posv"
+	contractValidator "github.com/Tao-Network/tao2/contracts/validator/contract"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rlp"
+	"github.com/Tao-Network/tao2/trie"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 
@@ -111,7 +111,7 @@ type BlockChain struct {
 	cacheConfig *CacheConfig        // Cache configuration for pruning
 
 	db      ethdb.Database // Low level persistent database to store final content in
-	tomoxDb ethdb.TomoxDatabase
+	taoxDb ethdb.TomoxDatabase
 	triegc  *prque.Prque  // Priority queue mapping block numbers to tries to gc
 	gcproc  time.Duration // Accumulates canonical block processing for trie dumping
 
@@ -187,11 +187,11 @@ func NewBlockChain(db ethdb.Database, cacheConfig *CacheConfig, chainConfig *par
 	preparingBlock, _ := lru.New(blockCacheLimit)
 	downloadingBlock, _ := lru.New(blockCacheLimit)
 
-	// for tomox
+	// for taox
 	resultTrade, _ := lru.New(tradingstate.OrderCacheLimit)
 	rejectedOrders, _ := lru.New(tradingstate.OrderCacheLimit)
 
-	// tomoxlending
+	// taoxlending
 	resultLendingTrade, _ := lru.New(tradingstate.OrderCacheLimit)
 	rejectedLendingItem, _ := lru.New(tradingstate.OrderCacheLimit)
 	finalizedTrade, _ := lru.New(tradingstate.OrderCacheLimit)
@@ -253,13 +253,13 @@ func NewBlockChain(db ethdb.Database, cacheConfig *CacheConfig, chainConfig *par
 }
 
 // NewBlockChainEx extend old blockchain, add order state db
-func NewBlockChainEx(db ethdb.Database, tomoxDb ethdb.TomoxDatabase, cacheConfig *CacheConfig, chainConfig *params.ChainConfig, engine consensus.Engine, vmConfig vm.Config) (*BlockChain, error) {
+func NewBlockChainEx(db ethdb.Database, taoxDb ethdb.TomoxDatabase, cacheConfig *CacheConfig, chainConfig *params.ChainConfig, engine consensus.Engine, vmConfig vm.Config) (*BlockChain, error) {
 	blockchain, err := NewBlockChain(db, cacheConfig, chainConfig, engine, vmConfig)
 	if err != nil {
 		return nil, err
 	}
 	if blockchain != nil {
-		blockchain.addTomoxDb(tomoxDb)
+		blockchain.addTomoxDb(taoxDb)
 	}
 	return blockchain, nil
 }
@@ -268,8 +268,8 @@ func (bc *BlockChain) getProcInterrupt() bool {
 	return atomic.LoadInt32(&bc.procInterrupt) == 1
 }
 
-func (bc *BlockChain) addTomoxDb(tomoxDb ethdb.TomoxDatabase) {
-	bc.tomoxDb = tomoxDb
+func (bc *BlockChain) addTomoxDb(taoxDb ethdb.TomoxDatabase) {
+	bc.taoxDb = taoxDb
 }
 
 // loadLastState loads the last known chain state from the database. This method
@@ -301,9 +301,9 @@ func (bc *BlockChain) loadLastState() error {
 		engine, ok := bc.Engine().(*posv.Posv)
 		author, _ := bc.Engine().Author(currentBlock.Header())
 		if ok {
-			tradingService := engine.GetTomoXService()
+			tradingService := engine.GetTaoXService()
 			lendingService := engine.GetLendingService()
-			if bc.Config().IsTIPTomoX(currentBlock.Number()) && tradingService != nil && lendingService != nil {
+			if bc.Config().IsTIPTaoX(currentBlock.Number()) && tradingService != nil && lendingService != nil {
 				tradingRoot, err := tradingService.GetTradingStateRoot(currentBlock, author)
 				if err != nil {
 					repair = true
@@ -508,19 +508,19 @@ func (bc *BlockChain) StateAt(root common.Hash) (*state.StateDB, error) {
 func (bc *BlockChain) OrderStateAt(block *types.Block) (*tradingstate.TradingStateDB, error) {
 	engine, ok := bc.Engine().(*posv.Posv)
 	if ok {
-		tomoXService := engine.GetTomoXService()
-		if bc.Config().IsTIPTomoX(block.Number()) && tomoXService != nil {
+		tomoXService := engine.GetTaoXService()
+		if bc.Config().IsTIPTaoX(block.Number()) && tomoXService != nil {
 			author, _ := bc.Engine().Author(block.Header())
 			log.Debug("OrderStateAt", "blocknumber", block.Header().Number)
-			tomoxState, err := tomoXService.GetTradingState(block, author)
+			taoxState, err := tomoXService.GetTradingState(block, author)
 			if err == nil {
-				return tomoxState, nil
+				return taoxState, nil
 			} else {
 				return nil, err
 			}
 		}
 	}
-	return nil, errors.New("Get tomox state fail")
+	return nil, errors.New("Get taox state fail")
 
 }
 
@@ -529,7 +529,7 @@ func (bc *BlockChain) LendingStateAt(block *types.Block) (*lendingstate.LendingS
 	engine, ok := bc.Engine().(*posv.Posv)
 	if ok {
 		lendingService := engine.GetLendingService()
-		if bc.Config().IsTIPTomoX(block.Number()) && lendingService != nil {
+		if bc.Config().IsTIPTaoX(block.Number()) && lendingService != nil {
 			author, _ := bc.Engine().Author(block.Header())
 			log.Debug("LendingStateAt", "blocknumber", block.Header().Number)
 			lendingState, err := lendingService.GetLendingState(block, author)
@@ -539,7 +539,7 @@ func (bc *BlockChain) LendingStateAt(block *types.Block) (*lendingstate.LendingS
 			return nil, err
 		}
 	}
-	return nil, errors.New("Get tomox state fail")
+	return nil, errors.New("Get taox state fail")
 
 }
 
@@ -589,9 +589,9 @@ func (bc *BlockChain) repair(head **types.Block) error {
 				log.Info("Rewound blockchain to past state", "number", (*head).Number(), "hash", (*head).Hash())
 				engine, ok := bc.Engine().(*posv.Posv)
 				if ok {
-					tradingService := engine.GetTomoXService()
+					tradingService := engine.GetTaoXService()
 					lendingService := engine.GetLendingService()
-					if bc.Config().IsTIPTomoX((*head).Number()) && tradingService != nil && lendingService != nil {
+					if bc.Config().IsTIPTaoX((*head).Number()) && tradingService != nil && lendingService != nil {
 						author, _ := bc.Engine().Author((*head).Header())
 						tradingRoot, err := tradingService.GetTradingStateRoot(*head, author)
 						if err == nil {
@@ -742,8 +742,8 @@ func (bc *BlockChain) HasFullState(block *types.Block) bool {
 		return false
 	}
 	engine, _ := bc.Engine().(*posv.Posv)
-	if bc.Config().IsTIPTomoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
-		tradingService := engine.GetTomoXService()
+	if bc.Config().IsTIPTaoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
+		tradingService := engine.GetTaoXService()
 		lendingService := engine.GetLendingService()
 		author, _ := bc.Engine().Author(block.Header())
 		if tradingService != nil && !tradingService.HasTradingState(block, author) {
@@ -877,8 +877,8 @@ func (bc *BlockChain) SaveData() {
 		var lendingTriedb *trie.Database
 		engine, _ := bc.Engine().(*posv.Posv)
 		triedb := bc.stateCache.TrieDB()
-		if bc.Config().IsTIPTomoX(bc.CurrentBlock().Number()) && engine != nil {
-			if tradingService := engine.GetTomoXService(); tradingService != nil && tradingService.GetStateCache() != nil {
+		if bc.Config().IsTIPTaoX(bc.CurrentBlock().Number()) && engine != nil {
+			if tradingService := engine.GetTaoXService(); tradingService != nil && tradingService.GetStateCache() != nil {
 				tradingTriedb = tradingService.GetStateCache().TrieDB()
 			}
 			if lendingService := engine.GetLendingService(); lendingService != nil && lendingService.GetStateCache() != nil {
@@ -893,9 +893,9 @@ func (bc *BlockChain) SaveData() {
 				if err := triedb.Commit(recent.Root(), true); err != nil {
 					log.Error("Failed to commit recent state trie", "err", err)
 				}
-				if bc.Config().IsTIPTomoX(bc.CurrentBlock().Number()) && engine != nil {
+				if bc.Config().IsTIPTaoX(bc.CurrentBlock().Number()) && engine != nil {
 					author, _ := bc.Engine().Author(recent.Header())
-					if tradingService := engine.GetTomoXService(); tradingService != nil {
+					if tradingService := engine.GetTaoXService(); tradingService != nil {
 						tradingRoot, _ := tradingService.GetTradingStateRoot(recent, author)
 						if !common.EmptyHash(tradingRoot) && tradingTriedb != nil {
 							if err := tradingTriedb.Commit(tradingRoot, true); err != nil {
@@ -917,8 +917,8 @@ func (bc *BlockChain) SaveData() {
 		for !bc.triegc.Empty() {
 			triedb.Dereference(bc.triegc.PopItem().(common.Hash), common.Hash{})
 		}
-		if bc.Config().IsTIPTomoX(bc.CurrentBlock().Number()) && engine != nil && tradingTriedb != nil && lendingTriedb != nil {
-			if tradingService := engine.GetTomoXService(); tradingService != nil && tradingService.GetTriegc() != nil {
+		if bc.Config().IsTIPTaoX(bc.CurrentBlock().Number()) && engine != nil && tradingTriedb != nil && lendingTriedb != nil {
+			if tradingService := engine.GetTaoXService(); tradingService != nil && tradingService.GetTriegc() != nil {
 				for !tradingService.GetTriegc().Empty() {
 					tradingTriedb.Dereference(tradingService.GetTriegc().PopItem().(common.Hash), common.Hash{})
 				}
@@ -1197,15 +1197,15 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 	}
 	engine, _ := bc.Engine().(*posv.Posv)
 	var tradingTrieDb *trie.Database
-	if bc.Config().IsTIPTomoX(block.Number()) && engine != nil {
-		if tradingService := engine.GetTomoXService(); tradingService != nil {
+	if bc.Config().IsTIPTaoX(block.Number()) && engine != nil {
+		if tradingService := engine.GetTaoXService(); tradingService != nil {
 			tradingTrieDb = tradingService.GetStateCache().TrieDB()
 		}
 	}
 
 	var lendingTrieDb *trie.Database
-	if bc.Config().IsTIPTomoX(block.Number()) && engine != nil {
-		if lendingService := engine.GetTomoXService(); lendingService != nil {
+	if bc.Config().IsTIPTaoX(block.Number()) && engine != nil {
+		if lendingService := engine.GetTaoXService(); lendingService != nil {
 			lendingTrieDb = lendingService.GetStateCache().TrieDB()
 		}
 	}
@@ -1229,11 +1229,11 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 		// Full but not archive node, do proper garbage collection
 		triedb.Reference(root, common.Hash{}) // metadata reference to keep trie alive
 		bc.triegc.Push(root, -float32(block.NumberU64()))
-		if bc.Config().IsTIPTomoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
+		if bc.Config().IsTIPTaoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
 			if tradingTrieDb != nil {
 				tradingTrieDb.Reference(tradingRoot, common.Hash{})
 			}
-			if tradingService := engine.GetTomoXService(); tradingService != nil {
+			if tradingService := engine.GetTaoXService(); tradingService != nil {
 				tradingService.GetTriegc().Push(tradingRoot, -float32(block.NumberU64()))
 			}
 			if lendingTrieDb != nil {
@@ -1249,10 +1249,10 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 			chosen := header.Number.Uint64()
 			oldTradingRoot := common.Hash{}
 			oldLendingRoot := common.Hash{}
-			if bc.Config().IsTIPTomoX(block.Number()) && engine != nil {
+			if bc.Config().IsTIPTaoX(block.Number()) && engine != nil {
 				b := bc.GetBlock(header.Hash(), current-triesInMemory)
 				author, _ := bc.Engine().Author(b.Header())
-				if tradingService := engine.GetTomoXService(); tradingService != nil {
+				if tradingService := engine.GetTaoXService(); tradingService != nil {
 					oldTradingRoot, _ = tradingService.GetTradingStateRoot(b, author)
 				}
 				if lendingService := engine.GetLendingService(); lendingService != nil {
@@ -1287,7 +1287,7 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 					triedb.Commit(header.Root, true)
 					lastWrite = chosen
 					bc.gcproc = 0
-					if bc.Config().IsTIPTomoX(block.Number()) && tradingTrieDb != nil && lendingTrieDb != nil {
+					if bc.Config().IsTIPTaoX(block.Number()) && tradingTrieDb != nil && lendingTrieDb != nil {
 						tradingTrieDb.Commit(oldTradingRoot, true)
 						lendingTrieDb.Commit(oldLendingRoot, true)
 					}
@@ -1302,8 +1302,8 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 				}
 				triedb.Dereference(root.(common.Hash), common.Hash{})
 			}
-			if bc.Config().IsTIPTomoX(block.Number()) && engine != nil {
-				if tradingService := engine.GetTomoXService(); tradingService != nil {
+			if bc.Config().IsTIPTaoX(block.Number()) && engine != nil {
+				if tradingService := engine.GetTaoXService(); tradingService != nil {
 					for !tradingService.GetTriegc().Empty() {
 						tradingRoot, number := tradingService.GetTriegc().Pop()
 						if uint64(-number) > chosen {
@@ -1539,8 +1539,8 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 		var tradingService posv.TradingService
 		var lendingService posv.LendingService
 		isSDKNode := false
-		if bc.Config().IsTIPTomoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
-			tradingService = engine.GetTomoXService()
+		if bc.Config().IsTIPTaoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
+			tradingService = engine.GetTaoXService()
 			lendingService = engine.GetLendingService()
 			if tradingService != nil && lendingService != nil {
 				isSDKNode = tradingService.IsSDKNode()
@@ -1608,11 +1608,11 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 					expectRoot, _ := tradingService.GetTradingStateRoot(block, author)
 					parentRoot, _ := tradingService.GetTradingStateRoot(parent, parentAuthor)
 					if gotRoot != expectRoot {
-						err = fmt.Errorf("invalid tomox trading state merke trie got : %s , expect : %s ,parent : %s", gotRoot.Hex(), expectRoot.Hex(), parentRoot.Hex())
+						err = fmt.Errorf("invalid taox trading state merke trie got : %s , expect : %s ,parent : %s", gotRoot.Hex(), expectRoot.Hex(), parentRoot.Hex())
 						bc.reportBlock(block, nil, err)
 						return i, events, coalescedLogs, err
 					}
-					log.Debug("TomoX Trading State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
+					log.Debug("TaoX Trading State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
 				}
 				if lendingState != nil && tradingState != nil {
 					gotRoot := lendingState.IntermediateRoot()
@@ -1623,7 +1623,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 						bc.reportBlock(block, nil, err)
 						return i, events, coalescedLogs, err
 					}
-					log.Debug("TomoX Lending State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
+					log.Debug("TaoX Lending State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
 				}
 			}
 		}
@@ -1675,7 +1675,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks) (int, []interface{}, []*ty
 			// Only count canonical blocks for GC processing time
 			bc.gcproc += proctime
 			bc.UpdateBlocksHashCache(block)
-			if bc.chainConfig.IsTIPTomoX(block.Number()) {
+			if bc.chainConfig.IsTIPTaoX(block.Number()) {
 				bc.logExchangeData(block)
 				bc.logLendingData(block)
 			}
@@ -1831,8 +1831,8 @@ func (bc *BlockChain) getResultBlock(block *types.Block, verifiedM2 bool) (*Resu
 	var tradingService posv.TradingService
 	var lendingService posv.LendingService
 	isSDKNode := false
-	if bc.Config().IsTIPTomoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
-		tradingService = engine.GetTomoXService()
+	if bc.Config().IsTIPTaoX(block.Number()) && engine != nil && block.NumberU64() > bc.chainConfig.Posv.Epoch {
+		tradingService = engine.GetTaoXService()
 		lendingService = engine.GetLendingService()
 		if tradingService != nil && lendingService != nil {
 			isSDKNode = tradingService.IsSDKNode()
@@ -1898,11 +1898,11 @@ func (bc *BlockChain) getResultBlock(block *types.Block, verifiedM2 bool) (*Resu
 				expectRoot, _ := tradingService.GetTradingStateRoot(block, author)
 				parentRoot, _ := tradingService.GetTradingStateRoot(parent, parentAuthor)
 				if gotRoot != expectRoot {
-					err = fmt.Errorf("invalid tomox trading state merke trie got : %s , expect : %s ,parent : %s", gotRoot.Hex(), expectRoot.Hex(), parentRoot.Hex())
+					err = fmt.Errorf("invalid taox trading state merke trie got : %s , expect : %s ,parent : %s", gotRoot.Hex(), expectRoot.Hex(), parentRoot.Hex())
 					bc.reportBlock(block, nil, err)
 					return nil, err
 				}
-				log.Debug("TomoX Trading State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
+				log.Debug("TaoX Trading State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
 			}
 			if lendingState != nil && tradingState != nil {
 				gotRoot := lendingState.IntermediateRoot()
@@ -1913,7 +1913,7 @@ func (bc *BlockChain) getResultBlock(block *types.Block, verifiedM2 bool) (*Resu
 					bc.reportBlock(block, nil, err)
 					return nil, err
 				}
-				log.Debug("TomoX Lending State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
+				log.Debug("TaoX Lending State Root", "number", block.NumberU64(), "parent", parentRoot.Hex(), "nextRoot", expectRoot.Hex())
 			}
 		}
 	}
@@ -2017,7 +2017,7 @@ func (bc *BlockChain) insertBlock(block *types.Block) ([]interface{}, []*types.L
 		// Only count canonical blocks for GC processing time
 		bc.gcproc += result.proctime
 		bc.UpdateBlocksHashCache(block)
-		if bc.chainConfig.IsTIPTomoX(block.Number()) {
+		if bc.chainConfig.IsTIPTaoX(block.Number()) {
 			bc.logExchangeData(block)
 			bc.logLendingData(block)
 		}
@@ -2211,7 +2211,7 @@ func (bc *BlockChain) reorg(oldBlock, newBlock *types.Block) error {
 			}
 		}()
 	}
-	if bc.chainConfig.IsTIPTomoX(commonBlock.Number()) {
+	if bc.chainConfig.IsTIPTaoX(commonBlock.Number()) {
 		bc.reorgTxMatches(deletedTxs, newChain)
 	}
 	return nil
@@ -2516,7 +2516,7 @@ func (bc *BlockChain) logExchangeData(block *types.Block) {
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTomoXService()
+	tomoXService := engine.GetTaoXService()
 	if tomoXService == nil || !tomoXService.IsSDKNode() {
 		return
 	}
@@ -2584,7 +2584,7 @@ func (bc *BlockChain) reorgTxMatches(deletedTxs types.Transactions, newChain typ
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTomoXService()
+	tomoXService := engine.GetTaoXService()
 	lendingService := engine.GetLendingService()
 	if tomoXService == nil || !tomoXService.IsSDKNode() {
 		return
@@ -2622,7 +2622,7 @@ func (bc *BlockChain) logLendingData(block *types.Block) {
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTomoXService()
+	tomoXService := engine.GetTaoXService()
 	if tomoXService == nil || !tomoXService.IsSDKNode() {
 		return
 	}

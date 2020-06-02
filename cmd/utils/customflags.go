@@ -27,7 +27,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/tomochain/tomochain/common/math"
+	"github.com/Tao-Network/tao2/common/math"
 	"gopkg.in/urfave/cli.v1"
 )
 

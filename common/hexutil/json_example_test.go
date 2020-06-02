@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/tomochain/tomochain/common/hexutil"
+	"github.com/Tao-Network/tao2/common/hexutil"
 )
 
 type MyType [5]byte

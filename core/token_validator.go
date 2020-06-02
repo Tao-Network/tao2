@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Tomochain
+// Copyright (c) 2020 Tao Network
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -17,14 +17,14 @@ package core
 
 import (
 	"fmt"
-	ethereum "github.com/tomochain/tomochain"
-	"github.com/tomochain/tomochain/accounts/abi"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/contracts/tomox/contract"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/log"
+	ethereum "github.com/Tao-Network/tao2"
+	"github.com/Tao-Network/tao2/accounts/abi"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/contracts/taox/contract"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/log"
 	"math/big"
 	"math/rand"
 	"strings"
@@ -119,16 +119,16 @@ func CallContractWithState(call ethereum.CallMsg, chain consensus.ChainContext, 
 }
 
 // make sure that balance of token is at slot 0
-func ValidateTomoXApplyTransaction(chain consensus.ChainContext, blockNumber *big.Int, copyState *state.StateDB, tokenAddr common.Address) error {
+func ValidateTaoXApplyTransaction(chain consensus.ChainContext, blockNumber *big.Int, copyState *state.StateDB, tokenAddr common.Address) error {
 	if blockNumber == nil || blockNumber.Sign() <= 0 {
 		blockNumber = chain.CurrentHeader().Number
 	}
-	if !chain.Config().IsTIPTomoX(blockNumber) {
+	if !chain.Config().IsTIPTaoX(blockNumber) {
 		return nil
 	}
 	contractABI, err := GetTokenAbi(contract.TRC21ABI)
 	if err != nil {
-		return fmt.Errorf("ValidateTomoXApplyTransaction: cannot parse ABI. Err: %v", err)
+		return fmt.Errorf("ValidateTaoXApplyTransaction: cannot parse ABI. Err: %v", err)
 	}
 	if err := ValidateBalanceSlot(chain, copyState, tokenAddr, contractABI); err != nil {
 		return err
@@ -145,7 +145,7 @@ func ValidateTomoZApplyTransaction(chain consensus.ChainContext, blockNumber *bi
 	if blockNumber == nil || blockNumber.Sign() <= 0 {
 		blockNumber = chain.CurrentHeader().Number
 	}
-	if !chain.Config().IsTIPTomoX(blockNumber) {
+	if !chain.Config().IsTIPTaoX(blockNumber) {
 		return nil
 	}
 	contractABI, err := GetTokenAbi(contract.TRC21ABI)

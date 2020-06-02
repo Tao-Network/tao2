@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common/mclock"
+	"github.com/Tao-Network/tao2/common/mclock"
 )
 
 const rcConst = 1000000

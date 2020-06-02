@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/params"
 )
 
 // Config are the configuration options for the Interpreter

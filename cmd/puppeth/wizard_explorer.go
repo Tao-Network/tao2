@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // deployExplorer creates a new block explorer based on some user input.

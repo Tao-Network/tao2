@@ -24,10 +24,10 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/log/term"
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/metrics/exp"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/log/term"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/metrics/exp"
 	colorable "github.com/mattn/go-colorable"
 	"gopkg.in/urfave/cli.v1"
 )

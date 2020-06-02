@@ -19,24 +19,24 @@ package ethapi
 
 import (
 	"context"
-	"github.com/tomochain/tomochain/tomoxlending"
+	"github.com/Tao-Network/tao2/taoxlending"
 	"math/big"
 
-	"github.com/tomochain/tomochain/tomox"
+	"github.com/Tao-Network/tao2/taox"
 
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/core"
-	"github.com/tomochain/tomochain/core/state"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/core/vm"
-	"github.com/tomochain/tomochain/eth/downloader"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/params"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/core"
+	"github.com/Tao-Network/tao2/core/state"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/core/vm"
+	"github.com/Tao-Network/tao2/eth/downloader"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/params"
+	"github.com/Tao-Network/tao2/rpc"
 )
 
 // Backend interface provides the common API services (that are provided by
@@ -49,8 +49,8 @@ type Backend interface {
 	ChainDb() ethdb.Database
 	EventMux() *event.TypeMux
 	AccountManager() *accounts.Manager
-	TomoxService() *tomox.TomoX
-	LendingService() *tomoxlending.Lending
+	TomoxService() *taox.TaoX
+	LendingService() *taoxlending.Lending
 
 	// BlockChain API
 	SetHead(number uint64)
@@ -114,9 +114,9 @@ func GetAPIs(apiBackend Backend) []rpc.API {
 			Service:   NewPublicTransactionPoolAPI(apiBackend, nonceLock),
 			Public:    true,
 		}, {
-			Namespace: "tomox",
+			Namespace: "taox",
 			Version:   "1.0",
-			Service:   NewPublicTomoXTransactionPoolAPI(apiBackend, nonceLock),
+			Service:   NewPublicTaoXTransactionPoolAPI(apiBackend, nonceLock),
 			Public:    true,
 		}, {
 			Namespace: "txpool",

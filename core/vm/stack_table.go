@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 )
 
 func makeStackFunc(pop, push int) stackValidationFunc {

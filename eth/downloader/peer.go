@@ -29,9 +29,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/event"
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/event"
+	"github.com/Tao-Network/tao2/log"
 )
 
 const (

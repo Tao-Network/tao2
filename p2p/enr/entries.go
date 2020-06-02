@@ -22,8 +22,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // Entry is implemented by known node record entry types.

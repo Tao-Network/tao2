@@ -19,7 +19,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tomochain/tomochain/log"
+	"github.com/Tao-Network/tao2/log"
 )
 
 // ensureVirtualHost checks whether a reverse-proxy is running on the specified

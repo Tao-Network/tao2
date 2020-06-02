@@ -29,9 +29,9 @@ import (
 
 	"bazil.org/fuse"
 	"bazil.org/fuse/fs"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/swarm/api"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/swarm/api"
 )
 
 var (

@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Tomochain
+// Copyright (c) 2020 Tao Network
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -16,10 +16,10 @@
 package posv
 
 import (
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/consensus"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/rpc"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/consensus"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/rpc"
 	"math/big"
 )
 
@@ -33,7 +33,7 @@ type NetworkInformation struct {
 	NetworkId                  *big.Int
 	TomoValidatorAddress       common.Address
 	RelayerRegistrationAddress common.Address
-	TomoXListingAddress        common.Address
+	TaoXListingAddress        common.Address
 	TomoZAddress               common.Address
 	LendingAddress             common.Address
 }
@@ -105,12 +105,12 @@ func (api *API) NetworkInformation() NetworkInformation {
 	if common.IsTestnet {
 		info.LendingAddress = common.HexToAddress(common.LendingRegistrationSMCTestnet)
 		info.RelayerRegistrationAddress = common.HexToAddress(common.RelayerRegistrationSMCTestnet)
-		info.TomoXListingAddress = common.TomoXListingSMCTestNet
+		info.TaoXListingAddress = common.TaoXListingSMCTestNet
 		info.TomoZAddress = common.TRC21IssuerSMCTestNet
 	} else {
 		info.LendingAddress = common.HexToAddress(common.LendingRegistrationSMC)
 		info.RelayerRegistrationAddress = common.HexToAddress(common.RelayerRegistrationSMC)
-		info.TomoXListingAddress = common.TomoXListingSMC
+		info.TaoXListingAddress = common.TaoXListingSMC
 		info.TomoZAddress = common.TRC21IssuerSMC
 	}
 	return info

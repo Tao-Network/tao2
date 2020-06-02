@@ -19,9 +19,9 @@ package keystore
 import (
 	"math/big"
 
-	ethereum "github.com/tomochain/tomochain"
-	"github.com/tomochain/tomochain/accounts"
-	"github.com/tomochain/tomochain/core/types"
+	ethereum "github.com/Tao-Network/tao2"
+	"github.com/Tao-Network/tao2/accounts"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // keystoreWallet implements the accounts.Wallet interface for the original

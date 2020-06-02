@@ -20,10 +20,10 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/ethdb"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/ethdb"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 // NodeSet stores a set of trie nodes. It implements trie.Database and can also

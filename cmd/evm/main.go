@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"os"
 
-	"github.com/tomochain/tomochain/cmd/utils"
+	"github.com/Tao-Network/tao2/cmd/utils"
 	"gopkg.in/urfave/cli.v1"
 )
 

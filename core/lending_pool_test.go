@@ -3,13 +3,13 @@ package core
 import (
 	"context"
 	"fmt"
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/crypto"
-	"github.com/tomochain/tomochain/crypto/sha3"
-	"github.com/tomochain/tomochain/ethclient"
-	"github.com/tomochain/tomochain/rpc"
-	"github.com/tomochain/tomochain/tomoxlending/lendingstate"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/crypto"
+	"github.com/Tao-Network/tao2/crypto/sha3"
+	"github.com/Tao-Network/tao2/ethclient"
+	"github.com/Tao-Network/tao2/rpc"
+	"github.com/Tao-Network/tao2/taoxlending/lendingstate"
 	"log"
 	"math/big"
 	"strconv"
@@ -50,7 +50,7 @@ func getLendingNonce(userAddress common.Address) (uint64, error) {
 		return 0, err
 	}
 	var result interface{}
-	err = rpcClient.Call(&result, "tomox_getLendingOrderCount", userAddress)
+	err = rpcClient.Call(&result, "taox_getLendingOrderCount", userAddress)
 	if err != nil {
 		return 0, err
 	}

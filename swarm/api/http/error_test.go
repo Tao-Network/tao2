@@ -25,7 +25,7 @@ import (
 
 	"golang.org/x/net/html"
 
-	"github.com/tomochain/tomochain/swarm/testutil"
+	"github.com/Tao-Network/tao2/swarm/testutil"
 )
 
 func TestError(t *testing.T) {

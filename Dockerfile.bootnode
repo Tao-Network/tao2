@@ -9,7 +9,7 @@ RUN chmod +x /tomochain/build/bin/bootnode
 
 FROM alpine:latest
 
-LABEL maintainer="etienne@tomochain.com"
+LABEL maintainer="etienne@tao.network"
 
 WORKDIR /tomochain
 

@@ -34,9 +34,9 @@ var TIP2019Block = big.NewInt(1050000)
 var TIPSigning = big.NewInt(3000000)
 var TIPRandomize = big.NewInt(3464000)
 var BlackListHFNumber = uint64(9349100)
-var TIPTomoX = big.NewInt(20581700)
-var TIPTomoXTestnet = big.NewInt(11303000)
-var TIPTomoXLending = big.NewInt(0)
+var TIPTaoX = big.NewInt(20581700)
+var TIPTaoXTestnet = big.NewInt(11303000)
+var TIPTaoXLending = big.NewInt(0)
 
 var IsTestnet bool = false
 var StoreRewardFolder string
@@ -44,9 +44,9 @@ var RollbackHash Hash
 var BasePrice = big.NewInt(1000000000000000000)                         // 1
 var RelayerLockedFund = big.NewInt(20000)                               // 20000 TOMO
 var RelayerFee = big.NewInt(1000000000000000)                           // 0.001
-var TomoXBaseFee = big.NewInt(10000)                                    // 1 / TomoXBaseFee
+var TaoXBaseFee = big.NewInt(10000)                                    // 1 / TaoXBaseFee
 var RelayerCancelFee = big.NewInt(100000000000000)                      // 0.0001
-var TomoXBaseCancelFee = new(big.Int).Mul(TomoXBaseFee, big.NewInt(10)) // 1/ (TomoXBaseFee *10)
+var TaoXBaseCancelFee = new(big.Int).Mul(TaoXBaseFee, big.NewInt(10)) // 1/ (TaoXBaseFee *10)
 var RelayerLendingFee = big.NewInt(10000000000000000)                   // 0.01
 var RelayerLendingCancelFee = big.NewInt(1000000000000000)              // 0.001
 var BaseLendingInterest = big.NewInt(100000000)                         // 1e8
@@ -58,8 +58,8 @@ var LendingRegistrationSMC = "0x7d761afd7ff65a79e4173897594a194e3c506e57"
 var LendingRegistrationSMCTestnet = "0x4d7eA2cE949216D6b120f3AA10164173615A2b6C"
 var TRC21IssuerSMCTestNet = HexToAddress("0x7081C72c9DC44686C7B7EAB1d338EA137Fa9f0D3")
 var TRC21IssuerSMC = HexToAddress("0x8c0faeb5C6bEd2129b8674F262Fd45c4e9468bee")
-var TomoXListingSMC = HexToAddress("0xDE34dD0f536170993E8CFF639DdFfCF1A85D3E53")
-var TomoXListingSMCTestNet = HexToAddress("0x80430A33EaB86890a346bCf64F86CFeAC73287f3")
+var TaoXListingSMC = HexToAddress("0xDE34dD0f536170993E8CFF639DdFfCF1A85D3E53")
+var TaoXListingSMCTestNet = HexToAddress("0x80430A33EaB86890a346bCf64F86CFeAC73287f3")
 var TRC21GasPriceBefore = big.NewInt(2500)
 var TRC21GasPrice = big.NewInt(250000000)
 var RateTopUp = big.NewInt(90) // 90%

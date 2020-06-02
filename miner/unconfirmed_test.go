@@ -19,8 +19,8 @@ package miner
 import (
 	"testing"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // noopHeaderRetriever is an implementation of headerRetriever that always

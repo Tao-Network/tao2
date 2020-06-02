@@ -1,6 +1,6 @@
-.PHONY: tomo tomo-cross evm all test clean
-.PHONY: tomo-linux tomo-linux-386 tomo-linux-amd64 tomo-linux-mips64 tomo-linux-mips64le
-.PHONY: tomo-darwin tomo-darwin-386 tomo-darwin-amd64
+.PHONY: tao tao-cross evm all test clean
+.PHONY: tao-linux tao-linux-386 tao-linux-amd64 tao-linux-mips64 tao-linux-mips64le
+.PHONY: tao-darwin tao-darwin-386 tao-darwin-amd64
 
 GOBIN = $(shell pwd)/build/bin
 GOFMT = gofmt
@@ -10,10 +10,10 @@ GO_FILES := $(shell find $(shell go list -f '{{.Dir}}' $(GO_PACKAGES)) -name \*.
 
 GIT = git
 
-tomo:
-	go run build/ci.go install ./cmd/tomo
+tao:
+	go run build/ci.go install ./cmd/tao
 	@echo "Done building."
-	@echo "Run \"$(GOBIN)/tomo\" to launch tomo."
+	@echo "Run \"$(GOBIN)/tao\" to launch tao."
 
 gc:
 	go run build/ci.go install ./cmd/gc
@@ -41,62 +41,62 @@ clean:
 
 # Cross Compilation Targets (xgo)
 
-tomo-cross: tomo-windows-amd64 tomo-darwin-amd64 tomo-linux
+tao-cross: tao-windows-amd64 tao-darwin-amd64 tao-linux
 	@echo "Full cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-*
+	@ls -ld $(GOBIN)/tao-*
 
-tomo-linux: tomo-linux-386 tomo-linux-amd64 tomo-linux-mips64 tomo-linux-mips64le
+tao-linux: tao-linux-386 tao-linux-amd64 tao-linux-mips64 tao-linux-mips64le
 	@echo "Linux cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-*
+	@ls -ld $(GOBIN)/tao-linux-*
 
-tomo-linux-386:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/386 -v ./cmd/tomo
+tao-linux-386:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/386 -v ./cmd/tao
 	@echo "Linux 386 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep 386
+	@ls -ld $(GOBIN)/tao-linux-* | grep 386
 
-tomo-linux-amd64:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/amd64 -v ./cmd/tomo
+tao-linux-amd64:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/amd64 -v ./cmd/tao
 	@echo "Linux amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep amd64
+	@ls -ld $(GOBIN)/tao-linux-* | grep amd64
 
-tomo-linux-mips:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips --ldflags '-extldflags "-static"' -v ./cmd/tomo
+tao-linux-mips:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips --ldflags '-extldflags "-static"' -v ./cmd/tao
 	@echo "Linux MIPS cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep mips
+	@ls -ld $(GOBIN)/tao-linux-* | grep mips
 
-tomo-linux-mipsle:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mipsle --ldflags '-extldflags "-static"' -v ./cmd/tomo
+tao-linux-mipsle:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mipsle --ldflags '-extldflags "-static"' -v ./cmd/tao
 	@echo "Linux MIPSle cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep mipsle
+	@ls -ld $(GOBIN)/tao-linux-* | grep mipsle
 
-tomo-linux-mips64:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips64 --ldflags '-extldflags "-static"' -v ./cmd/tomo
+tao-linux-mips64:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips64 --ldflags '-extldflags "-static"' -v ./cmd/tao
 	@echo "Linux MIPS64 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep mips64
+	@ls -ld $(GOBIN)/tao-linux-* | grep mips64
 
-tomo-linux-mips64le:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips64le --ldflags '-extldflags "-static"' -v ./cmd/tomo
+tao-linux-mips64le:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips64le --ldflags '-extldflags "-static"' -v ./cmd/tao
 	@echo "Linux MIPS64le cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-linux-* | grep mips64le
+	@ls -ld $(GOBIN)/tao-linux-* | grep mips64le
 
-tomo-darwin: tomo-darwin-386 tomo-darwin-amd64
+tao-darwin: tao-darwin-386 tao-darwin-amd64
 	@echo "Darwin cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-darwin-*
+	@ls -ld $(GOBIN)/tao-darwin-*
 
-tomo-darwin-386:
-	go run build/ci.go xgo -- --go=$(GO) --targets=darwin/386 -v ./cmd/tomo
+tao-darwin-386:
+	go run build/ci.go xgo -- --go=$(GO) --targets=darwin/386 -v ./cmd/tao
 	@echo "Darwin 386 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-darwin-* | grep 386
+	@ls -ld $(GOBIN)/tao-darwin-* | grep 386
 
-tomo-darwin-amd64:
-	go run build/ci.go xgo -- --go=$(GO) --targets=darwin/amd64 -v ./cmd/tomo
+tao-darwin-amd64:
+	go run build/ci.go xgo -- --go=$(GO) --targets=darwin/amd64 -v ./cmd/tao
 	@echo "Darwin amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-darwin-* | grep amd64
+	@ls -ld $(GOBIN)/tao-darwin-* | grep amd64
 
-tomo-windows-amd64:
-	go run build/ci.go xgo -- --go=$(GO) --targets=windows/amd64 -v ./cmd/tomo
+tao-windows-amd64:
+	go run build/ci.go xgo -- --go=$(GO) --targets=windows/amd64 -v ./cmd/tao
 	@echo "Windows amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/tomo-windows-* | grep amd64
+	@ls -ld $(GOBIN)/tao-windows-* | grep amd64
 gofmt:
 	$(GOFMT) -s -w $(GO_FILES)
 	$(GIT) checkout vendor

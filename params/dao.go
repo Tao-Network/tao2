@@ -19,7 +19,7 @@ package params
 import (
 	"math/big"
 
-	"github.com/tomochain/tomochain/common"
+	"github.com/Tao-Network/tao2/common"
 )
 
 // DAOForkBlockExtra is the block header extra-data field to set for the DAO fork

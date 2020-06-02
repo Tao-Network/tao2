@@ -5,7 +5,7 @@ contract LAbstractRegistration {
     function getRelayerByCoinbase(address) public view returns (uint, address, uint256, uint16, address[] memory, address[] memory);
 }
 
-contract LAbstractTOMOXListing {
+contract LAbstractTAOXListing {
     function getTokenStatus(address) public view returns (bool);
 }
 
@@ -52,7 +52,7 @@ contract Lending {
 
     address constant private tomoNative = 0x0000000000000000000000000000000000000001;
 
-    LAbstractTOMOXListing public TomoXListing;
+    LAbstractTAOXListing public TaoXListing;
 
     address public ORACLE_PRICE_FEEDER;
 
@@ -86,7 +86,7 @@ contract Lending {
     
     constructor (address r, address t) public {
         Relayer = LAbstractRegistration(r);
-        TomoXListing = LAbstractTOMOXListing(t);
+        TaoXListing = LAbstractTAOXListing(t);
         ORACLE_PRICE_FEEDER = msg.sender;
         MODERATOR = msg.sender;
     }
@@ -108,7 +108,7 @@ contract Lending {
         require(depositRate > liquidationRate , "Invalid deposit rates");
         require(recallRate > depositRate, "Invalid recall rates");
 
-        bool b = TomoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
         require(b, "Invalid collateral");
 
         COLLATERAL_LIST[token] = Collateral({
@@ -125,7 +125,7 @@ contract Lending {
     // update price for collateral
     function setCollateralPrice(address token, address lendingToken, uint256 price) public {
 
-        bool b = TomoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
         require(b, "Invalid collateral");
 
         require(indexOf(BASES, lendingToken), "Invalid lending token");
@@ -154,7 +154,7 @@ contract Lending {
 
         require(!indexOf(COLLATERALS, token) , "Invalid ILO collateral");
 
-        bool b = TomoXListing.getTokenStatus(token);
+        bool b = TaoXListing.getTokenStatus(token);
         require(b, "Invalid collateral");
 
         LAbstractTokenTRC21 t = LAbstractTokenTRC21(token);
@@ -173,7 +173,7 @@ contract Lending {
     
     // lending tokens
     function addBaseToken(address token) public moderatorOnly {
-        bool b = TomoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
         require(b, "Invalid base token");
         if (!indexOf(BASES, token)) {
             BASES.push(token);

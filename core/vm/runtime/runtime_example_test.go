@@ -19,8 +19,8 @@ package runtime_test
 import (
 	"fmt"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/vm/runtime"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/vm/runtime"
 )
 
 func ExampleExecute() {

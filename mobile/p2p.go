@@ -21,7 +21,7 @@ package geth
 import (
 	"errors"
 
-	"github.com/tomochain/tomochain/p2p"
+	"github.com/Tao-Network/tao2/p2p"
 )
 
 // NodeInfo represents pi short summary of the information known about the host.

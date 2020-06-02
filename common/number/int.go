@@ -19,7 +19,7 @@ package number
 import (
 	"math/big"
 
-	"github.com/tomochain/tomochain/common"
+	"github.com/Tao-Network/tao2/common"
 )
 
 var tt256 = new(big.Int).Lsh(big.NewInt(1), 256)

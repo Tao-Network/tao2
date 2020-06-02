@@ -25,8 +25,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/tomochain/tomochain/swarm/api"
-	"github.com/tomochain/tomochain/swarm/testutil"
+	"github.com/Tao-Network/tao2/swarm/api"
+	"github.com/Tao-Network/tao2/swarm/testutil"
 )
 
 // TestClientUploadDownloadRaw test uploading and downloading raw data to swarm

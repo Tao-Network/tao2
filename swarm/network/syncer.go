@@ -22,8 +22,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/tomochain/tomochain/log"
-	"github.com/tomochain/tomochain/swarm/storage"
+	"github.com/Tao-Network/tao2/log"
+	"github.com/Tao-Network/tao2/swarm/storage"
 )
 
 // syncer parameters (global, not peer specific) default values

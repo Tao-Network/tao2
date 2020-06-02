@@ -19,7 +19,7 @@ package downloader
 import (
 	"fmt"
 
-	"github.com/tomochain/tomochain/core/types"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // peerDropFn is a callback type for dropping a peer detected as malicious.

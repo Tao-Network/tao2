@@ -17,8 +17,8 @@
 package les
 
 import (
-	"github.com/tomochain/tomochain/metrics"
-	"github.com/tomochain/tomochain/p2p"
+	"github.com/Tao-Network/tao2/metrics"
+	"github.com/Tao-Network/tao2/p2p"
 )
 
 var (

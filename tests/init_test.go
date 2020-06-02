@@ -29,7 +29,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/params"
 )
 
 var (

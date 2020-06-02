@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/tomochain/tomochain/cmd/evm/internal/compiler"
+	"github.com/Tao-Network/tao2/cmd/evm/internal/compiler"
 
 	cli "gopkg.in/urfave/cli.v1"
 )

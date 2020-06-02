@@ -16,7 +16,7 @@
 
 package ethclient
 
-import "github.com/tomochain/tomochain"
+import "github.com/Tao-Network/tao2"
 
 // Verify that Client implements the ethereum interfaces.
 var (

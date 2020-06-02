@@ -19,7 +19,7 @@ package event_test
 import (
 	"fmt"
 
-	"github.com/tomochain/tomochain/event"
+	"github.com/Tao-Network/tao2/event"
 )
 
 func ExampleFeed_acknowledgedEvents() {

@@ -17,9 +17,9 @@
 package vm
 
 import (
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/common/math"
-	"github.com/tomochain/tomochain/params"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/common/math"
+	"github.com/Tao-Network/tao2/params"
 )
 
 // memoryGasCosts calculates the quadratic gas for memory expansion. It does so

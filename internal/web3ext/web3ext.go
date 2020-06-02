@@ -29,8 +29,8 @@ var Modules = map[string]string{
 	"personal":     Personal_JS,
 	"rpc":          RPC_JS,
 	"shh":          Shh_JS,
-	"tomox":        TomoX_JS,
-	"tomoxlending": TomoXLending_JS,
+	"taox":        TaoX_JS,
+	"taoxlending": TaoXLending_JS,
 	"swarmfs":      SWARMFS_JS,
 	"txpool":       TxPool_JS,
 }
@@ -625,304 +625,304 @@ web3._extend({
 });
 `
 
-const TomoX_JS = `
+const TaoX_JS = `
 web3._extend({
-	property: 'tomox',
+	property: 'taox',
 	methods: [
 		new web3._extend.Method({
 			name: 'version',
-			call: 'tomox_version',
+			call: 'taox_version',
 			params: 0,
 			outputFormatter: web3._extend.utils.toDecimal
 		}),
 		new web3._extend.Method({
 			name: 'info',
-			call: 'tomox_info',
+			call: 'taox_info',
 			params: 0
 		}),
 		new web3._extend.Method({
             name: 'getFeeByEpoch',
-            call: 'tomox_getFeeByEpoch',
+            call: 'taox_getFeeByEpoch',
             params: 1,
             inputFormatter: [null, web3._extend.formatters.inputAddressFormatter]
         }),
 		new web3._extend.Method({
             name: 'sendOrderRawTransaction',
-            call: 'tomox_sendOrderRawTransaction',
+            call: 'taox_sendOrderRawTransaction',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'sendLendingRawTransaction',
-            call: 'tomox_sendLendingRawTransaction',
+            call: 'taox_sendLendingRawTransaction',
             params: 1
 		}),
 		
 		new web3._extend.Method({
             name: 'sendOrderTransaction',
-            call: 'tomox_sendOrder',
+            call: 'taox_sendOrder',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'sendLendingTransaction',
-            call: 'tomox_sendLending',
+            call: 'taox_sendLending',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'getOrderTxMatchByHash',
-            call: 'tomox_getOrderTxMatchByHash',
+            call: 'taox_getOrderTxMatchByHash',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'getOrderPoolContent',
-            call: 'tomox_getOrderPoolContent',
+            call: 'taox_getOrderPoolContent',
             params: 0
 		}),
 		new web3._extend.Method({
             name: 'getOrderStats',
-            call: 'tomox_getOrderStats',
+            call: 'taox_getOrderStats',
             params: 0
 		}),
 		new web3._extend.Method({
             name: 'getOrderCount',
-            call: 'tomox_getOrderCount',
+            call: 'taox_getOrderCount',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'getBestBid',
-            call: 'tomox_getBestBid',
+            call: 'taox_getBestBid',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBestAsk',
-            call: 'tomox_getBestAsk',
+            call: 'taox_getBestAsk',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBidTree',
-            call: 'tomox_getBidTree',
+            call: 'taox_getBidTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getAskTree',
-            call: 'tomox_getAskTree',
+            call: 'taox_getAskTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getOrderById',
-            call: 'tomox_getOrderById',
+            call: 'taox_getOrderById',
             params: 3
 		}),
 		new web3._extend.Method({
             name: 'getPrice',
-            call: 'tomox_getPrice',
+            call: 'taox_getPrice',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLastEpochPrice',
-            call: 'tomox_getLastEpochPrice',
+            call: 'taox_getLastEpochPrice',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getCurrentEpochPrice',
-            call: 'tomox_getCurrentEpochPrice',
+            call: 'taox_getCurrentEpochPrice',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getTradingOrderBookInfo',
-            call: 'tomox_getTradingOrderBookInfo',
+            call: 'taox_getTradingOrderBookInfo',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLiquidationPriceTree',
-            call: 'tomox_getLiquidationPriceTree',
+            call: 'taox_getLiquidationPriceTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getInvestingTree',
-            call: 'tomox_getInvestingTree',
+            call: 'taox_getInvestingTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBorrowingTree',
-            call: 'tomox_getBorrowingTree',
+            call: 'taox_getBorrowingTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLendingOrderBookInfo',
-            call: 'tomox_getLendingOrderBookInfo',
+            call: 'taox_getLendingOrderBookInfo',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLendingOrderTree',
-            call: 'tomox_getLendingOrderTree',
+            call: 'taox_getLendingOrderTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLendingTradeTree',
-            call: 'tomox_getLendingTradeTree',
+            call: 'taox_getLendingTradeTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLiquidationTimeTree',
-            call: 'tomox_getLiquidationTimeTree',
+            call: 'taox_getLiquidationTimeTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLendingOrderCount',
-            call: 'tomox_getLendingOrderCount',
+            call: 'taox_getLendingOrderCount',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'getBestInvesting',
-            call: 'tomox_getBestInvesting',
+            call: 'taox_getBestInvesting',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBestBorrowing',
-            call: 'tomox_getBestBorrowing',
+            call: 'taox_getBestBorrowing',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBids',
-            call: 'tomox_getBids',
+            call: 'taox_getBids',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getAsks',
-            call: 'tomox_getAsks',
+            call: 'taox_getAsks',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getInvests',
-            call: 'tomox_getInvests',
+            call: 'taox_getInvests',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBorrows',
-            call: 'tomox_getBorrows',
+            call: 'taox_getBorrows',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getLendingTxMatchByHash',
-            call: 'tomox_getLendingTxMatchByHash',
+            call: 'taox_getLendingTxMatchByHash',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'getLiquidatedTradesByTxHash',
-            call: 'tomox_getLiquidatedTradesByTxHash',
+            call: 'taox_getLiquidatedTradesByTxHash',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'getLendingOrderById',
-            call: 'tomox_getLendingOrderById',
+            call: 'taox_getLendingOrderById',
             params: 3
 		}),
 		new web3._extend.Method({
             name: 'getLendingTradeById',
-            call: 'tomox_getLendingTradeById',
+            call: 'taox_getLendingTradeById',
             params: 3
 		}),
 	]
 });
 `
 
-const TomoXLending_JS = `
+const TaoXLending_JS = `
 web3._extend({
-	property: 'tomoxlending',
+	property: 'taoxlending',
 	methods: [
 		new web3._extend.Method({
 			name: 'version',
-			call: 'tomoxlending_version',
+			call: 'taoxlending_version',
 			params: 0,
 			outputFormatter: web3._extend.utils.toDecimal
 		}),
 		new web3._extend.Method({
 			name: 'info',
-			call: 'tomoxlending_info',
+			call: 'taoxlending_info',
 			params: 0
 		}),
 		new web3._extend.Method({
             name: 'createOrder',
-            call: 'tomoxlending_createOrder',
+            call: 'taoxlending_createOrder',
             params: 1,
             inputFormatter: [null]
         }),
         new web3._extend.Method({
             name: 'cancelOrder',
-            call: 'tomoxlending_cancelOrder',
+            call: 'taoxlending_cancelOrder',
             params: 1,
             inputFormatter: [null]
         }),
         new web3._extend.Method({
             name: 'getOrders',
-            call: 'tomoxlending_getOrders',
+            call: 'taoxlending_getOrders',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'getOrderNonce',
-            call: 'tomoxlending_getOrderNonce',
+            call: 'taoxlending_getOrderNonce',
             params: 1,
             inputFormatter: [web3._extend.formatters.inputAddressFormatter]
 		}),
 		new web3._extend.Method({
             name: 'getFeeByEpoch',
-            call: 'tomoxlending_GetFeeByEpoch',
+            call: 'taoxlending_GetFeeByEpoch',
             params: 1,
             inputFormatter: [null, web3._extend.formatters.inputAddressFormatter]
         }),
 		new web3._extend.Method({
             name: 'getPendingOrders',
-            call: 'tomoxlending_getPendingOrders',
+            call: 'taoxlending_getPendingOrders',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'getAllPendingHashes',
-            call: 'tomoxlending_getAllPendingHashes',
+            call: 'taoxlending_getAllPendingHashes',
             params: 0
         }),
 		new web3._extend.Method({
             name: 'sendOrderRawTransaction',
-            call: 'tomoxlending_sendOrderRawTransaction',
+            call: 'taoxlending_sendOrderRawTransaction',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'sendOrderTransaction',
-            call: 'tomoxlending_sendOrder',
+            call: 'taoxlending_sendOrder',
             params: 1
 		}),
 		new web3._extend.Method({
             name: 'getOrderCount',
-            call: 'tomoxlending_getOrderCount',
+            call: 'taoxlending_getOrderCount',
             params: 1
         }),
 		new web3._extend.Method({
             name: 'getBestBid',
-            call: 'tomoxlending_getBestBid',
+            call: 'taoxlending_getBestBid',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBestAsk',
-            call: 'tomoxlending_getBestAsk',
+            call: 'taoxlending_getBestAsk',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getBidTree',
-            call: 'tomoxlending_getBidTree',
+            call: 'taoxlending_getBidTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getAskTree',
-            call: 'tomoxlending_getAskTree',
+            call: 'taoxlending_getAskTree',
             params: 2
 		}),
 		new web3._extend.Method({
             name: 'getOrderById',
-            call: 'tomoxlending_getOrderById',
+            call: 'taoxlending_getOrderById',
             params: 3
 		}),
 		new web3._extend.Method({
             name: 'getPrice',
-            call: 'tomoxlending_getPrice',
+            call: 'taoxlending_getPrice',
             params: 2
 		}),
 	]
@@ -939,7 +939,7 @@ web3._extend({
 
    var sendOrderTransaction = new Method({
        name: 'sendOrder',
-       call: 'tomox_sendOrder',
+       call: 'taox_sendOrder',
        params: 1,
        inputFormatter: [null]
    });

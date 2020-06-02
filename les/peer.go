@@ -26,13 +26,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
-	"github.com/tomochain/tomochain/eth"
-	"github.com/tomochain/tomochain/les/flowcontrol"
-	"github.com/tomochain/tomochain/light"
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/rlp"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
+	"github.com/Tao-Network/tao2/eth"
+	"github.com/Tao-Network/tao2/les/flowcontrol"
+	"github.com/Tao-Network/tao2/light"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/rlp"
 )
 
 var (

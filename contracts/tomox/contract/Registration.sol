@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 import "./SafeMath.sol";
 
-contract AbstractTOMOXListing {
+contract AbstractTAOXListing {
     function getTokenStatus(address) public view returns (bool);
 }
 
@@ -38,7 +38,7 @@ contract RelayerRegistration {
     uint256 public MinimumDeposit;
     uint public ActiveRelayerCount;
 
-    AbstractTOMOXListing private TomoXListing;
+    AbstractTAOXListing private TaoXListing;
 
     /// @dev Events
     /// struct-mapping -> values
@@ -53,8 +53,8 @@ contract RelayerRegistration {
     event SellEvent(bool is_on_sale, address coinbase, uint256 price);
     event BuyEvent(bool success, address coinbase, uint256 price);
 
-    constructor (address tomoxListing, uint maxRelayers, uint maxTokenList, uint minDeposit) public {
-        TomoXListing = AbstractTOMOXListing(tomoxListing);
+    constructor (address taoxListing, uint maxRelayers, uint maxTokenList, uint minDeposit) public {
+        TaoXListing = AbstractTAOXListing(taoxListing);
         RelayerCount = 0;
         ActiveRelayerCount = 0;
         MaximumRelayers = maxRelayers;
@@ -126,7 +126,7 @@ contract RelayerRegistration {
         require(RESIGN_REQUESTS[coinbase] == 0, "The relayer has been requested to close.");
         require(ActiveRelayerCount < MaximumRelayers, "Maximum relayers registered");
 
-        // check valid tokens, token must pair with tomo(x/TOMO)
+        // check valid tokens, token must pair with tao(x/TOMO)
         require(validateTokens(fromTokens, toTokens) == true, "Invalid quote tokens");
 
         RELAYER_COINBASES[RelayerCount] = coinbase;
@@ -329,8 +329,8 @@ contract RelayerRegistration {
         address[] memory nonTomoPairs = new address[](fromTokens.length);
 
         for (uint i = 0; i < toTokens.length; i++) {
-            bool b = TomoXListing.getTokenStatus(toTokens[i]) || (toTokens[i] == tomoNative);
-            b = b && (TomoXListing.getTokenStatus(fromTokens[i]) || fromTokens[i] == tomoNative);
+            bool b = TaoXListing.getTokenStatus(toTokens[i]) || (toTokens[i] == tomoNative);
+            b = b && (TaoXListing.getTokenStatus(fromTokens[i]) || fromTokens[i] == tomoNative);
             if (!b) {
                 return false;
             }
@@ -365,8 +365,8 @@ contract RelayerRegistration {
 
         address[] memory tomoPairs = new address[](RELAYER_LIST[coinbase]._toTokens.length + 1);
 
-        bool b = TomoXListing.getTokenStatus(toToken) || (toToken == tomoNative);
-        b = b && (TomoXListing.getTokenStatus(fromToken) || fromToken == tomoNative);
+        bool b = TaoXListing.getTokenStatus(toToken) || (toToken == tomoNative);
+        b = b && (TaoXListing.getTokenStatus(fromToken) || fromToken == tomoNative);
         if (!b) {
             return false;
         }
@@ -375,7 +375,7 @@ contract RelayerRegistration {
             return true;
         }
 
-        // get tokens that paired with tomo
+        // get tokens that paired with tao
         for (uint i = 0; i < RELAYER_LIST[coinbase]._toTokens.length; i++) {
             if (RELAYER_LIST[coinbase]._toTokens[i] == tomoNative) {
                 tomoPairs[countPair] = RELAYER_LIST[coinbase]._fromTokens[i];

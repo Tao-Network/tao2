@@ -22,8 +22,8 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/tomochain/tomochain/p2p"
-	"github.com/tomochain/tomochain/p2p/nat"
+	"github.com/Tao-Network/tao2/p2p"
+	"github.com/Tao-Network/tao2/p2p/nat"
 )
 
 const (
@@ -55,11 +55,11 @@ func DefaultDataDir() string {
 	home := homeDir()
 	if home != "" {
 		if runtime.GOOS == "darwin" {
-			return filepath.Join(home, "Library", "Tomochain")
+			return filepath.Join(home, "Library", "Tao")
 		} else if runtime.GOOS == "windows" {
-			return filepath.Join(home, "AppData", "Roaming", "Tomochain")
+			return filepath.Join(home, "AppData", "Roaming", "Tao")
 		} else {
-			return filepath.Join(home, ".tomo")
+			return filepath.Join(home, ".tao")
 		}
 	}
 	// As we cannot guess a stable location, return empty and handle later

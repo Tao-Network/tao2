@@ -17,8 +17,8 @@
 package core
 
 import (
-	"github.com/tomochain/tomochain/common"
-	"github.com/tomochain/tomochain/core/types"
+	"github.com/Tao-Network/tao2/common"
+	"github.com/Tao-Network/tao2/core/types"
 )
 
 // TxPreEvent is posted when a transaction enters the transaction pool.

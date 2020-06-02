@@ -25,9 +25,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tomochain/tomochain/rpc"
-	"github.com/tomochain/tomochain/swarm"
-	"github.com/tomochain/tomochain/swarm/api"
+	"github.com/Tao-Network/tao2/rpc"
+	"github.com/Tao-Network/tao2/swarm"
+	"github.com/Tao-Network/tao2/swarm/api"
 
 	"github.com/docker/docker/pkg/reexec"
 )

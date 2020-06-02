@@ -23,8 +23,8 @@ import (
 	"math/rand"
 	"reflect"
 
-	"github.com/tomochain/tomochain/common/hexutil"
-	"github.com/tomochain/tomochain/crypto/sha3"
+	"github.com/Tao-Network/tao2/common/hexutil"
+	"github.com/Tao-Network/tao2/crypto/sha3"
 )
 
 const (
@@ -35,10 +35,10 @@ const (
 	RandomizeSMC                      = "0x0000000000000000000000000000000000000090"
 	FoudationAddr                     = "0x0000000000000000000000000000000000000068"
 	TeamAddr                          = "0x0000000000000000000000000000000000000099"
-	TomoXAddr                         = "0x0000000000000000000000000000000000000091"
+	TaoXAddr                         = "0x0000000000000000000000000000000000000091"
 	TradingStateAddr                  = "0x0000000000000000000000000000000000000092"
-	TomoXLendingAddress               = "0x0000000000000000000000000000000000000093"
-	TomoXLendingFinalizedTradeAddress = "0x0000000000000000000000000000000000000094"
+	TaoXLendingAddress               = "0x0000000000000000000000000000000000000093"
+	TaoXLendingFinalizedTradeAddress = "0x0000000000000000000000000000000000000094"
 	TomoNativeAddress                 = "0x0000000000000000000000000000000000000001"
 	LendingLockAddress                = "0x0000000000000000000000000000000000000011"
 	VoteMethod                        = "0x6dd7d8ea"
@@ -46,7 +46,7 @@ const (
 	ProposeMethod                     = "0x01267951"
 	ResignMethod                      = "0xae6e43f5"
 	SignMethod                        = "0xe341eaa4"
-	TomoXApplyMethod                  = "0xc6b32f34"
+	TaoXApplyMethod                  = "0xc6b32f34"
 	TomoZApplyMethod                  = "0xc6b32f34"
 )
 
