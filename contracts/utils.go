@@ -230,7 +230,7 @@ func GetSignersByExecutingEVM(addrBlockSigner common.Address, client bind.Contra
 
 // Get random from randomize contract.
 func GetRandomizeFromContract(client bind.ContractBackend, addrMasternode common.Address) (int64, error) {
-	randomize, err := randomizeContract.NewTomoRandomize(common.HexToAddress(common.RandomizeSMC), client)
+	randomize, err := randomizeContract.NewTaoRandomize(common.HexToAddress(common.RandomizeSMC), client)
 	if err != nil {
 		log.Error("Fail to get instance of randomize", "error", err)
 	}

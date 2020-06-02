@@ -178,7 +178,7 @@ exec tao $params \
   --identity $IDENTITY \
   --maxpeers $MAXPEERS \
   --password ./password \
-  --port 30303 \
+  --port 20202 \
   --txpool.globalqueue 5000 \
   --txpool.globalslots 5000 \
   --rpc \

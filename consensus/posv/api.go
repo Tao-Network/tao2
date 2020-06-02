@@ -31,7 +31,7 @@ type API struct {
 }
 type NetworkInformation struct {
 	NetworkId                  *big.Int
-	TomoValidatorAddress       common.Address
+	TaoValidatorAddress       common.Address
 	RelayerRegistrationAddress common.Address
 	TaoXListingAddress        common.Address
 	TomoZAddress               common.Address
@@ -101,7 +101,7 @@ func (api *API) NetworkInformation() NetworkInformation {
 	defer api.posv.lock.RUnlock()
 	info := NetworkInformation{}
 	info.NetworkId = api.chain.Config().ChainId
-	info.TomoValidatorAddress = common.HexToAddress(common.MasternodeVotingSMC)
+	info.TaoValidatorAddress = common.HexToAddress(common.MasternodeVotingSMC)
 	if common.IsTestnet {
 		info.LendingAddress = common.HexToAddress(common.LendingRegistrationSMCTestnet)
 		info.RelayerRegistrationAddress = common.HexToAddress(common.RelayerRegistrationSMCTestnet)

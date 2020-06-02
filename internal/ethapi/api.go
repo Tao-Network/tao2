@@ -984,7 +984,7 @@ func (s *PublicBlockChainAPI) getCandidatesFromSmartContract() ([]posv.Masternod
 	}
 
 	addr := common.HexToAddress(common.MasternodeVotingSMC)
-	validator, err := contractValidator.NewTomoValidator(addr, client)
+	validator, err := contractValidator.NewTaoValidator(addr, client)
 	if err != nil {
 		return []posv.Masternode{}, err
 	}

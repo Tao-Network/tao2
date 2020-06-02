@@ -129,7 +129,7 @@ tao account list --datadir ./  --keystore $KEYSTORE_DIR
 ##### Let's start a node
 ```bash
 tao  --syncmode "full" \    
-    --datadir $DATA_DIR --networkid $NETWORK_ID --port 30303 \   
+    --datadir $DATA_DIR --networkid $NETWORK_ID --port 20202 \   
     --keystore $KEYSTORE_DIR --password $PASSWORD \    
     --rpc --rpccorsdomain "*" --rpcaddr 0.0.0.0 --rpcport 8545 --rpcvhosts "*" \   
     --rpcapi "db,eth,net,web3,personal,debug" \    
@@ -152,7 +152,7 @@ tao  --syncmode "full" \
 --password: your account's password.
 --networkid: our network ID.
 --tao-testnet: required when the networkid is testnet(89).
---port: your full-node's listening port (default to 30303)
+--port: your full-node's listening port (default to 20202)
 --rpc, --rpccorsdomain, --rpcaddr, --rpcport, --rpcvhosts: your full-node will accept RPC requests at 8545 TCP.
 --ws, --wsaddr, --wsport, --wsorigins: your full-node will accept Websocket requests at 8546 TCP.
 --mine: your full-node wants to register to be a candidate for masternode selection.

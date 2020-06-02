@@ -22,18 +22,18 @@ import (
 )
 
 type Randomize struct {
-	*contract.TomoRandomizeSession
+	*contract.TaoRandomizeSession
 	contractBackend bind.ContractBackend
 }
 
 func NewRandomize(transactOpts *bind.TransactOpts, contractAddr common.Address, contractBackend bind.ContractBackend) (*Randomize, error) {
-	randomize, err := contract.NewTomoRandomize(contractAddr, contractBackend)
+	randomize, err := contract.NewTaoRandomize(contractAddr, contractBackend)
 	if err != nil {
 		return nil, err
 	}
 
 	return &Randomize{
-		&contract.TomoRandomizeSession{
+		&contract.TaoRandomizeSession{
 			Contract:     randomize,
 			TransactOpts: *transactOpts,
 		},
@@ -42,7 +42,7 @@ func NewRandomize(transactOpts *bind.TransactOpts, contractAddr common.Address, 
 }
 
 func DeployRandomize(transactOpts *bind.TransactOpts, contractBackend bind.ContractBackend) (common.Address, *Randomize, error) {
-	randomizeAddr, _, _, err := contract.DeployTomoRandomize(transactOpts, contractBackend)
+	randomizeAddr, _, _, err := contract.DeployTaoRandomize(transactOpts, contractBackend)
 	if err != nil {
 		return randomizeAddr, nil, err
 	}

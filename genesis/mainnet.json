@@ -11,8 +11,8 @@
       "period": 5,
       "epoch": 360,
       "reward": 360,
-      "rewardCheckpoint": 360,
-      "gap": 180,
+      "rewardCheckpoint": 36,
+      "gap": 5,
       "foudationWalletAddr": "0x4e596130c6ed2f47ae72e30814ddbf0edf2df8f6"
     }
   },

@@ -467,7 +467,7 @@ func New(ctx *node.ServiceContext, config *Config, tomoXServ *taox.TaoX, lending
 				return nil, err
 			}
 			addr := common.HexToAddress(common.MasternodeVotingSMC)
-			validator, err := contractValidator.NewTomoValidator(addr, client)
+			validator, err := contractValidator.NewTaoValidator(addr, client)
 			if err != nil {
 				return nil, err
 			}

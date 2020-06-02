@@ -14,7 +14,7 @@ COPY --from=builder /tomochain/build/bin/tao /usr/local/bin/tao
 RUN chmod +x /usr/local/bin/tao
 
 EXPOSE 8545
-EXPOSE 30303
+EXPOSE 20202
 
 ENTRYPOINT ["/usr/local/bin/tao"]
 

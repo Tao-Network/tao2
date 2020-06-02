@@ -23,18 +23,18 @@ import (
 )
 
 type Validator struct {
-	*contract.TomoValidatorSession
+	*contract.TaoValidatorSession
 	contractBackend bind.ContractBackend
 }
 
 func NewValidator(transactOpts *bind.TransactOpts, contractAddr common.Address, contractBackend bind.ContractBackend) (*Validator, error) {
-	validator, err := contract.NewTomoValidator(contractAddr, contractBackend)
+	validator, err := contract.NewTaoValidator(contractAddr, contractBackend)
 	if err != nil {
 		return nil, err
 	}
 
 	return &Validator{
-		&contract.TomoValidatorSession{
+		&contract.TaoValidatorSession{
 			Contract:     validator,
 			TransactOpts: *transactOpts,
 		},
@@ -52,7 +52,7 @@ func DeployValidator(transactOpts *bind.TransactOpts, contractBackend bind.Contr
 	// 150 masternodes
 	// Candidate Delay Withdraw 30 days = 1296000 blocks
 	// Voter Delay Withdraw 2 days = 86400 blocks
-	validatorAddr, _, _, err := contract.DeployTomoValidator(transactOpts, contractBackend, validatorAddress, caps, ownerAddress, minDeposit, minVoterCap, big.NewInt(150), big.NewInt(1296000), big.NewInt(86400))
+	validatorAddr, _, _, err := contract.DeployTaoValidator(transactOpts, contractBackend, validatorAddress, caps, ownerAddress, minDeposit, minVoterCap, big.NewInt(150), big.NewInt(1296000), big.NewInt(86400))
 	if err != nil {
 		return validatorAddr, nil, err
 	}
