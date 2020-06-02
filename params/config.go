@@ -24,7 +24,7 @@ import (
 )
 
 var (
-	TaoMainnetGenesisHash = common.HexToHash("114bf81b4c79870934846bd879ef4db59392eb0152ed9482bdc9a499a12a3538") // Tao Mainnet genesis hash to enforce below configs on
+	TaoMainnetGenesisHash = common.HexToHash("03853c63a38f6b8ac9daf36db18b9200ab450a1d276b0a6ffae073a5cd1d0230") // Tao Mainnet genesis hash to enforce below configs on
 	MainnetGenesisHash     = common.HexToHash("8d13370621558f4ed0da587934473c0404729f28b0ff1d50e5fdd840457a2f17") // Mainnet genesis hash to enforce below configs on
 	TestnetGenesisHash     = common.HexToHash("dffc8ae3b45965404b4fd73ce7f0e13e822ac0fc23ce7e95b42bc5f1e57023a5") // Testnet genesis hash to enforce below configs on
 )
