@@ -78,7 +78,7 @@ func TestSendTxRandomizeSecretAndOpening(t *testing.T) {
 
 	transactOpts := bind.NewKeyedTransactor(acc1Key)
 	transactOpts.GasLimit = 4200000
-	epocNumber := uint64(900)
+	epocNumber := uint64(360)
 	randomizeAddr, randomizeContract, err := DeployRandomize(transactOpts, backend)
 	if err != nil {
 		t.Fatalf("Can't deploy randomize SC: %v", err)
@@ -87,10 +87,10 @@ func TestSendTxRandomizeSecretAndOpening(t *testing.T) {
 
 	randomizeKeyValue := contracts.RandStringByte(32)
 
-	for i := 1; i <= 900; i++ {
+	for i := 1; i <= 360; i++ {
 		nonce := uint64(i)
 		switch i {
-		case 800:
+		case 300:
 			tx, err := contracts.BuildTxSecretRandomize(nonce, randomizeAddr, epocNumber, randomizeKeyValue)
 			if err != nil {
 				t.Fatalf("Can't create tx randomize secret: %v", err)
@@ -103,7 +103,7 @@ func TestSendTxRandomizeSecretAndOpening(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Can't send tx for create randomize secret: %v", err)
 			}
-		case 850:
+		case 330:
 			// Set opening.
 			tx, err := contracts.BuildTxOpeningRandomize(nonce, randomizeAddr, randomizeKeyValue)
 			if err != nil {
@@ -118,7 +118,7 @@ func TestSendTxRandomizeSecretAndOpening(t *testing.T) {
 				t.Fatalf("Can't send tx for create randomize opening: %v", err)
 			}
 
-		case 900:
+		case 360:
 			// Get randomize secret from SC.
 			secrets, err := randomizeContract.GetSecret(acc1Addr)
 			if err != nil {
