@@ -467,15 +467,15 @@ func (pool *OrderPool) validateOrder(tx *types.OrderTransaction) error {
 			if !ok {
 				return ErrNotPoSV
 			}
-			tomoXServ := posvEngine.GetTaoXService()
-			if tomoXServ == nil {
+			taoXServ := posvEngine.GetTaoXService()
+			if taoXServ == nil {
 				return fmt.Errorf("taox not found in order validation")
 			}
-			baseDecimal, err := tomoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.BaseToken())
+			baseDecimal, err := taoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.BaseToken())
 			if err != nil {
 				return fmt.Errorf("validateOrder: failed to get baseDecimal. err: %v", err)
 			}
-			quoteDecimal, err := tomoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.QuoteToken())
+			quoteDecimal, err := taoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.QuoteToken())
 			if err != nil {
 				return fmt.Errorf("validateOrder: failed to get quoteDecimal. err: %v", err)
 			}

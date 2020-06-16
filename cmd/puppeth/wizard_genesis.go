@@ -161,14 +161,14 @@ func (w *wizard) makeGenesis() {
 		}
 
 		fmt.Println()
-		fmt.Println("How many blocks per epoch? (default = 900)")
-		epochNumber := uint64(w.readDefaultInt(900))
+		fmt.Println("How many blocks per epoch? (default = 360)")
+		epochNumber := uint64(w.readDefaultInt(360))
 		genesis.Config.Posv.Epoch = epochNumber
 		genesis.Config.Posv.RewardCheckpoint = epochNumber
 
 		fmt.Println()
-		fmt.Println("How many blocks before checkpoint need to prepare new set of masternodes? (default = 450)")
-		genesis.Config.Posv.Gap = uint64(w.readDefaultInt(450))
+		fmt.Println("How many blocks before checkpoint need to prepare new set of masternodes? (default = 360)")
+		genesis.Config.Posv.Gap = uint64(w.readDefaultInt(360))
 
 		fmt.Println()
 		fmt.Println("What is foundation wallet address? (default = 0x0000000000000000000000000000000000000068)")

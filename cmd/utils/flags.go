@@ -208,7 +208,7 @@ var (
 	// TaoX settings
 	TaoXEnabledFlag = cli.BoolFlag{
 		Name:  "taox",
-		Usage: "Enable the tomoX protocol",
+		Usage: "Enable the taoX protocol",
 	}
 	// Ethash settings
 	EthashCacheDirFlag = DirectoryFlag{

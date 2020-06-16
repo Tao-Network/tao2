@@ -518,12 +518,12 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 	if !ok {
 		return ErrNotPoSV
 	}
-	tomoXServ := posvEngine.GetTaoXService()
+	taoXServ := posvEngine.GetTaoXService()
 	lendingServ := posvEngine.GetLendingService()
-	if tomoXServ == nil {
+	if taoXServ == nil {
 		return fmt.Errorf("taox not found in order validation")
 	}
-	lendingTokenDecimal, err := tomoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.LendingToken())
+	lendingTokenDecimal, err := taoXServ.GetTokenDecimal(pool.chain, cloneStateDb, tx.LendingToken())
 	if err != nil {
 		return fmt.Errorf("validateOrder: failed to get lendingTokenDecimal. err: %v", err)
 	}
@@ -531,7 +531,7 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 	if err!= nil {
 		return err
 	}
-	tradingStateDb, err := tomoXServ.GetTradingState(pool.chain.CurrentBlock(), author)
+	tradingStateDb, err := taoXServ.GetTradingState(pool.chain.CurrentBlock(), author)
 	if err != nil {
 		return fmt.Errorf("validateLending: failed to get tradingStateDb. Error: %v", err)
 	}
@@ -542,7 +542,7 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 	// lendTokenTOMOPrice: price of lendingToken in TOMO quote
 	var lendTokenTOMOPrice, collateralPrice, collateralTokenDecimal *big.Int
 	if collateralToken.String() != lendingstate.EmptyAddress {
-		collateralTokenDecimal, err = tomoXServ.GetTokenDecimal(pool.chain, cloneStateDb, collateralToken)
+		collateralTokenDecimal, err = taoXServ.GetTokenDecimal(pool.chain, cloneStateDb, collateralToken)
 		if err != nil {
 			return fmt.Errorf("validateOrder: failed to get collateralTokenDecimal. err: %v", err)
 		}

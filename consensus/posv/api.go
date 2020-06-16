@@ -34,7 +34,7 @@ type NetworkInformation struct {
 	TaoValidatorAddress       common.Address
 	RelayerRegistrationAddress common.Address
 	TaoXListingAddress        common.Address
-	TomoZAddress               common.Address
+	TaoZAddress               common.Address
 	LendingAddress             common.Address
 }
 
@@ -106,12 +106,12 @@ func (api *API) NetworkInformation() NetworkInformation {
 		info.LendingAddress = common.HexToAddress(common.LendingRegistrationSMCTestnet)
 		info.RelayerRegistrationAddress = common.HexToAddress(common.RelayerRegistrationSMCTestnet)
 		info.TaoXListingAddress = common.TaoXListingSMCTestNet
-		info.TomoZAddress = common.TRC21IssuerSMCTestNet
+		info.TaoZAddress = common.TRC21IssuerSMCTestNet
 	} else {
 		info.LendingAddress = common.HexToAddress(common.LendingRegistrationSMC)
 		info.RelayerRegistrationAddress = common.HexToAddress(common.RelayerRegistrationSMC)
 		info.TaoXListingAddress = common.TaoXListingSMC
-		info.TomoZAddress = common.TRC21IssuerSMC
+		info.TaoZAddress = common.TRC21IssuerSMC
 	}
 	return info
 }

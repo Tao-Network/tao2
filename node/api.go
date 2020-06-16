@@ -350,17 +350,17 @@ func (api *PublicDebugAPI) Metrics(raw bool) (map[string]interface{}, error) {
 
 			case metrics.Meter:
 				root[name] = map[string]interface{}{
-					"Avg01Min": format(metric.Rate1()*60, metric.Rate1()),
-					"Avg05Min": format(metric.Rate5()*300, metric.Rate5()),
-					"Avg15Min": format(metric.Rate15()*900, metric.Rate15()),
+					"Avg01Min": format(metric.Rate1()*12, metric.Rate1()),
+					"Avg05Min": format(metric.Rate5()*60, metric.Rate5()),
+					"Avg15Min": format(metric.Rate15()*180, metric.Rate15()),
 					"Overall":  format(float64(metric.Count()), metric.RateMean()),
 				}
 
 			case metrics.Timer:
 				root[name] = map[string]interface{}{
-					"Avg01Min": format(metric.Rate1()*60, metric.Rate1()),
-					"Avg05Min": format(metric.Rate5()*300, metric.Rate5()),
-					"Avg15Min": format(metric.Rate15()*900, metric.Rate15()),
+					"Avg01Min": format(metric.Rate1()*12, metric.Rate1()),
+					"Avg05Min": format(metric.Rate5()*60, metric.Rate5()),
+					"Avg15Min": format(metric.Rate15()*180, metric.Rate15()),
 					"Overall":  format(float64(metric.Count()), metric.RateMean()),
 					"Maximum":  time.Duration(metric.Max()).String(),
 					"Minimum":  time.Duration(metric.Min()).String(),

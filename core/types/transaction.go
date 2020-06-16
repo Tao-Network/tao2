@@ -438,7 +438,7 @@ func (tx *Transaction) IsTaoXApplyTransaction() bool {
 	return true
 }
 
-func (tx *Transaction) IsTomoZApplyTransaction() bool {
+func (tx *Transaction) IsTaoZApplyTransaction() bool {
 	if tx.To() == nil {
 		return false
 	}
@@ -452,7 +452,7 @@ func (tx *Transaction) IsTomoZApplyTransaction() bool {
 	}
 
 	method := common.ToHex(tx.Data()[0:4])
-	if method != common.TomoZApplyMethod {
+	if method != common.TaoZApplyMethod {
 		return false
 	}
 

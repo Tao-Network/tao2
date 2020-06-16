@@ -20,11 +20,11 @@ func RegisterEthService(stack *node.Node, cfg *eth.Config) {
 		})
 	} else {
 		err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-			var tomoXServ *taox.TaoX
-			ctx.Service(&tomoXServ)
+			var taoXServ *taox.TaoX
+			ctx.Service(&taoXServ)
 			var lendingServ *taoxlending.Lending
 			ctx.Service(&lendingServ)
-			fullNode, err := eth.New(ctx, cfg, tomoXServ,lendingServ)
+			fullNode, err := eth.New(ctx, cfg, taoXServ,lendingServ)
 			if fullNode != nil && cfg.LightServ > 0 {
 				ls, _ := les.NewLesServer(fullNode, cfg)
 				fullNode.AddLesServer(ls)
@@ -64,16 +64,16 @@ func RegisterEthStatsService(stack *node.Node, url string) {
 }
 
 func RegisterTaoXService(stack *node.Node, cfg *taox.Config) {
-	tomoX := taox.New(cfg)
+	taoX := taox.New(cfg)
 	if err := stack.Register(func(n *node.ServiceContext) (node.Service, error) {
-		return tomoX, nil
+		return taoX, nil
 	}); err != nil {
 		Fatalf("Failed to register the TaoX service: %v", err)
 	}
 
 	// register taoxlending service
 	if err := stack.Register(func(n *node.ServiceContext) (node.Service, error) {
-		return taoxlending.New(tomoX), nil
+		return taoxlending.New(taoX), nil
 	}); err != nil {
 		Fatalf("Failed to register the TaoXLending service: %v", err)
 	}

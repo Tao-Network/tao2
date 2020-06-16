@@ -43,7 +43,7 @@ var (
 			Period:              5,
 			Epoch:               360,
 			Reward:              360,
-			RewardCheckpoint:    36,
+			RewardCheckpoint:    360,
 			Gap:                 5,
 			FoudationWalletAddr: common.HexToAddress("0x4e596130c6ed2f47ae72e30814ddbf0edf2df8f6"),
 		},

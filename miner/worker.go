@@ -458,8 +458,8 @@ func (self *worker) makeCurrent(parent *types.Block, header *types.Header) error
 	var taoxState *tradingstate.TradingStateDB
 	var lendingState *lendingstate.LendingStateDB
 	if self.config.Posv != nil {
-		tomoX := self.eth.GetTaoX()
-		taoxState, err = tomoX.GetTradingState(parent, author)
+		taoX := self.eth.GetTaoX()
+		taoxState, err = taoX.GetTradingState(parent, author)
 		if err != nil {
 			log.Error("Failed to get taox state ", "number", parent.Number(), "err", err)
 			return err
@@ -652,11 +652,11 @@ func (self *worker) commitNewWork() {
 			return
 		}
 		if self.config.Posv != nil && self.chain.Config().IsTIPTaoX(header.Number) {
-			tomoX := self.eth.GetTaoX()
-			tomoXLending := self.eth.GetTaoXLending()
-			if tomoX != nil && header.Number.Uint64() > self.config.Posv.Epoch {
+			taoX := self.eth.GetTaoX()
+			taoXLending := self.eth.GetTaoXLending()
+			if taoX != nil && header.Number.Uint64() > self.config.Posv.Epoch {
 				if header.Number.Uint64()%self.config.Posv.Epoch == 0 {
-					err := tomoX.UpdateMediumPriceBeforeEpoch(header.Number.Uint64()/self.config.Posv.Epoch, work.tradingState, work.state)
+					err := taoX.UpdateMediumPriceBeforeEpoch(header.Number.Uint64()/self.config.Posv.Epoch, work.tradingState, work.state)
 					if err != nil {
 						log.Error("Fail when update medium price last epoch", "error", err)
 						return
@@ -668,14 +668,14 @@ func (self *worker) commitNewWork() {
 					log.Debug("Start processing order pending")
 					tradingOrderPending, _ := self.eth.OrderPool().Pending()
 					log.Debug("Start processing order pending", "len", len(tradingOrderPending))
-					tradingTxMatches, tradingMatchingResults = tomoX.ProcessOrderPending(self.coinbase, self.chain, tradingOrderPending, work.state, work.tradingState)
+					tradingTxMatches, tradingMatchingResults = taoX.ProcessOrderPending(self.coinbase, self.chain, tradingOrderPending, work.state, work.tradingState)
 					log.Debug("trading transaction matches found", "tradingTxMatches", len(tradingTxMatches))
 
 					lendingOrderPending, _ := self.eth.LendingPool().Pending()
-					lendingInput, lendingMatchingResults = tomoXLending.ProcessOrderPending(header, self.coinbase, self.chain, lendingOrderPending, work.state, work.lendingState, work.tradingState)
+					lendingInput, lendingMatchingResults = taoXLending.ProcessOrderPending(header, self.coinbase, self.chain, lendingOrderPending, work.state, work.lendingState, work.tradingState)
 					log.Debug("lending transaction matches found", "lendingInput", len(lendingInput), "lendingMatchingResults", len(lendingMatchingResults))
 					if header.Number.Uint64()%self.config.Posv.Epoch == common.LiquidateLendingTradeBlock {
-						updatedTrades, liquidatedTrades, autoRepayTrades, autoTopUpTrades, autoRecallTrades, err = tomoXLending.ProcessLiquidationData(header, self.chain, work.state, work.tradingState, work.lendingState)
+						updatedTrades, liquidatedTrades, autoRepayTrades, autoTopUpTrades, autoRecallTrades, err = taoXLending.ProcessLiquidationData(header, self.chain, work.state, work.tradingState, work.lendingState)
 						if err != nil {
 							log.Error("Fail when process lending liquidation data ", "error", err)
 							return
@@ -701,7 +701,7 @@ func (self *worker) commitNewWork() {
 						return
 					} else {
 						tradingTransaction = txM
-						if tomoX.IsSDKNode() {
+						if taoX.IsSDKNode() {
 							self.chain.AddMatchingResult(tradingTransaction.Hash(), tradingMatchingResults)
 						}
 					}
@@ -726,7 +726,7 @@ func (self *worker) commitNewWork() {
 						return
 					} else {
 						lendingTransaction = signedLendingTx
-						if tomoX.IsSDKNode() {
+						if taoX.IsSDKNode() {
 							self.chain.AddLendingResult(lendingTransaction.Hash(), lendingMatchingResults)
 						}
 					}
@@ -747,7 +747,7 @@ func (self *worker) commitNewWork() {
 						return
 					} else {
 						lendingFinalizedTradeTransaction = signedFinalizedTx
-						if tomoX.IsSDKNode() {
+						if taoX.IsSDKNode() {
 							self.chain.AddFinalizedTrades(lendingFinalizedTradeTransaction.Hash(), updatedTrades)
 						}
 					}
@@ -852,11 +852,11 @@ func (env *Work) commitTransactions(mux *event.TypeMux, balanceFee map[common.Ad
 			}
 		}
 
-		// validate minFee slot for TomoZ
-		if tx.IsTomoZApplyTransaction() {
+		// validate minFee slot for TaoZ
+		if tx.IsTaoZApplyTransaction() {
 			copyState, _ := bc.State()
-			if err := core.ValidateTomoZApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
-				log.Debug("TomoZApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
+			if err := core.ValidateTaoZApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
+				log.Debug("TaoZApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
 				txs.Pop()
 				continue
 			}
@@ -967,11 +967,11 @@ func (env *Work) commitTransactions(mux *event.TypeMux, balanceFee map[common.Ad
 			}
 		}
 
-		// validate minFee slot for TomoZ
-		if tx.IsTomoZApplyTransaction() {
+		// validate minFee slot for TaoZ
+		if tx.IsTaoZApplyTransaction() {
 			copyState, _ := bc.State()
-			if err := core.ValidateTomoZApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
-				log.Debug("TomoZApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
+			if err := core.ValidateTaoZApplyTransaction(bc, nil, copyState, common.BytesToAddress(tx.Data()[4:])); err != nil {
+				log.Debug("TaoZApply: invalid token", "token", common.BytesToAddress(tx.Data()[4:]).Hex())
 				txs.Pop()
 				continue
 			}

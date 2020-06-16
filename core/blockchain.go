@@ -508,11 +508,11 @@ func (bc *BlockChain) StateAt(root common.Hash) (*state.StateDB, error) {
 func (bc *BlockChain) OrderStateAt(block *types.Block) (*tradingstate.TradingStateDB, error) {
 	engine, ok := bc.Engine().(*posv.Posv)
 	if ok {
-		tomoXService := engine.GetTaoXService()
-		if bc.Config().IsTIPTaoX(block.Number()) && tomoXService != nil {
+		taoXService := engine.GetTaoXService()
+		if bc.Config().IsTIPTaoX(block.Number()) && taoXService != nil {
 			author, _ := bc.Engine().Author(block.Header())
 			log.Debug("OrderStateAt", "blocknumber", block.Header().Number)
-			taoxState, err := tomoXService.GetTradingState(block, author)
+			taoxState, err := taoXService.GetTradingState(block, author)
 			if err == nil {
 				return taoxState, nil
 			} else {
@@ -2516,8 +2516,8 @@ func (bc *BlockChain) logExchangeData(block *types.Block) {
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTaoXService()
-	if tomoXService == nil || !tomoXService.IsSDKNode() {
+	taoXService := engine.GetTaoXService()
+	if taoXService == nil || !taoXService.IsSDKNode() {
 		return
 	}
 	txMatchBatchData, err := ExtractTradingTransactions(block.Transactions())
@@ -2571,7 +2571,7 @@ func (bc *BlockChain) logExchangeData(block *types.Block) {
 			// old txData has been attached with nanosecond, to avoid hard fork, convert nanosecond to millisecond here
 			milliSecond := txMatchBatch.Timestamp / 1e6
 			txMatchTime := time.Unix(0, milliSecond*1e6).UTC()
-			if err := tomoXService.SyncDataToSDKNode(takerOrderInTx, txMatchBatch.TxHash, txMatchTime, currentState, trades, rejectedOrders, &dirtyOrderCount); err != nil {
+			if err := taoXService.SyncDataToSDKNode(takerOrderInTx, txMatchBatch.TxHash, txMatchTime, currentState, trades, rejectedOrders, &dirtyOrderCount); err != nil {
 				log.Crit("failed to SyncDataToSDKNode ", "blockNumber", block.Number(), "err", err)
 				return
 			}
@@ -2584,9 +2584,9 @@ func (bc *BlockChain) reorgTxMatches(deletedTxs types.Transactions, newChain typ
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTaoXService()
+	taoXService := engine.GetTaoXService()
 	lendingService := engine.GetLendingService()
-	if tomoXService == nil || !tomoXService.IsSDKNode() {
+	if taoXService == nil || !taoXService.IsSDKNode() {
 		return
 	}
 	start := time.Now()
@@ -2598,7 +2598,7 @@ func (bc *BlockChain) reorgTxMatches(deletedTxs types.Transactions, newChain typ
 	for _, deletedTx := range deletedTxs {
 		if deletedTx.IsTradingTransaction() {
 			log.Debug("Rollback reorg txMatch", "txhash", deletedTx.Hash())
-			if err := tomoXService.RollbackReorgTxMatch(deletedTx.Hash()); err != nil {
+			if err := taoXService.RollbackReorgTxMatch(deletedTx.Hash()); err != nil {
 				log.Crit("Reorg trading failed", "err", err, "hash", deletedTx.Hash())
 			}
 		}
@@ -2622,8 +2622,8 @@ func (bc *BlockChain) logLendingData(block *types.Block) {
 	if !ok || engine == nil {
 		return
 	}
-	tomoXService := engine.GetTaoXService()
-	if tomoXService == nil || !tomoXService.IsSDKNode() {
+	taoXService := engine.GetTaoXService()
+	if taoXService == nil || !taoXService.IsSDKNode() {
 		return
 	}
 	lendingService := engine.GetLendingService()

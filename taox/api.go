@@ -18,7 +18,7 @@ var (
 	ErrOrderNonceTooHigh = errors.New("OrderNonce too high")
 )
 
-// PublicTaoXAPI provides the tomoX RPC service that can be
+// PublicTaoXAPI provides the taoX RPC service that can be
 // use publicly without security implications.
 type PublicTaoXAPI struct {
 	t        *TaoX
@@ -27,7 +27,7 @@ type PublicTaoXAPI struct {
 
 }
 
-// NewPublicTaoXAPI create a new RPC tomoX service.
+// NewPublicTaoXAPI create a new RPC taoX service.
 func NewPublicTaoXAPI(t *TaoX) *PublicTaoXAPI {
 	api := &PublicTaoXAPI{
 		t:        t,

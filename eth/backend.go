@@ -119,7 +119,7 @@ func (s *Ethereum) AddLesServer(ls LesServer) {
 
 // New creates a new Ethereum object (including the
 // initialisation of the common Ethereum object)
-func New(ctx *node.ServiceContext, config *Config, tomoXServ *taox.TaoX, lendingServ *taoxlending.Lending) (*Ethereum, error) {
+func New(ctx *node.ServiceContext, config *Config, taoXServ *taox.TaoX, lendingServ *taoxlending.Lending) (*Ethereum, error) {
 	if config.SyncMode == downloader.LightSync {
 		return nil, errors.New("can't run eth.Ethereum in light sync mode, use les.LightEthereum")
 	}
@@ -154,8 +154,8 @@ func New(ctx *node.ServiceContext, config *Config, tomoXServ *taox.TaoX, lending
 		bloomIndexer:   NewBloomIndexer(chainDb, params.BloomBitsBlocks),
 	}
 	// Inject TaoX Service into main Eth Service.
-	if tomoXServ != nil {
-		eth.TaoX = tomoXServ
+	if taoXServ != nil {
+		eth.TaoX = taoXServ
 	}
 	if lendingServ != nil {
 		eth.Lending = lendingServ
@@ -182,7 +182,7 @@ func New(ctx *node.ServiceContext, config *Config, tomoXServ *taox.TaoX, lending
 			return eth.Lending
 		}
 	}
-	eth.blockchain, err = core.NewBlockChainEx(chainDb, tomoXServ.GetLevelDB(), cacheConfig, eth.chainConfig, eth.engine, vmConfig)
+	eth.blockchain, err = core.NewBlockChainEx(chainDb, taoXServ.GetLevelDB(), cacheConfig, eth.chainConfig, eth.engine, vmConfig)
 	if err != nil {
 		return nil, err
 	}

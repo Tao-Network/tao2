@@ -47,7 +47,7 @@ const (
 	ResignMethod                      = "0xae6e43f5"
 	SignMethod                        = "0xe341eaa4"
 	TaoXApplyMethod                  = "0xc6b32f34"
-	TomoZApplyMethod                  = "0xc6b32f34"
+	TaoZApplyMethod                  = "0xc6b32f34"
 )
 
 var (

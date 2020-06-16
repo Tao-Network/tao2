@@ -12,15 +12,15 @@ contract TaoRandomize {
     }
 
     function setSecret(bytes32[] _secret) public {
-        uint secretPoint =  block.number % 900;
-        require(secretPoint >= 800);
-        require(secretPoint < 850);
+        uint secretPoint =  block.number % 360;
+        require(secretPoint >= 300);
+        require(secretPoint < 330);
         randomSecret[msg.sender] = _secret;
     }
 
     function setOpening(bytes32 _opening) public {
-        uint openingPoint =  block.number % 900;
-        require(openingPoint >= 850);
+        uint openingPoint =  block.number % 360;
+        require(openingPoint >= 330);
         randomOpening[msg.sender] = _opening;
     }
 

@@ -141,7 +141,7 @@ func ValidateTaoXApplyTransaction(chain consensus.ChainContext, blockNumber *big
 
 // make sure that balance of token is at slot 0
 // make sure that minFee of token is at slot 1
-func ValidateTomoZApplyTransaction(chain consensus.ChainContext, blockNumber *big.Int, copyState *state.StateDB, tokenAddr common.Address) error {
+func ValidateTaoZApplyTransaction(chain consensus.ChainContext, blockNumber *big.Int, copyState *state.StateDB, tokenAddr common.Address) error {
 	if blockNumber == nil || blockNumber.Sign() <= 0 {
 		blockNumber = chain.CurrentHeader().Number
 	}
@@ -150,7 +150,7 @@ func ValidateTomoZApplyTransaction(chain consensus.ChainContext, blockNumber *bi
 	}
 	contractABI, err := GetTokenAbi(contract.TRC21ABI)
 	if err != nil {
-		return fmt.Errorf("ValidateTomoZApplyTransaction: cannot parse ABI. Err: %v", err)
+		return fmt.Errorf("ValidateTaoZApplyTransaction: cannot parse ABI. Err: %v", err)
 	}
 	// verify balance slot
 	if err := ValidateBalanceSlot(chain, copyState, tokenAddr, contractABI); err != nil {

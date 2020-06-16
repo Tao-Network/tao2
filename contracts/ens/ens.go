@@ -31,7 +31,7 @@ import (
 )
 
 var (
-	MainNetAddress = common.HexToAddress("0x314159265dD8dbb310642f98f50C066173C1259b")
+	MainNetAddress = common.HexToAddress("0xf9680de94f0a39f948088c41fa9228f60f4145b2")
 	TestNetAddress = common.HexToAddress("0x112234455c3a32fd11230c42e7bccd4a84e02010")
 )
 

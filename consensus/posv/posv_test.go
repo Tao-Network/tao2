@@ -21,7 +21,7 @@ func TestGetM1M2FromCheckpointHeader(t *testing.T) {
 		1,
 		0,
 	}
-	epoch := uint64(900)
+	epoch := uint64(360)
 	config := &params.ChainConfig{
 		Posv: &params.PosvConfig{
 			Epoch: uint64(epoch),

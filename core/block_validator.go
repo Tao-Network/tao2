@@ -110,8 +110,8 @@ func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, taoxStated
 	if posvEngine == nil || !ok {
 		return ErrNotPoSV
 	}
-	tomoXService := posvEngine.GetTaoXService()
-	if tomoXService == nil {
+	taoXService := posvEngine.GetTaoXService()
+	if taoXService == nil {
 		return fmt.Errorf("taox not found")
 	}
 	log.Debug("verify matching transaction found a TxMatches Batch", "numTxMatches", len(txMatchBatch.Data))
@@ -126,7 +126,7 @@ func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, taoxStated
 
 		log.Debug("process tx match", "order", order)
 		// process Matching Engine
-		newTrades, newRejectedOrders, err := tomoXService.ApplyOrder(coinbase, v.bc, statedb, taoxStatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
+		newTrades, newRejectedOrders, err := taoXService.ApplyOrder(coinbase, v.bc, statedb, taoxStatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
 		if err != nil {
 			return err
 		}
@@ -135,7 +135,7 @@ func (v *BlockValidator) ValidateTradingOrder(statedb *state.StateDB, taoxStated
 			Rejects: newRejectedOrders,
 		}
 	}
-	if tomoXService.IsSDKNode() {
+	if taoXService.IsSDKNode() {
 		v.bc.AddMatchingResult(txMatchBatch.TxHash, tradingResult)
 	}
 	return nil
@@ -146,8 +146,8 @@ func (v *BlockValidator) ValidateLendingOrder(statedb *state.StateDB, lendingSta
 	if posvEngine == nil || !ok {
 		return ErrNotPoSV
 	}
-	tomoXService := posvEngine.GetTaoXService()
-	if tomoXService == nil {
+	taoXService := posvEngine.GetTaoXService()
+	if taoXService == nil {
 		return fmt.Errorf("taox not found")
 	}
 	lendingService := posvEngine.GetLendingService()
@@ -170,7 +170,7 @@ func (v *BlockValidator) ValidateLendingOrder(statedb *state.StateDB, lendingSta
 			Rejects: newRejectedOrders,
 		}
 	}
-	if tomoXService.IsSDKNode() {
+	if taoXService.IsSDKNode() {
 		v.bc.AddLendingResult(batch.TxHash, lendingResult)
 	}
 	return nil

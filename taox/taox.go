@@ -98,7 +98,7 @@ func NewMongoDBEngine(cfg *Config) *taoxDAO.MongoDatabase {
 func New(cfg *Config) *TaoX {
 	tokenDecimalCache, _ := lru.New(defaultCacheLimit)
 	orderCache, _ := lru.New(tradingstate.OrderCacheLimit)
-	tomoX := &TaoX{
+	taoX := &TaoX{
 		orderNonce:        make(map[common.Address]*big.Int),
 		Triegc:            prque.New(),
 		tokenDecimalCache: tokenDecimalCache,
@@ -106,18 +106,18 @@ func New(cfg *Config) *TaoX {
 	}
 
 	// default DBEngine: levelDB
-	tomoX.db = NewLDBEngine(cfg)
-	tomoX.sdkNode = false
+	taoX.db = NewLDBEngine(cfg)
+	taoX.sdkNode = false
 
 	if cfg.DBEngine == "mongodb" { // this is an add-on DBEngine for SDK nodes
-		tomoX.mongodb = NewMongoDBEngine(cfg)
-		tomoX.sdkNode = true
+		taoX.mongodb = NewMongoDBEngine(cfg)
+		taoX.sdkNode = true
 	}
 
-	tomoX.StateCache = tradingstate.NewDatabase(tomoX.db)
-	tomoX.settings.Store(overflowIdx, false)
+	taoX.StateCache = tradingstate.NewDatabase(taoX.db)
+	taoX.settings.Store(overflowIdx, false)
 
-	return tomoX
+	return taoX
 }
 
 // Overflow returns an indication if the message queue is full.
@@ -155,7 +155,7 @@ func (taox *TaoX) Version() uint64 {
 	return ProtocolVersion
 }
 
-func (taox *TaoX) ProcessOrderPending(coinbase common.Address, chain consensus.ChainContext, pending map[common.Address]types.OrderTransactions, statedb *state.StateDB, tomoXstatedb *tradingstate.TradingStateDB) ([]tradingstate.TxDataMatch, map[common.Hash]tradingstate.MatchingResult) {
+func (taox *TaoX) ProcessOrderPending(coinbase common.Address, chain consensus.ChainContext, pending map[common.Address]types.OrderTransactions, statedb *state.StateDB, taoXstatedb *tradingstate.TradingStateDB) ([]tradingstate.TxDataMatch, map[common.Hash]tradingstate.MatchingResult) {
 	txMatches := []tradingstate.TxDataMatch{}
 	matchingResults := map[common.Hash]tradingstate.MatchingResult{}
 
@@ -213,7 +213,7 @@ func (taox *TaoX) ProcessOrderPending(coinbase common.Address, chain consensus.C
 			order.Status = tradingstate.OrderStatusCancelled
 		}
 
-		newTrades, newRejectedOrders, err := taox.CommitOrder(coinbase, chain, statedb, tomoXstatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
+		newTrades, newRejectedOrders, err := taox.CommitOrder(coinbase, chain, statedb, taoXstatedb, tradingstate.GetTradingOrderBookHash(order.BaseToken, order.QuoteToken), order)
 
 		for _, reject := range newRejectedOrders {
 			log.Debug("Reject order", "reject", *reject)
