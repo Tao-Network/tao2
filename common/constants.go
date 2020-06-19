@@ -30,13 +30,13 @@ const (
 var Rewound = uint64(0)
 
 // hardforks
-var TIP2019Block = big.NewInt(518400)
-var TIPSigning = big.NewInt(518400)
-var TIPRandomize = big.NewInt(518400)
-var BlackListHFNumber = uint64(518400)
-var TIPTaoX = big.NewInt(518400)
-var TIPTaoXTestnet = big.NewInt(518400)
-var TIPTaoXLending = big.NewInt(0)
+var TIP2019Block = big.NewInt(1)
+var TIPSigning = big.NewInt(1)
+var TIPRandomize = big.NewInt(1)
+var BlackListHFNumber = uint64(1)
+var TIPTaoX = big.NewInt(1555200)
+var TIPTaoXTestnet = big.NewInt(1555200)
+var TIPTaoXLending = big.NewInt(4665600)
 
 var IsTestnet bool = false
 var StoreRewardFolder string
@@ -52,14 +52,14 @@ var RelayerLendingCancelFee = big.NewInt(1000000000000000)              // 0.001
 var BaseLendingInterest = big.NewInt(100000000)                         // 1e8
 
 var MinGasPrice = big.NewInt(DefaultMinGasPrice)
-var RelayerRegistrationSMC = "0x"
-var RelayerRegistrationSMCTestnet = "0x"
-var LendingRegistrationSMC = "0x"
-var LendingRegistrationSMCTestnet = "0x"
-var TRC21IssuerSMCTestNet = HexToAddress("0x")
-var TRC21IssuerSMC = HexToAddress("0x")
-var TaoXListingSMC = HexToAddress("0x")
-var TaoXListingSMCTestNet = HexToAddress("0x")
+var RelayerRegistrationSMC = "0x7ed7f65d63362d35e9977fc64c6f6b2812563108"
+var RelayerRegistrationSMCTestnet = "0x7ed7f65d63362d35e9977fc64c6f6b2812563108"
+var LendingRegistrationSMC = "0xf0387a1243a593c90a518894341135cbfe303ff5"
+var LendingRegistrationSMCTestnet = "0xf0387a1243a593c90a518894341135cbfe303ff5"
+var TRC21IssuerSMCTestNet = HexToAddress("0x81e4d65a002417745ff361c225ce533a7300e51c")
+var TRC21IssuerSMC = HexToAddress("0x81e4d65a002417745ff361c225ce533a7300e51c")
+var TaoXListingSMC = HexToAddress("0x006704b9b461c4b4ffc932208f0650013fe0bd3c")
+var TaoXListingSMCTestNet = HexToAddress("0x006704b9b461c4b4ffc932208f0650013fe0bd3c")
 var TRC21GasPriceBefore = big.NewInt(2500)
 var TRC21GasPrice = big.NewInt(250000000)
 var RateTopUp = big.NewInt(90) // 90%
