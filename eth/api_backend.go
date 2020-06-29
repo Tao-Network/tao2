@@ -440,7 +440,7 @@ func (b *EthApiBackend) GetOrderNonce(address common.Hash) (uint64, error) {
 	return 0, errors.New("cannot find taox service")
 }
 
-func (b *EthApiBackend) TomoxService() *taox.TaoX {
+func (b *EthApiBackend) TaoxService() *taox.TaoX {
 	return b.eth.TaoX
 }
 

@@ -13,7 +13,7 @@ contract RelayerRegistration {
     address public CONTRACT_OWNER;
     uint public MaximumRelayers;
     uint public MaximumTokenList;
-    address constant private tomoNative = 0x0000000000000000000000000000000000000001;
+    address constant private taoNative = 0x0000000000000000000000000000000000000001;
 
     /// @dev Data types
     struct Relayer {
@@ -126,7 +126,7 @@ contract RelayerRegistration {
         require(RESIGN_REQUESTS[coinbase] == 0, "The relayer has been requested to close.");
         require(ActiveRelayerCount < MaximumRelayers, "Maximum relayers registered");
 
-        // check valid tokens, token must pair with tao(x/TOMO)
+        // check valid tokens, token must pair with tao(x/TAO)
         require(validateTokens(fromTokens, toTokens) == true, "Invalid quote tokens");
 
         RELAYER_COINBASES[RelayerCount] = coinbase;
@@ -224,7 +224,7 @@ contract RelayerRegistration {
 
 
     function depositMore(address coinbase) public payable relayerOwnerOnly(coinbase) onlyActiveRelayer(coinbase) notForSale(coinbase) nonZeroValue {
-        require(msg.value >= 1 ether, "At least 1 TOMO is required for a deposit request");
+        require(msg.value >= 1 ether, "At least 1 TAO is required for a deposit request");
         RELAYER_LIST[coinbase]._deposit = RELAYER_LIST[coinbase]._deposit.add(msg.value);
         emit UpdateEvent(RELAYER_LIST[coinbase]._deposit,
                          RELAYER_LIST[coinbase]._tradeFee,
@@ -312,9 +312,9 @@ contract RelayerRegistration {
                 RELAYER_LIST[coinbase]._toTokens);
     }
 
-    function indexOf(address[] memory tomoPair, address target) internal pure returns (bool){
-        for (uint i = 0; i < tomoPair.length; i ++) {
-            if (tomoPair[i] == target) {
+    function indexOf(address[] memory taoPair, address target) internal pure returns (bool){
+        for (uint i = 0; i < taoPair.length; i ++) {
+            if (taoPair[i] == target) {
                 return true;
             }
         }
@@ -325,30 +325,30 @@ contract RelayerRegistration {
         uint countPair = 0;
         uint countNonPair = 0;
 
-        address[] memory tomoPairs = new address[](fromTokens.length);
-        address[] memory nonTomoPairs = new address[](fromTokens.length);
+        address[] memory taoPairs = new address[](fromTokens.length);
+        address[] memory nonTaoPairs = new address[](fromTokens.length);
 
         for (uint i = 0; i < toTokens.length; i++) {
-            bool b = TaoXListing.getTokenStatus(toTokens[i]) || (toTokens[i] == tomoNative);
-            b = b && (TaoXListing.getTokenStatus(fromTokens[i]) || fromTokens[i] == tomoNative);
+            bool b = TaoXListing.getTokenStatus(toTokens[i]) || (toTokens[i] == taoNative);
+            b = b && (TaoXListing.getTokenStatus(fromTokens[i]) || fromTokens[i] == taoNative);
             if (!b) {
                 return false;
             }
-            if (toTokens[i] == tomoNative) {
-                tomoPairs[countPair] = fromTokens[i];
+            if (toTokens[i] == taoNative) {
+                taoPairs[countPair] = fromTokens[i];
                 countPair++;
             } else {
-                if (fromTokens[i] == tomoNative) {
-                    tomoPairs[countPair] = toTokens[i];
+                if (fromTokens[i] == taoNative) {
+                    taoPairs[countPair] = toTokens[i];
                     countPair++;
                 }
-                nonTomoPairs[countNonPair] = toTokens[i];
+                nonTaoPairs[countNonPair] = toTokens[i];
                 countNonPair++;
             }
         }
 
         for (uint j = 0; j < countNonPair; j++) {
-            if (!indexOf(tomoPairs, nonTomoPairs[j])) {
+            if (!indexOf(taoPairs, nonTaoPairs[j])) {
                 return false;
             }
         }
@@ -363,31 +363,31 @@ contract RelayerRegistration {
     ) internal view returns(bool){
         uint countPair = 0;
 
-        address[] memory tomoPairs = new address[](RELAYER_LIST[coinbase]._toTokens.length + 1);
+        address[] memory taoPairs = new address[](RELAYER_LIST[coinbase]._toTokens.length + 1);
 
-        bool b = TaoXListing.getTokenStatus(toToken) || (toToken == tomoNative);
-        b = b && (TaoXListing.getTokenStatus(fromToken) || fromToken == tomoNative);
+        bool b = TaoXListing.getTokenStatus(toToken) || (toToken == taoNative);
+        b = b && (TaoXListing.getTokenStatus(fromToken) || fromToken == taoNative);
         if (!b) {
             return false;
         }
 
-        if (fromToken == tomoNative || toToken == tomoNative) {
+        if (fromToken == taoNative || toToken == taoNative) {
             return true;
         }
 
         // get tokens that paired with tao
         for (uint i = 0; i < RELAYER_LIST[coinbase]._toTokens.length; i++) {
-            if (RELAYER_LIST[coinbase]._toTokens[i] == tomoNative) {
-                tomoPairs[countPair] = RELAYER_LIST[coinbase]._fromTokens[i];
+            if (RELAYER_LIST[coinbase]._toTokens[i] == taoNative) {
+                taoPairs[countPair] = RELAYER_LIST[coinbase]._fromTokens[i];
                 countPair++;
             } else {
-                if (RELAYER_LIST[coinbase]._fromTokens[i] == tomoNative) {
-                    tomoPairs[countPair] = RELAYER_LIST[coinbase]._toTokens[i];
+                if (RELAYER_LIST[coinbase]._fromTokens[i] == taoNative) {
+                    taoPairs[countPair] = RELAYER_LIST[coinbase]._toTokens[i];
                     countPair++;
                 }
             }
         }
-        if (!indexOf(tomoPairs, toToken)) {
+        if (!indexOf(taoPairs, toToken)) {
             return false;
         }
         return true;

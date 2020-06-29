@@ -49,7 +49,7 @@ type Backend interface {
 	ChainDb() ethdb.Database
 	EventMux() *event.TypeMux
 	AccountManager() *accounts.Manager
-	TomoxService() *taox.TaoX
+	TaoxService() *taox.TaoX
 	LendingService() *taoxlending.Lending
 
 	// BlockChain API

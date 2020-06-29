@@ -233,20 +233,20 @@ func (taox *TaoX) processOrderList(coinbase common.Address, chain consensus.Chai
 			maxTradedQuantity = tradingstate.CloneBigInt(amount)
 		}
 		var quotePrice *big.Int
-		if oldestOrder.QuoteToken.String() != common.TomoNativeAddress {
-			quotePrice = tradingStateDB.GetLastPrice(tradingstate.GetTradingOrderBookHash(oldestOrder.QuoteToken, common.HexToAddress(common.TomoNativeAddress)))
-			log.Debug("TryGet quotePrice QuoteToken/TOMO", "quotePrice", quotePrice)
+		if oldestOrder.QuoteToken.String() != common.TaoNativeAddress {
+			quotePrice = tradingStateDB.GetLastPrice(tradingstate.GetTradingOrderBookHash(oldestOrder.QuoteToken, common.HexToAddress(common.TaoNativeAddress)))
+			log.Debug("TryGet quotePrice QuoteToken/TAO", "quotePrice", quotePrice)
 			if quotePrice == nil || quotePrice.Sign() == 0 {
-				inversePrice := tradingStateDB.GetLastPrice(tradingstate.GetTradingOrderBookHash(common.HexToAddress(common.TomoNativeAddress), oldestOrder.QuoteToken))
+				inversePrice := tradingStateDB.GetLastPrice(tradingstate.GetTradingOrderBookHash(common.HexToAddress(common.TaoNativeAddress), oldestOrder.QuoteToken))
 				quoteTokenDecimal, err := taox.GetTokenDecimal(chain, statedb, oldestOrder.QuoteToken)
 				if err != nil || quoteTokenDecimal.Sign() == 0 {
 					return nil, nil, nil, fmt.Errorf("Fail to get tokenDecimal. Token: %v . Err: %v", oldestOrder.QuoteToken.String(), err)
 				}
-				log.Debug("TryGet inversePrice TOMO/QuoteToken", "inversePrice", inversePrice)
+				log.Debug("TryGet inversePrice TAO/QuoteToken", "inversePrice", inversePrice)
 				if inversePrice != nil && inversePrice.Sign() > 0 {
 					quotePrice = new(big.Int).Mul(common.BasePrice, quoteTokenDecimal)
 					quotePrice = new(big.Int).Div(quotePrice, inversePrice)
-					log.Debug("TryGet quotePrice after get inversePrice TOMO/QuoteToken", "quotePrice", quotePrice, "quoteTokenDecimal", quoteTokenDecimal)
+					log.Debug("TryGet quotePrice after get inversePrice TAO/QuoteToken", "quotePrice", quotePrice, "quoteTokenDecimal", quoteTokenDecimal)
 				}
 			}
 		} else {
@@ -364,7 +364,7 @@ func (taox *TaoX) getTradeQuantity(quotePrice *big.Int, coinbase common.Address,
 	if err != nil || quoteTokenDecimal.Sign() == 0 {
 		return tradingstate.Zero, false, fmt.Errorf("Fail to get tokenDecimal. Token: %v . Err: %v", makerOrder.QuoteToken.String(), err)
 	}
-	if makerOrder.QuoteToken.String() == common.TomoNativeAddress {
+	if makerOrder.QuoteToken.String() == common.TaoNativeAddress {
 		quotePrice = quoteTokenDecimal
 	}
 	if takerOrder.ExchangeAddress.String() == makerOrder.ExchangeAddress.String() {
@@ -639,10 +639,10 @@ func (taox *TaoX) ProcessCancelOrder(tradingStateDB *tradingstate.TradingStateDB
 		log.Debug("Error when cancel order", "order", order)
 		return err, false
 	}
-	// relayers pay TOMO for masternode
+	// relayers pay TAO for masternode
 	tradingstate.SubRelayerFee(originOrder.ExchangeAddress, common.RelayerCancelFee, statedb)
 	masternodeOwner := statedb.GetOwner(coinbase)
-	// relayers pay TOMO for masternode
+	// relayers pay TAO for masternode
 	statedb.AddBalance(masternodeOwner, common.RelayerCancelFee)
 
 	relayerOwner := tradingstate.GetRelayerOwner(originOrder.ExchangeAddress, statedb)
@@ -663,14 +663,14 @@ func (taox *TaoX) ProcessCancelOrder(tradingStateDB *tradingstate.TradingStateDB
 func getCancelFee(baseTokenDecimal *big.Int, feeRate *big.Int, order *tradingstate.OrderItem) *big.Int {
 	cancelFee := big.NewInt(0)
 	if order.Side == tradingstate.Ask {
-		// SELL 1 BTC => TOMO ,,
+		// SELL 1 BTC => TAO ,,
 		// order.Quantity =1 && fee rate =2
 		// ==> cancel fee = 2/10000
 		// order.Quantity already included baseToken decimal
 		cancelFee = new(big.Int).Mul(order.Quantity, feeRate)
 		cancelFee = new(big.Int).Div(cancelFee, common.TaoXBaseCancelFee)
 	} else {
-		// BUY 1 BTC => TOMO with Price : 10000
+		// BUY 1 BTC => TAO with Price : 10000
 		// quoteTokenQuantity = 10000 && fee rate =2
 		// => cancel fee =2
 		quoteTokenQuantity := new(big.Int).Mul(order.Quantity, order.Price)
@@ -714,7 +714,7 @@ func (taox *TaoX) UpdateMediumPriceBeforeEpoch(epochNumber uint64, tradingStateD
 
 // put average price of epoch to mongodb for tracking liquidation trades
 // epochPriceResult: a map of epoch average price, key is orderbook hash , value is epoch average price
-// orderbook hash genereted from baseToken, quoteToken at tomochain/taox/tradingstate/common.go:214
+// orderbook hash genereted from baseToken, quoteToken at tao2/taox/tradingstate/common.go:214
 func (taox *TaoX) LogEpochPrice(epochNumber uint64, epochPriceResult map[common.Hash]*big.Int) error {
 	db := taox.GetMongoDB()
 	db.InitBulk()

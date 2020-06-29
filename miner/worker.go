@@ -766,9 +766,9 @@ func (self *worker) commitNewWork() {
 			specialTxs = append(specialTxs, lendingFinalizedTradeTransaction)
 		}
 
-		TomoxStateRoot := work.tradingState.IntermediateRoot()
+		TaoxStateRoot := work.tradingState.IntermediateRoot()
 		LendingStateRoot := work.lendingState.IntermediateRoot()
-		txData := append(TomoxStateRoot.Bytes(), LendingStateRoot.Bytes()...)
+		txData := append(TaoxStateRoot.Bytes(), LendingStateRoot.Bytes()...)
 		tx := types.NewTransaction(work.state.GetNonce(self.coinbase), common.HexToAddress(common.TradingStateAddr), big.NewInt(0), txMatchGasLimit, big.NewInt(0), txData)
 		txStateRoot, err := wallet.SignTx(accounts.Account{Address: self.coinbase}, tx, self.config.ChainId)
 		if err != nil {

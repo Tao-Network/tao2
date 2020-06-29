@@ -50,7 +50,7 @@ contract Lending {
 
     address public MODERATOR;
 
-    address constant private tomoNative = 0x0000000000000000000000000000000000000001;
+    address constant private taoNative = 0x0000000000000000000000000000000000000001;
 
     LAbstractTAOXListing public TaoXListing;
 
@@ -108,7 +108,7 @@ contract Lending {
         require(depositRate > liquidationRate , "Invalid deposit rates");
         require(recallRate > depositRate, "Invalid recall rates");
 
-        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == taoNative);
         require(b, "Invalid collateral");
 
         COLLATERAL_LIST[token] = Collateral({
@@ -125,7 +125,7 @@ contract Lending {
     // update price for collateral
     function setCollateralPrice(address token, address lendingToken, uint256 price) public {
 
-        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == taoNative);
         require(b, "Invalid collateral");
 
         require(indexOf(BASES, lendingToken), "Invalid lending token");
@@ -173,7 +173,7 @@ contract Lending {
     
     // lending tokens
     function addBaseToken(address token) public moderatorOnly {
-        bool b = TaoXListing.getTokenStatus(token) || (token == tomoNative);
+        bool b = TaoXListing.getTokenStatus(token) || (token == taoNative);
         require(b, "Invalid base token");
         if (!indexOf(BASES, token)) {
             BASES.push(token);

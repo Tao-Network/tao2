@@ -539,27 +539,27 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 	// collateralPrice: price of collateral by LendingToken
 	// Eg: LendingToken: USD, CollateralToken: BTC
 	// collateralPrice = BTC/USD (eg: 8000 USD)
-	// lendTokenTOMOPrice: price of lendingToken in TOMO quote
-	var lendTokenTOMOPrice, collateralPrice, collateralTokenDecimal *big.Int
+	// lendTokenTAOPrice: price of lendingToken in TAO quote
+	var lendTokenTAOPrice, collateralPrice, collateralTokenDecimal *big.Int
 	if collateralToken.String() != lendingstate.EmptyAddress {
 		collateralTokenDecimal, err = taoXServ.GetTokenDecimal(pool.chain, cloneStateDb, collateralToken)
 		if err != nil {
 			return fmt.Errorf("validateOrder: failed to get collateralTokenDecimal. err: %v", err)
 		}
-		lendTokenTOMOPrice, collateralPrice, err = lendingServ.GetCollateralPrices(pool.chain.CurrentHeader(), pool.chain, cloneStateDb, cloneTradingStateDb, collateralToken, tx.LendingToken())
+		lendTokenTAOPrice, collateralPrice, err = lendingServ.GetCollateralPrices(pool.chain.CurrentHeader(), pool.chain, cloneStateDb, cloneTradingStateDb, collateralToken, tx.LendingToken())
 		if err != nil {
 			return err
 		}
-		if lendTokenTOMOPrice == nil || lendTokenTOMOPrice.Sign() <= 0 || collateralPrice == nil || collateralPrice.Sign() <= 0 {
-			log.Debug("ValidateLending: ErrInvalidCollateralPrice", "lendTokenTOMOPrice", lendTokenTOMOPrice, "collateralPrice", collateralPrice)
+		if lendTokenTAOPrice == nil || lendTokenTAOPrice.Sign() <= 0 || collateralPrice == nil || collateralPrice.Sign() <= 0 {
+			log.Debug("ValidateLending: ErrInvalidCollateralPrice", "lendTokenTAOPrice", lendTokenTAOPrice, "collateralPrice", collateralPrice)
 			return lendingstate.ErrInvalidCollateralPrice
 		}
 	}
-	if lendTokenTOMOPrice == nil || lendTokenTOMOPrice.Sign() == 0 {
-		if tx.LendingToken().String() == common.TomoNativeAddress {
-			lendTokenTOMOPrice = common.BasePrice
+	if lendTokenTAOPrice == nil || lendTokenTAOPrice.Sign() == 0 {
+		if tx.LendingToken().String() == common.TaoNativeAddress {
+			lendTokenTAOPrice = common.BasePrice
 		} else {
-			lendTokenTOMOPrice, err = lendingServ.GetMediumTradePriceBeforeEpoch(pool.chain, cloneStateDb, cloneTradingStateDb, tx.LendingToken(), common.HexToAddress(common.TomoNativeAddress))
+			lendTokenTAOPrice, err = lendingServ.GetMediumTradePriceBeforeEpoch(pool.chain, cloneStateDb, cloneTradingStateDb, tx.LendingToken(), common.HexToAddress(common.TaoNativeAddress))
 			if err != nil {
 				return err
 			}
@@ -579,7 +579,7 @@ func (pool *LendingPool) validateBalance(cloneStateDb *state.StateDB, cloneLendi
 		tx.Quantity(),
 		lendingTokenDecimal,
 		collateralTokenDecimal,
-		lendTokenTOMOPrice,
+		lendTokenTAOPrice,
 		collateralPrice,
 		tx.Term(),
 		tx.LendingId(),

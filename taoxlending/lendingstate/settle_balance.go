@@ -34,7 +34,7 @@ func (settleBalance *LendingSettleBalance) String() string {
 
 func GetSettleBalance(isTaoXLendingFork bool,
 	takerSide string,
-	lendTokenTOMOPrice,
+	lendTokenTAOPrice,
 	collateralPrice,
 	depositRate,
 	borrowFeeRate *big.Int,
@@ -71,18 +71,18 @@ func GetSettleBalance(isTaoXLendingFork bool,
 				log.Debug("quantity lending too small", "quantityToLend", quantityToLend, "takerFee", takerFee)
 				return result, ErrQuantityTradeTooSmall
 			}
-			if lendingToken.String() != common.TomoNativeAddress && lendTokenTOMOPrice != nil && lendTokenTOMOPrice.Cmp(common.Big0) > 0 {
-				exTakerReceivedFee := new(big.Int).Mul(takerFee, lendTokenTOMOPrice)
+			if lendingToken.String() != common.TaoNativeAddress && lendTokenTAOPrice != nil && lendTokenTAOPrice.Cmp(common.Big0) > 0 {
+				exTakerReceivedFee := new(big.Int).Mul(takerFee, lendTokenTAOPrice)
 				exTakerReceivedFee = new(big.Int).Div(exTakerReceivedFee, lendTokenDecimal)
 
-				defaultFeeInTOMO := new(big.Int).Mul(defaultFee, lendTokenTOMOPrice)
-				defaultFeeInTOMO = new(big.Int).Div(defaultFeeInTOMO, lendTokenDecimal)
+				defaultFeeInTAO := new(big.Int).Mul(defaultFee, lendTokenTAOPrice)
+				defaultFeeInTAO = new(big.Int).Div(defaultFeeInTAO, lendTokenDecimal)
 
-				if (exTakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exTakerReceivedFee.Sign() > 0) || defaultFeeInTOMO.Cmp(common.RelayerLendingFee) <= 0 {
-					log.Debug("takerFee too small", "quantityToLend", quantityToLend, "takerFee", takerFee, "exTakerReceivedFee", exTakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTOMO", defaultFeeInTOMO)
+				if (exTakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exTakerReceivedFee.Sign() > 0) || defaultFeeInTAO.Cmp(common.RelayerLendingFee) <= 0 {
+					log.Debug("takerFee too small", "quantityToLend", quantityToLend, "takerFee", takerFee, "exTakerReceivedFee", exTakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTAO", defaultFeeInTAO)
 					return result, ErrQuantityTradeTooSmall
 				}
-			} else if lendingToken.String() == common.TomoNativeAddress {
+			} else if lendingToken.String() == common.TaoNativeAddress {
 				exTakerReceivedFee := takerFee
 				if (exTakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exTakerReceivedFee.Sign() > 0) || defaultFee.Cmp(common.RelayerLendingFee) <= 0 {
 					log.Debug("takerFee too small", "quantityToLend", quantityToLend, "takerFee", takerFee, "exTakerReceivedFee", exTakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFee", defaultFee)
@@ -121,18 +121,18 @@ func GetSettleBalance(isTaoXLendingFork bool,
 				log.Debug("quantity lending too small", "quantityToLend", quantityToLend, "makerFee", makerFee)
 				return result, ErrQuantityTradeTooSmall
 			}
-			if lendingToken.String() != common.TomoNativeAddress && lendTokenTOMOPrice != nil && lendTokenTOMOPrice.Cmp(common.Big0) > 0 {
-				exMakerReceivedFee := new(big.Int).Mul(makerFee, lendTokenTOMOPrice)
+			if lendingToken.String() != common.TaoNativeAddress && lendTokenTAOPrice != nil && lendTokenTAOPrice.Cmp(common.Big0) > 0 {
+				exMakerReceivedFee := new(big.Int).Mul(makerFee, lendTokenTAOPrice)
 				exMakerReceivedFee = new(big.Int).Div(exMakerReceivedFee, lendTokenDecimal)
 
-				defaultFeeInTOMO := new(big.Int).Mul(defaultFee, lendTokenTOMOPrice)
-				defaultFeeInTOMO = new(big.Int).Div(defaultFeeInTOMO, lendTokenDecimal)
+				defaultFeeInTAO := new(big.Int).Mul(defaultFee, lendTokenTAOPrice)
+				defaultFeeInTAO = new(big.Int).Div(defaultFeeInTAO, lendTokenDecimal)
 
-				if (exMakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exMakerReceivedFee.Sign() > 0) || defaultFeeInTOMO.Cmp(common.RelayerLendingFee) <= 0 {
-					log.Debug("makerFee too small", "quantityToLend", quantityToLend, "makerFee", makerFee, "exMakerReceivedFee", exMakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTOMO", defaultFeeInTOMO)
+				if (exMakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exMakerReceivedFee.Sign() > 0) || defaultFeeInTAO.Cmp(common.RelayerLendingFee) <= 0 {
+					log.Debug("makerFee too small", "quantityToLend", quantityToLend, "makerFee", makerFee, "exMakerReceivedFee", exMakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTAO", defaultFeeInTAO)
 					return result, ErrQuantityTradeTooSmall
 				}
-			} else if lendingToken.String() == common.TomoNativeAddress {
+			} else if lendingToken.String() == common.TaoNativeAddress {
 				exMakerReceivedFee := makerFee
 				if (exMakerReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exMakerReceivedFee.Sign() > 0) || defaultFee.Cmp(common.RelayerLendingFee) <= 0 {
 					log.Debug("makerFee too small", "quantityToLend", quantityToLend, "makerFee", makerFee, "exMakerReceivedFee", exMakerReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFee", defaultFee)
@@ -171,19 +171,19 @@ func GetSettleBalance(isTaoXLendingFork bool,
 			log.Debug("quantity lending too small", "quantityToLend", quantityToLend, "borrowFee", borrowFee)
 			return result, ErrQuantityTradeTooSmall
 		}
-		if lendingToken.String() != common.TomoNativeAddress && lendTokenTOMOPrice != nil && lendTokenTOMOPrice.Cmp(common.Big0) > 0 {
+		if lendingToken.String() != common.TaoNativeAddress && lendTokenTAOPrice != nil && lendTokenTAOPrice.Cmp(common.Big0) > 0 {
 			// exReceivedFee: the fee amount which borrowingRelayer will receive
-			exReceivedFee := new(big.Int).Mul(borrowFee, lendTokenTOMOPrice)
+			exReceivedFee := new(big.Int).Mul(borrowFee, lendTokenTAOPrice)
 			exReceivedFee = new(big.Int).Div(exReceivedFee, lendTokenDecimal)
 
-			defaultFeeInTOMO := new(big.Int).Mul(defaultFee, lendTokenTOMOPrice)
-			defaultFeeInTOMO = new(big.Int).Div(defaultFeeInTOMO, lendTokenDecimal)
+			defaultFeeInTAO := new(big.Int).Mul(defaultFee, lendTokenTAOPrice)
+			defaultFeeInTAO = new(big.Int).Div(defaultFeeInTAO, lendTokenDecimal)
 
-			if (exReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exReceivedFee.Sign() > 0) || defaultFeeInTOMO.Cmp(common.RelayerLendingFee) <= 0 {
-				log.Debug("takerFee too small", "quantityToLend", quantityToLend, "borrowFee", borrowFee, "exReceivedFee", exReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTOMO", defaultFeeInTOMO)
+			if (exReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exReceivedFee.Sign() > 0) || defaultFeeInTAO.Cmp(common.RelayerLendingFee) <= 0 {
+				log.Debug("takerFee too small", "quantityToLend", quantityToLend, "borrowFee", borrowFee, "exReceivedFee", exReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFeeInTAO", defaultFeeInTAO)
 				return result, ErrQuantityTradeTooSmall
 			}
-		} else if lendingToken.String() == common.TomoNativeAddress {
+		} else if lendingToken.String() == common.TaoNativeAddress {
 			exReceivedFee := borrowFee
 			if (exReceivedFee.Cmp(common.RelayerLendingFee) <= 0 && exReceivedFee.Sign() > 0) || defaultFee.Cmp(common.RelayerLendingFee) <= 0 {
 				log.Debug("takerFee too small", "quantityToLend", quantityToLend, "borrowFee", borrowFee, "exReceivedFee", exReceivedFee, "borrowFeeRate", borrowFeeRate, "defaultFee", defaultFee)

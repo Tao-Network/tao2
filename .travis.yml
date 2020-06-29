@@ -58,46 +58,46 @@ jobs:
       - docker
     install: skip
     before_script:
-      - docker build -t tomochain/tomochain .
-      - docker build -t tomochain/node -f Dockerfile.node .
+      - docker build -t Tao-Network/tao2 .
+      - docker build -t tao2/node -f Dockerfile.node .
     script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-      - docker tag tomochain/tomochain tomochain/tomochain:latest
-      - docker push tomochain/tomochain:latest
-      - docker tag tomochain/tomochain tomochain/tomochain:$TRAVIS_BUILD_ID
-      - docker push tomochain/tomochain:$TRAVIS_BUILD_ID
-      - docker tag tomochain/node tomochain/node:latest
-      - docker push tomochain/node:latest
-      - docker tag tomochain/node tomochain/node:$TRAVIS_BUILD_ID
-      - docker push tomochain/node:$TRAVIS_BUILD_ID
+      - docker tag Tao-Network/tao2 Tao-Network/tao2:latest
+      - docker push Tao-Network/tao2:latest
+      - docker tag Tao-Network/tao2 Tao-Network/tao2:$TRAVIS_BUILD_ID
+      - docker push Tao-Network/tao2:$TRAVIS_BUILD_ID
+      - docker tag tao2/node tao2/node:latest
+      - docker push tao2/node:latest
+      - docker tag tao2/node tao2/node:$TRAVIS_BUILD_ID
+      - docker push tao2/node:$TRAVIS_BUILD_ID
 
   - stage: Build and push image (tagged)
     services:
       - docker
     install: skip
     before_script:
-      - docker build -t tomochain/tomochain .
-      - docker build -t tomochain/tomochain -f Dockerfile.node .
+      - docker build -t Tao-Network/tao2 .
+      - docker build -t Tao-Network/tao2 -f Dockerfile.node .
     script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-      - docker tag tomochain/tomochain tomochain/tomochain:latest
-      - docker push tomochain/tomochain:latest
-      - docker tag tomochain/tomochain tomochain/tomochain:$TRAVIS_TAG
-      - docker push tomochain/tomochain:$TRAVIS_TAG
-      - docker tag tomochain/tomochain tomochain/node:latest
-      - docker push tomochain/node:latest
-      - docker tag tomochain/node tomochain/node:$TRAVIS_TAG
-      - docker push tomochain/node:$TRAVIS_TAG
+      - docker tag Tao-Network/tao2 Tao-Network/tao2:latest
+      - docker push Tao-Network/tao2:latest
+      - docker tag Tao-Network/tao2 Tao-Network/tao2:$TRAVIS_TAG
+      - docker push Tao-Network/tao2:$TRAVIS_TAG
+      - docker tag Tao-Network/tao2 tao2/node:latest
+      - docker push tao2/node:latest
+      - docker tag tao2/node tao2/node:$TRAVIS_TAG
+      - docker push tao2/node:$TRAVIS_TAG
 
 stages:
   - name: Lint
   - name: Build and test
   - name: Github release
-    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = tomochain/tomochain
+    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = Tao-Network/tao2
   - name: Build and push image
-    if: type != pull_request AND branch = master AND tag IS blank AND repo = tomochain/tomochain
+    if: type != pull_request AND branch = master AND tag IS blank AND repo = Tao-Network/tao2
   - name: Build and push image (tagged)
-    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = tomochain/tomochain
+    if: type != pull_request AND branch =~ ^v AND tag IS present AND repo = Tao-Network/tao2
 
 notifications:
   slack:

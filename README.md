@@ -1,7 +1,7 @@
 # Tao
 
-[![Build Status](https://travis-ci.org/tomochain/tomochain.svg?branch=master)](https://travis-ci.org/tomochain/tomochain)
-[![Join the chat at https://gitter.im/tomochain/tomochain](https://badges.gitter.im/tomochain/tomochain.svg)](https://gitter.im/tomochain/tomochain?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/Tao-Network/tao2.svg?branch=master)](https://travis-ci.org/Tao-Network/tao2)
+[![Join the chat at https://gitter.im/Tao-Network/tao2](https://badges.gitter.im/Tao-Network/tao2.svg)](https://gitter.im/Tao-Network/tao2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About Tao
 
@@ -20,7 +20,7 @@ More details can be found at our [technical white paper](https://tao.network/doc
 Read more about us on:
 
 - our website: http://tao.network
-- our blogs and announcements: https://medium.com/tomochain
+- our blogs and announcements: https://medium.com/tao
 - our documentation portal: https://docs.tao.network
 
 ## Building the source
@@ -31,8 +31,8 @@ Building `tao` requires both a Go (1.7+) and C compiler; install both of these.
 Once the dependencies are installed, just run the below commands:
 
 ```bash
-$ git clone https://github.com/Tao-Network/tao2 tomochain
-$ cd tomochain
+$ git clone https://github.com/Tao-Network/tao2 tao
+$ cd tao
 $ make tao
 ```
 
@@ -67,16 +67,16 @@ export GENESIS_PATH=path/to/genesis.json
 ```
 - Testnet
 ```bash
-curl -L https://raw.githubusercontent.com/tomochain/tomochain/master/genesis/testnet.json -o $GENESIS_PATH
+curl -L https://raw.githubusercontent.com/Tao-Network/tao2/master/genesis/testnet.json -o $GENESIS_PATH
 ```
 
 - Mainnet
 ```bash
-curl -L https://raw.githubusercontent.com/tomochain/tomochain/master/genesis/mainnet.json -o $GENESIS_PATH
+curl -L https://raw.githubusercontent.com/Tao-Network/tao2/master/genesis/mainnet.json -o $GENESIS_PATH
 ```
 
 #### Create datadir
-- create a folder to store tomochain data on your machine
+- create a folder to store tao data on your machine
 
 ```bash
 export DATA_DIR=/path/to/your/data/folder 
@@ -180,7 +180,7 @@ Thank you for considering to try out our network and/or help out with the source
 We would love to get your help; feel free to lend a hand.
 Even the smallest bit of code, bug reporting, or just discussing ideas are highly appreciated.
 
-If you would like to contribute to the tomochain source code, please refer to our Developer Guide for details on configuring development environment, managing dependencies, compiling, testing and submitting your code changes to our repo.
+If you would like to contribute to the tao source code, please refer to our Developer Guide for details on configuring development environment, managing dependencies, compiling, testing and submitting your code changes to our repo.
 
 Please also make sure your contributions adhere to the base coding guidelines:
 
@@ -190,4 +190,4 @@ Please also make sure your contributions adhere to the base coding guidelines:
 - Any code you are trying to contribute must be well-explained as an issue on our [github issue page](https://github.com/Tao-Network/tao2/issues)
 - Commit messages should be short but clear enough and should refer to the corresponding pre-logged issue mentioned above.
 
-For technical discussion, feel free to join our chat at [Gitter](https://gitter.im/tomochain/tomochain).
+For technical discussion, feel free to join our chat at [Gitter](https://gitter.im/Tao-Network/tao2).

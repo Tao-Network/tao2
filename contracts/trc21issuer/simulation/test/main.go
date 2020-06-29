@@ -19,7 +19,7 @@ var (
 	trc21TokenAddr = common.HexToAddress("0x80430A33EaB86890a346bCf64F86CFeAC73287f3")
 )
 
-func airDropTokenToAccountNoTomo() {
+func airDropTokenToAccountNoTao() {
 	client, err := ethclient.Dial(simulation.RpcEndpoint)
 	if err != nil {
 		fmt.Println(err, client)
@@ -63,7 +63,7 @@ func airDropTokenToAccountNoTomo() {
 		log.Fatal("can't execute transferAmount in tr21:", err)
 	}
 }
-func testTransferTRC21TokenWithAccountNoTomo() {
+func testTransferTRC21TokenWithAccountNoTao() {
 	client, err := ethclient.Dial(simulation.RpcEndpoint)
 	if err != nil {
 		fmt.Println(err, client)
@@ -204,9 +204,9 @@ func main() {
 
 	start := time.Now()
 	for i := 0; i < 10000000; i++ {
-		airDropTokenToAccountNoTomo()
+		airDropTokenToAccountNoTao()
 		fmt.Println("Finish airdrop token to a account")
-		testTransferTRC21TokenWithAccountNoTomo()
+		testTransferTRC21TokenWithAccountNoTao()
 		fmt.Println("Finish transfer trc21 token with a account no tao")
 		testTransferTrc21Fail()
 		fmt.Println("Finish testing ! Success transferAmount token trc20 with a account no tao")

@@ -70,7 +70,7 @@ const (
 	SWARM_ENV_ENS_ADDR        = "SWARM_ENS_ADDR"
 	SWARM_ENV_CORS            = "SWARM_CORS"
 	SWARM_ENV_BOOTNODES       = "SWARM_BOOTNODES"
-	TOMO_ENV_DATADIR          = "TOMO_DATADIR"
+	TAO_ENV_DATADIR          = "TAO_DATADIR"
 )
 
 // These settings ensure that TOML keys use the same names as Go struct fields.
@@ -243,7 +243,7 @@ func envVarsOverride(currentConfig *bzzapi.Config) (config *bzzapi.Config) {
 		}
 	}
 
-	if datadir := os.Getenv(TOMO_ENV_DATADIR); datadir != "" {
+	if datadir := os.Getenv(TAO_ENV_DATADIR); datadir != "" {
 		currentConfig.Path = datadir
 	}
 

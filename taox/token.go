@@ -49,7 +49,7 @@ func (taox *TaoX) GetTokenDecimal(chain consensus.ChainContext, statedb *state.S
 	if tokenDecimal, ok := taox.tokenDecimalCache.Get(tokenAddr); ok {
 		return tokenDecimal.(*big.Int), nil
 	}
-	if tokenAddr.String() == common.TomoNativeAddress {
+	if tokenAddr.String() == common.TaoNativeAddress {
 		taox.tokenDecimalCache.Add(tokenAddr, common.BasePrice)
 		return common.BasePrice, nil
 	}

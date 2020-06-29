@@ -276,7 +276,7 @@ func (b *LesApiBackend) GetOrderNonce(address common.Hash) (uint64, error) {
 	return 0, errors.New("cannot find taox service")
 }
 
-func (b *LesApiBackend) TomoxService() *taox.TaoX {
+func (b *LesApiBackend) TaoxService() *taox.TaoX {
 	return nil
 }
 

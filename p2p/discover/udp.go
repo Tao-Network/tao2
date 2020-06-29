@@ -63,7 +63,7 @@ const (
 	pongPacket
 	findnodePacket
 	neighborsPacket
-	pingTomo
+	pingTao
 )
 
 // RPC request structures
@@ -280,7 +280,7 @@ func (t *udp) ping(toid NodeID, toaddr *net.UDPAddr) error {
 		To:         makeEndpoint(toaddr, 0), // TODO: maybe use known TCP port from DB
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	}
-	packet, hash, err := encodePacket(t.priv, pingTomo, req)
+	packet, hash, err := encodePacket(t.priv, pingTao, req)
 	if err != nil {
 		return err
 	}
@@ -292,7 +292,7 @@ func (t *udp) ping(toid NodeID, toaddr *net.UDPAddr) error {
 }
 
 func (t *udp) waitping(from NodeID) error {
-	return <-t.pending(from, pingTomo, func(interface{}) bool { return true })
+	return <-t.pending(from, pingTao, func(interface{}) bool { return true })
 }
 
 // findnode sends a findnode request to the given node and waits until
@@ -564,7 +564,7 @@ func decodePacket(buf []byte) (packet, NodeID, []byte, error) {
 	}
 	var req packet
 	switch ptype := sigdata[0]; ptype {
-	case pingTomo:
+	case pingTao:
 		req = new(ping)
 	case pongPacket:
 		req = new(pong)
@@ -589,14 +589,14 @@ func (req *ping) handle(t *udp, from *net.UDPAddr, fromID NodeID, mac []byte) er
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
-	if !t.handleReply(fromID, pingTomo, req) {
+	if !t.handleReply(fromID, pingTao, req) {
 		// Note: we're ignoring the provided IP address right now
 		go t.bond(true, fromID, from, req.From.TCP)
 	}
 	return nil
 }
 
-func (req *ping) name() string { return "PING TOMO/v4" }
+func (req *ping) name() string { return "PING TAO/v4" }
 
 func (req *pong) handle(t *udp, from *net.UDPAddr, fromID NodeID, mac []byte) error {
 	if expired(req.Expiration) {

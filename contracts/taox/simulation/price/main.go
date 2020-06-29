@@ -17,11 +17,11 @@ import (
 )
 
 func main() {
-	client, err := ethclient.Dial("http://127.0.0.1:8501/")
+	client, err := ethclient.Dial("http://127.0.0.1:4545/")
 	if err != nil {
 		fmt.Println(err, client)
 	}
-	MainKey, _ := crypto.HexToECDSA(os.Getenv("OWNER_KEY"))
+	MainKey, _ := crypto.HexToECDSA(os.Getenv("LENDING_OWNER_KEY"))
 	MainAddr := crypto.PubkeyToAddress(MainKey.PublicKey)
 
 	nonce, _ := client.NonceAt(context.Background(), MainAddr, nil)

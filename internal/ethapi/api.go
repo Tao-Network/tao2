@@ -2041,7 +2041,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetBestBid(ctx context.Context, baseToken
 	if block == nil {
 		return result, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return result, errors.New("TaoX service not found")
 	}
@@ -2066,7 +2066,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetBestAsk(ctx context.Context, baseToken
 	if block == nil {
 		return result, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return result, errors.New("TaoX service not found")
 	}
@@ -2090,7 +2090,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetBidTree(ctx context.Context, baseToken
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2114,7 +2114,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetPrice(ctx context.Context, baseToken, 
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2138,7 +2138,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetLastEpochPrice(ctx context.Context, ba
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2162,7 +2162,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetCurrentEpochPrice(ctx context.Context,
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2186,7 +2186,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetAskTree(ctx context.Context, baseToken
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2210,7 +2210,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetOrderById(ctx context.Context, baseTok
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2235,7 +2235,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetTradingOrderBookInfo(ctx context.Conte
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2259,7 +2259,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetLiquidationPriceTree(ctx context.Conte
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2492,7 +2492,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetBids(ctx context.Context, baseToken, q
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}
@@ -2516,7 +2516,7 @@ func (s *PublicTaoXTransactionPoolAPI) GetAsks(ctx context.Context, baseToken, q
 	if block == nil {
 		return nil, errors.New("Current block not found")
 	}
-	taoxService := s.b.TomoxService()
+	taoxService := s.b.TaoxService()
 	if taoxService == nil {
 		return nil, errors.New("TaoX service not found")
 	}

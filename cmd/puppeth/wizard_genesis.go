@@ -118,8 +118,8 @@ func (w *wizard) makeGenesis() {
 			Reward: 0,
 		}
 		fmt.Println()
-		fmt.Println("How many seconds should blocks take? (default = 2)")
-		genesis.Config.Posv.Period = uint64(w.readDefaultInt(2))
+		fmt.Println("How many seconds should blocks take? (default = 5)")
+		genesis.Config.Posv.Period = uint64(w.readDefaultInt(5))
 
 		fmt.Println()
 		fmt.Println("How many Ethers should be rewarded to masternode? (default = 10)")
@@ -152,7 +152,7 @@ func (w *wizard) makeGenesis() {
 			}
 		}
 		validatorCap := new(big.Int)
-		validatorCap.SetString("50000000000000000000000", 10)
+		validatorCap.SetString("100000000000000000000000", 10)
 		var validatorCaps []*big.Int
 		genesis.ExtraData = make([]byte, 32+len(signers)*common.AddressLength+65)
 		for i, signer := range signers {
@@ -345,6 +345,35 @@ func (w *wizard) makeGenesis() {
 	fmt.Println()
 	fmt.Println("Specify your chain/network ID if you want an explicit one (default = random)")
 	genesis.Config.ChainId = new(big.Int).SetUint64(uint64(w.readDefaultInt(rand.Intn(65536))))
+
+	fmt.Println()
+	fmt.Println("Deploying ENS...")
+	// Private key needed...
+
+	fmt.Println()
+	fmt.Println("Deploying TRC21Issuer...")
+	// Private key needed...
+
+	fmt.Println()
+	fmt.Println("Deploying TaoX...")
+
+	/*
+	// Randomize Smart Contract Code
+	randomizeAddress, _, err := randomizeContract.DeployRandomize(transactOpts, contractBackend)
+	if err != nil {
+		fmt.Println("Can't deploy root registry")
+	}
+	contractBackend.Commit()
+
+	code, _ = contractBackend.CodeAt(ctx, randomizeAddress, nil)
+	storage = make(map[common.Hash]common.Hash)
+	contractBackend.ForEachStorageAt(ctx, randomizeAddress, nil, f)
+	genesis.Alloc[common.HexToAddress(common.RandomizeSMC)] = core.GenesisAccount{
+		Balance: big.NewInt(0),
+		Code:    code,
+		Storage: storage,
+	}
+	*/
 
 	// All done, store the genesis and flush to disk
 	log.Info("Configured new genesis block")

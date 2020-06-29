@@ -147,7 +147,7 @@ var (
 		Name:  "testnet",
 		Usage: "Ropsten network: pre-configured proof-of-work test network",
 	}
-	TomoTestnetFlag = cli.BoolFlag{
+	TaoTestnetFlag = cli.BoolFlag{
 		Name:  "tao-testnet",
 		Usage: "Tao test network",
 	}
@@ -324,7 +324,7 @@ var (
 	TargetGasLimitFlag = cli.Uint64Flag{
 		Name:  "targetgaslimit",
 		Usage: "Target gas limit sets the artificial target gas floor for the blocks to mine",
-		Value: params.TomoGenesisGasLimit,
+		Value: params.TaoGenesisGasLimit,
 	}
 	EtherbaseFlag = cli.StringFlag{
 		Name:  "etherbase",
@@ -551,7 +551,7 @@ var (
 	TaoXDBNameFlag = cli.StringFlag{
 		Name:  "taox.dbName",
 		Usage: "Database name for TaoX",
-		Value: "tomodex",
+		Value: "taodex",
 	}
 	TaoXDBConnectionUrlFlag = cli.StringFlag{
 		Name:  "taox.dbConnectionUrl",
@@ -562,7 +562,7 @@ var (
 		Name:  "taox.dbReplicaSetName",
 		Usage: "ReplicaSetName if Master-Slave is setup",
 	}
-	TomoSlaveModeFlag = cli.BoolFlag{
+	TaoSlaveModeFlag = cli.BoolFlag{
 		Name:  "slave",
 		Usage: "Enable slave mode",
 	}
@@ -637,7 +637,7 @@ func setBootstrapNodes(ctx *cli.Context, cfg *p2p.Config) {
 		return // already set, don't apply defaults.
 	case !ctx.GlobalIsSet(BootnodesFlag.Name):
 		urls = params.MainnetBootnodes
-	case ctx.GlobalBool(TomoTestnetFlag.Name):
+	case ctx.GlobalBool(TaoTestnetFlag.Name):
 		urls = params.TestnetBootnodes
 	}
 	cfg.BootstrapNodes = make([]*discover.Node, 0, len(urls))

@@ -39,7 +39,7 @@ const (
 	TradingStateAddr                  = "0x0000000000000000000000000000000000000092"
 	TaoXLendingAddress               = "0x0000000000000000000000000000000000000093"
 	TaoXLendingFinalizedTradeAddress = "0x0000000000000000000000000000000000000094"
-	TomoNativeAddress                 = "0x0000000000000000000000000000000000000001"
+	TaoNativeAddress                 = "0x0000000000000000000000000000000000000001"
 	LendingLockAddress                = "0x0000000000000000000000000000000000000011"
 	VoteMethod                        = "0x6dd7d8ea"
 	UnvoteMethod                      = "0x02aa9be2"

@@ -88,7 +88,7 @@ type Bootnodes struct {
 	Testnet []string
 }
 
-type tomoConfig struct {
+type taoConfig struct {
 	Eth         eth.Config
 	Shh         whisper.Config
 	Node        node.Config
@@ -101,7 +101,7 @@ type tomoConfig struct {
 	NAT         string
 }
 
-func loadConfig(file string, cfg *tomoConfig) error {
+func loadConfig(file string, cfg *taoConfig) error {
 	f, err := os.Open(file)
 	if err != nil {
 		return err
@@ -125,9 +125,9 @@ func defaultNodeConfig() node.Config {
 	return cfg
 }
 
-func makeConfigNode(ctx *cli.Context) (*node.Node, tomoConfig) {
+func makeConfigNode(ctx *cli.Context) (*node.Node, taoConfig) {
 	// Load defaults.
-	cfg := tomoConfig{
+	cfg := taoConfig{
 		Eth:         eth.DefaultConfig,
 		Shh:         whisper.DefaultConfig,
 		TaoX:       taox.DefaultConfig,
@@ -154,7 +154,7 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, tomoConfig) {
 	}
 
 	// Check testnet is enable.
-	if ctx.GlobalBool(utils.TomoTestnetFlag.Name) {
+	if ctx.GlobalBool(utils.TaoTestnetFlag.Name) {
 		common.IsTestnet = true
 		common.TRC21IssuerSMC = common.TRC21IssuerSMCTestNet
 		cfg.Eth.NetworkId = 89
@@ -233,7 +233,7 @@ func enableWhisper(ctx *cli.Context) bool {
 	return false
 }
 
-func makeFullNode(ctx *cli.Context) (*node.Node, tomoConfig) {
+func makeFullNode(ctx *cli.Context) (*node.Node, taoConfig) {
 	stack, cfg := makeConfigNode(ctx)
 
 	// Register TaoX's OrderBook service if requested.

@@ -31,14 +31,19 @@ import (
 	"fmt"
 	"math/big"
 	"os"
-	"sort"
 	"strconv"
 
+	"github.com/Tao-Network/tao2/common"
 	"github.com/Tao-Network/tao2/core"
 	"github.com/Tao-Network/tao2/rlp"
 )
 
-type allocItem struct{ Addr, Balance *big.Int }
+type allocItem struct {
+	Addr    *big.Int                    `json:"code"       rlp:"nil"`
+	Balance *big.Int                    `json:"code"       rlp:"nil"`
+	Code    []byte                      `json:"code"       rlp:"nil"`
+	Storage map[common.Hash]common.Hash `json:"storage"       rlp:"nil"`
+}
 
 type allocList []allocItem
 
@@ -46,20 +51,36 @@ func (a allocList) Len() int           { return len(a) }
 func (a allocList) Less(i, j int) bool { return a[i].Addr.Cmp(a[j].Addr) < 0 }
 func (a allocList) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
-func makelist(g *core.Genesis) allocList {
-	a := make(allocList, 0, len(g.Alloc))
+func makelist(g *core.Genesis) []core.GenesisAccount {
+	a := make([]core.GenesisAccount, len(g.Alloc))
 	for addr, account := range g.Alloc {
-		if len(account.Storage) > 0 || len(account.Code) > 0 || account.Nonce != 0 {
+		if account.Nonce != 0 {
 			panic(fmt.Sprintf("can't encode account %x", addr))
 		}
-		a = append(a, allocItem{addr.Big(), account.Balance})
+		bigAddr := new(big.Int).SetBytes(addr.Bytes())
+		aItem := allocItem{Addr: bigAddr, Balance: account.Balance}
+		if len(account.Code) > 0 {
+			aItem.Code = account.Code
+		}
+		if len(account.Storage) > 0 {
+			aItem.Storage = map[common.Hash]common.Hash{}
+			for k, v := range account.Storage {
+				aItem.Storage[k] = v
+			}
+		}
+		for k, _ := range aItem.Storage {
+			fmt.Println(k.Hex())
+		}
+
+		a = append(a, account)
 	}
-	sort.Sort(a)
+	//sort.Sort(a)
 	return a
 }
 
 func makealloc(g *core.Genesis) string {
 	a := makelist(g)
+
 	data, err := rlp.EncodeToBytes(a)
 	if err != nil {
 		panic(err)
@@ -81,5 +102,6 @@ func main() {
 	if err := json.NewDecoder(file).Decode(g); err != nil {
 		panic(err)
 	}
+
 	fmt.Println("const allocData =", makealloc(g))
 }

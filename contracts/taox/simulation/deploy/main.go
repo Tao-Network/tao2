@@ -27,7 +27,7 @@ func main() {
 	nonce, _ := client.NonceAt(context.Background(), simulation.MainAddr, nil)
 	auth := bind.NewKeyedTransactor(simulation.MainKey)
 	auth.Value = big.NewInt(0)       // in wei
-	auth.GasLimit = uint64(10000000) // in units
+	auth.GasLimit = uint64(47000000) // in units
 	auth.GasPrice = big.NewInt(250000000000000)
 
 	// init trc21 issuer
@@ -103,10 +103,10 @@ func main() {
 		log.Fatal("Lending add collateral", err)
 	}
 
-	// TOMO Collateral
+	// TAO Collateral
 	nonce = nonce + 1
 	lendingRelayerRegistration.TransactOpts.Nonce = big.NewInt(int64(nonce))
-	_, err = lendingRelayerRegistration.AddCollateral(simulation.TOMONative, simulation.CollateralDepositRate, simulation.CollateralLiquidationRate, simulation.CollateralRecallRate)
+	_, err = lendingRelayerRegistration.AddCollateral(simulation.TAONative, simulation.CollateralDepositRate, simulation.CollateralLiquidationRate, simulation.CollateralRecallRate)
 
 	if err != nil {
 		log.Fatal("Lending add collateral", err)
@@ -128,12 +128,12 @@ func main() {
 		log.Fatal("Lending add base token USD", err)
 	}
 
-	// TOMO lending base
+	// TAO lending base
 	nonce = nonce + 1
 	lendingRelayerRegistration.TransactOpts.Nonce = big.NewInt(int64(nonce))
-	_, err = lendingRelayerRegistration.AddBaseToken(simulation.TOMONative)
+	_, err = lendingRelayerRegistration.AddBaseToken(simulation.TAONative)
 	if err != nil {
-		log.Fatal("Lending add base token TOMO", err)
+		log.Fatal("Lending add base token TAO", err)
 	}
 
 	// BTC lending base
@@ -178,42 +178,42 @@ func main() {
 	/*
 		for _, token := range tokenList {
 			fromTokens = append(fromTokens, token["address"].(common.Address))
-			toTokens = append(toTokens, simulation.TOMONative)
+			toTokens = append(toTokens, simulation.TAONative)
 		}
 	*/
 
-	// TOMO/BTC
-	fromTokens = append(fromTokens, simulation.TOMONative)
+	// TAO/BTC
+	fromTokens = append(fromTokens, simulation.TAONative)
 	toTokens = append(toTokens, tokenList[0]["address"].(common.Address))
 
-	// TOMO/USDT
-	fromTokens = append(fromTokens, simulation.TOMONative)
+	// TAO/USDT
+	fromTokens = append(fromTokens, simulation.TAONative)
 	toTokens = append(toTokens, tokenList[9]["address"].(common.Address))
 
-	// ETH/TOMO
+	// ETH/TAO
 	fromTokens = append(fromTokens, tokenList[1]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[2]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[3]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[4]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[5]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[6]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[7]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	fromTokens = append(fromTokens, tokenList[8]["address"].(common.Address))
-	toTokens = append(toTokens, simulation.TOMONative)
+	toTokens = append(toTokens, simulation.TAONative)
 
 	// ETH/BTC
 	fromTokens = append(fromTokens, tokenList[1]["address"].(common.Address))
@@ -281,23 +281,23 @@ func main() {
 	terms = append(terms, big.NewInt(30*86400))
 	collaterals = append(collaterals, common.HexToAddress("0x0"))
 
-	// TOMO 1 min
-	baseTokens = append(baseTokens, simulation.TOMONative)
+	// TAO 1 min
+	baseTokens = append(baseTokens, simulation.TAONative)
 	terms = append(terms, big.NewInt(60))
 	collaterals = append(collaterals, common.HexToAddress("0x0"))
 
-	// TOMO 1 day
-	baseTokens = append(baseTokens, simulation.TOMONative)
+	// TAO 1 day
+	baseTokens = append(baseTokens, simulation.TAONative)
 	terms = append(terms, big.NewInt(86400))
 	collaterals = append(collaterals, common.HexToAddress("0x0"))
 
-	// TOMO 7 days
-	baseTokens = append(baseTokens, simulation.TOMONative)
+	// TAO 7 days
+	baseTokens = append(baseTokens, simulation.TAONative)
 	terms = append(terms, big.NewInt(7*86400))
 	collaterals = append(collaterals, common.HexToAddress("0x0"))
 
-	// TOMO 30 days
-	baseTokens = append(baseTokens, simulation.TOMONative)
+	// TAO 30 days
+	baseTokens = append(baseTokens, simulation.TAONative)
 	terms = append(terms, big.NewInt(30*86400))
 	collaterals = append(collaterals, common.HexToAddress("0x0"))
 
@@ -340,7 +340,7 @@ func initTRC21(auth *bind.TransactOpts, client *ethclient.Client, nonce uint64, 
 		tokenCap := simulation.TRC21TokenCap
 		if tokenName == "ADA" {
 			d = 0
-			tokenCap = new(big.Int).Div(simulation.TRC21TokenCap, simulation.BaseTOMO)
+			tokenCap = new(big.Int).Div(simulation.TRC21TokenCap, simulation.BaseTAO)
 		}
 		if tokenName == "USDT" {
 			d = 6

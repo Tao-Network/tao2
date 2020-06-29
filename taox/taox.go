@@ -600,9 +600,9 @@ func (taox *TaoX) RollbackReorgTxMatch(txhash common.Hash) error {
 	if items != nil {
 		for _, order := range items.([]*tradingstate.OrderItem) {
 			c, ok := taox.orderCache.Get(txhash)
-			log.Debug("Tomox reorg: rollback order", "txhash", txhash.Hex(), "order", tradingstate.ToJSON(order), "orderHistoryItem", c)
+			log.Debug("Taox reorg: rollback order", "txhash", txhash.Hex(), "order", tradingstate.ToJSON(order), "orderHistoryItem", c)
 			if !ok {
-				log.Debug("Tomox reorg: remove order due to no orderCache", "order", tradingstate.ToJSON(order))
+				log.Debug("Taox reorg: remove order due to no orderCache", "order", tradingstate.ToJSON(order))
 				if err := db.DeleteObject(order.Hash, &tradingstate.OrderItem{}); err != nil {
 					log.Crit("SDKNode: failed to remove reorg order", "err", err.Error(), "order", tradingstate.ToJSON(order))
 				}
@@ -611,7 +611,7 @@ func (taox *TaoX) RollbackReorgTxMatch(txhash common.Hash) error {
 			orderCacheAtTxHash := c.(map[common.Hash]tradingstate.OrderHistoryItem)
 			orderHistoryItem, _ := orderCacheAtTxHash[tradingstate.GetOrderHistoryKey(order.BaseToken, order.QuoteToken, order.Hash)]
 			if (orderHistoryItem == tradingstate.OrderHistoryItem{}) {
-				log.Debug("Tomox reorg: remove order due to empty orderHistory", "order", tradingstate.ToJSON(order))
+				log.Debug("Taox reorg: remove order due to empty orderHistory", "order", tradingstate.ToJSON(order))
 				if err := db.DeleteObject(order.Hash, &tradingstate.OrderItem{}); err != nil {
 					log.Crit("SDKNode: failed to remove reorg order", "err", err.Error(), "order", tradingstate.ToJSON(order))
 				}
@@ -621,13 +621,13 @@ func (taox *TaoX) RollbackReorgTxMatch(txhash common.Hash) error {
 			order.Status = orderHistoryItem.Status
 			order.FilledAmount = tradingstate.CloneBigInt(orderHistoryItem.FilledAmount)
 			order.UpdatedAt = orderHistoryItem.UpdatedAt
-			log.Debug("Tomox reorg: update order to the last orderHistoryItem", "order", tradingstate.ToJSON(order), "orderHistoryItem", orderHistoryItem)
+			log.Debug("Taox reorg: update order to the last orderHistoryItem", "order", tradingstate.ToJSON(order), "orderHistoryItem", orderHistoryItem)
 			if err := db.PutObject(order.Hash, order); err != nil {
 				log.Crit("SDKNode: failed to update reorg order", "err", err.Error(), "order", tradingstate.ToJSON(order))
 			}
 		}
 	}
-	log.Debug("Tomox reorg: DeleteTradeByTxHash", "txhash", txhash.Hex())
+	log.Debug("Taox reorg: DeleteTradeByTxHash", "txhash", txhash.Hex())
 	db.DeleteItemByTxHash(txhash, &tradingstate.Trade{})
 	if err := db.CommitBulk(); err != nil {
 		return fmt.Errorf("failed to RollbackTradingData. %v", err)

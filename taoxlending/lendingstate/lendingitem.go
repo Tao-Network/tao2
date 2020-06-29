@@ -348,7 +348,7 @@ func (l *LendingItem) VerifyLendingSignature() error {
 
 func VerifyBalance(isTaoXLendingFork bool, statedb *state.StateDB, lendingStateDb *LendingStateDB,
 	orderType, side, status string, userAddress, relayer, lendingToken, collateralToken common.Address,
-	quantity, lendingTokenDecimal, collateralTokenDecimal, lendTokenTOMOPrice, collateralPrice *big.Int,
+	quantity, lendingTokenDecimal, collateralTokenDecimal, lendTokenTAOPrice, collateralPrice *big.Int,
 	term uint64, lendingId uint64, lendingTradeId uint64) error {
 	borrowingFeeRate := GetFee(statedb, relayer)
 	switch orderType {
@@ -389,17 +389,17 @@ func VerifyBalance(isTaoXLendingFork bool, statedb *state.StateDB, lendingStateD
 					return fmt.Errorf("VerifyBalance: investor doesn't have enough lendingToken. User: %s. Token: %s. Expected: %v. Have: %v", userAddress.Hex(), lendingToken.Hex(), quantity, balance)
 				}
 				// check quantity: reject if it's too small
-				if lendTokenTOMOPrice != nil && lendTokenTOMOPrice.Sign() > 0 {
+				if lendTokenTAOPrice != nil && lendTokenTAOPrice.Sign() > 0 {
 					defaultFee := new(big.Int).Mul(quantity, new(big.Int).SetUint64(DefaultFeeRate))
 					defaultFee = new(big.Int).Div(defaultFee, common.TaoXBaseFee)
-					defaultFeeInTOMO := common.Big0
-					if lendingToken.String() != common.TomoNativeAddress {
-						defaultFeeInTOMO = new(big.Int).Mul(defaultFee, lendTokenTOMOPrice)
-						defaultFeeInTOMO = new(big.Int).Div(defaultFeeInTOMO, lendingTokenDecimal)
+					defaultFeeInTAO := common.Big0
+					if lendingToken.String() != common.TaoNativeAddress {
+						defaultFeeInTAO = new(big.Int).Mul(defaultFee, lendTokenTAOPrice)
+						defaultFeeInTAO = new(big.Int).Div(defaultFeeInTAO, lendingTokenDecimal)
 					} else {
-						defaultFeeInTOMO = defaultFee
+						defaultFeeInTAO = defaultFee
 					}
-					if defaultFeeInTOMO.Cmp(common.RelayerLendingFee) <= 0 {
+					if defaultFeeInTAO.Cmp(common.RelayerLendingFee) <= 0 {
 						return ErrQuantityTradeTooSmall
 					}
 
@@ -427,7 +427,7 @@ func VerifyBalance(isTaoXLendingFork bool, statedb *state.StateDB, lendingStateD
 			switch status {
 			case LendingStatusNew:
 				depositRate, _, _ := GetCollateralDetail(statedb, collateralToken)
-				settleBalanceResult, err := GetSettleBalance(isTaoXLendingFork, Borrowing, lendTokenTOMOPrice, collateralPrice, depositRate, borrowingFeeRate, lendingToken, collateralToken, lendingTokenDecimal, collateralTokenDecimal, quantity)
+				settleBalanceResult, err := GetSettleBalance(isTaoXLendingFork, Borrowing, lendTokenTAOPrice, collateralPrice, depositRate, borrowingFeeRate, lendingToken, collateralToken, lendingTokenDecimal, collateralTokenDecimal, quantity)
 				if err != nil {
 					return err
 				}

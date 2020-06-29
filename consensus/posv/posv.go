@@ -94,7 +94,7 @@ type LendingService interface {
 
 // Posv proof-of-stake-voting protocol constants.
 var (
-	epochLength = uint64(900) // Default number of blocks after which to checkpoint and reset the pending votes
+	epochLength = uint64(360) // Default number of blocks after which to checkpoint and reset the pending votes
 
 	extraVanity = 32 // Fixed number of extra-data prefix bytes reserved for signer vanity
 	extraSeal   = 65 // Fixed number of extra-data suffix bytes reserved for signer seal

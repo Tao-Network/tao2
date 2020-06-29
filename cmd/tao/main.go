@@ -48,7 +48,7 @@ var (
 	// Git SHA1 commit hash of the release (set via linker flags)
 	gitCommit = ""
 	// The app that holds all commands and flags.
-	app = utils.NewApp(gitCommit, "the tomochain command line interface")
+	app = utils.NewApp(gitCommit, "the tao command line interface")
 	// flags that configure the node
 	nodeFlags = []cli.Flag{
 		utils.IdentityFlag,
@@ -112,7 +112,7 @@ var (
 		//utils.TestnetFlag,
 		//utils.RinkebyFlag,
 		//utils.VMEnableDebugFlag,
-		utils.TomoTestnetFlag,
+		utils.TaoTestnetFlag,
 		utils.RewoundFlag,
 		utils.NetworkIdFlag,
 		utils.RPCCORSDomainFlag,
@@ -128,7 +128,7 @@ var (
 		utils.AnnounceTxsFlag,
 		utils.StoreRewardFlag,
 		utils.RollbackFlag,
-		utils.TomoSlaveModeFlag,
+		utils.TaoSlaveModeFlag,
 	}
 
 	rpcFlags = []cli.Flag{
@@ -223,7 +223,7 @@ func tao(ctx *cli.Context) error {
 // startNode boots up the system node and all registered protocols, after which
 // it unlocks any requested accounts, and starts the RPC/IPC interfaces and the
 // miner.
-func startNode(ctx *cli.Context, stack *node.Node, cfg tomoConfig) {
+func startNode(ctx *cli.Context, stack *node.Node, cfg taoConfig) {
 	// Start up the node itself
 	utils.StartNode(stack)
 
@@ -298,7 +298,7 @@ func startNode(ctx *cli.Context, stack *node.Node, cfg tomoConfig) {
 		go func() {
 			started := false
 			ok := false
-			slaveMode := ctx.GlobalIsSet(utils.TomoSlaveModeFlag.Name)
+			slaveMode := ctx.GlobalIsSet(utils.TaoSlaveModeFlag.Name)
 			var err error
 			if common.IsTestnet {
 				ok, err = ethereum.ValidateMasternodeTestnet()

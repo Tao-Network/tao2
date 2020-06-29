@@ -50,7 +50,7 @@ func TestValidator(t *testing.T) {
 	transactOpts := bind.NewKeyedTransactor(key)
 
 	validatorCap := new(big.Int)
-	validatorCap.SetString("50000000000000000000000", 10)
+	validatorCap.SetString("100000000000000000000000", 10)
 	validatorAddress, validator, err := DeployValidator(transactOpts, contractBackend, []common.Address{addr}, []*big.Int{validatorCap}, addr)
 	if err != nil {
 		t.Fatalf("can't deploy root registry: %v", err)
@@ -101,7 +101,7 @@ func TestRewardBalance(t *testing.T) {
 		[]common.Address{addr},
 		[]*big.Int{validatorCap},
 		addr,
-		big.NewInt(50000),
+		big.NewInt(100000),
 		big.NewInt(1),
 		big.NewInt(99),
 		big.NewInt(100),
@@ -114,7 +114,7 @@ func TestRewardBalance(t *testing.T) {
 
 	// Propose master node acc3Addr.
 	opts := bind.NewKeyedTransactor(acc4Key)
-	opts.Value = new(big.Int).SetUint64(50000)
+	opts.Value = new(big.Int).SetUint64(100000)
 	acc4Validator, _ := NewValidator(opts, validatorAddr, contractBackend)
 	acc4Validator.Propose(acc3Addr)
 	contractBackend.Commit()

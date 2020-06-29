@@ -80,7 +80,7 @@ type OrderPoolConfig struct {
 }
 
 // blockChain_taox add order state
-type blockChainTomox interface {
+type blockChainTaox interface {
 	CurrentBlock() *types.Block
 	GetBlock(hash common.Hash, number uint64) *types.Block
 	OrderStateAt(block *types.Block) (*tradingstate.TradingStateDB, error)
@@ -130,7 +130,7 @@ func (config *OrderPoolConfig) sanitize() OrderPoolConfig {
 type OrderPool struct {
 	config      OrderPoolConfig
 	chainconfig *params.ChainConfig
-	chain       blockChainTomox
+	chain       blockChainTaox
 
 	txFeed       event.Feed
 	scope        event.SubscriptionScope
@@ -157,7 +157,7 @@ type OrderPool struct {
 
 // NewOrderPool creates a new transaction pool to gather, sort and filter inbound
 // transactions from the network.
-func NewOrderPool(chainconfig *params.ChainConfig, chain blockChainTomox) *OrderPool {
+func NewOrderPool(chainconfig *params.ChainConfig, chain blockChainTaox) *OrderPool {
 	// Sanitize the input to ensure no vulnerable gas prices are set
 	config := (&DefaultOrderPoolConfig).sanitize()
 	log.Debug("NewOrderPool start...", "current block", chain.CurrentBlock().Header().Number)

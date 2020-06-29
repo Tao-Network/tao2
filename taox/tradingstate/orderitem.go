@@ -356,16 +356,16 @@ func VerifyPair(statedb *state.StateDB, exchangeAddress, baseToken, quoteToken c
 
 func VerifyBalance(statedb *state.StateDB, taoxStateDb *TradingStateDB, order *types.OrderTransaction, baseDecimal, quoteDecimal *big.Int) error {
 	var quotePrice *big.Int
-	if order.QuoteToken().String() != common.TomoNativeAddress {
-		quotePrice = taoxStateDb.GetLastPrice(GetTradingOrderBookHash(order.QuoteToken(), common.HexToAddress(common.TomoNativeAddress)))
-		log.Debug("TryGet quotePrice QuoteToken/TOMO", "quotePrice", quotePrice)
+	if order.QuoteToken().String() != common.TaoNativeAddress {
+		quotePrice = taoxStateDb.GetLastPrice(GetTradingOrderBookHash(order.QuoteToken(), common.HexToAddress(common.TaoNativeAddress)))
+		log.Debug("TryGet quotePrice QuoteToken/TAO", "quotePrice", quotePrice)
 		if quotePrice == nil || quotePrice.Sign() == 0 {
-			inversePrice := taoxStateDb.GetLastPrice(GetTradingOrderBookHash(common.HexToAddress(common.TomoNativeAddress), order.QuoteToken()))
-			log.Debug("TryGet inversePrice TOMO/QuoteToken", "inversePrice", inversePrice)
+			inversePrice := taoxStateDb.GetLastPrice(GetTradingOrderBookHash(common.HexToAddress(common.TaoNativeAddress), order.QuoteToken()))
+			log.Debug("TryGet inversePrice TAO/QuoteToken", "inversePrice", inversePrice)
 			if inversePrice != nil && inversePrice.Sign() > 0 {
 				quotePrice = new(big.Int).Mul(common.BasePrice, quoteDecimal)
 				quotePrice = new(big.Int).Div(quotePrice, inversePrice)
-				log.Debug("TryGet quotePrice after get inversePrice TOMO/QuoteToken", "quotePrice", quotePrice, "quoteTokenDecimal", quoteDecimal)
+				log.Debug("TryGet quotePrice after get inversePrice TAO/QuoteToken", "quotePrice", quotePrice, "quoteTokenDecimal", quoteDecimal)
 			}
 		}
 	} else {
