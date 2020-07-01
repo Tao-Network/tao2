@@ -9,7 +9,7 @@
 # - VERBOSITY (default to 3)
 # - MAXPEERS (default to 25)
 # - SYNC_MODE (default to 'full')
-# - NETWORK_ID (default to '89')
+# - NETWORK_ID (default to '558')
 # - WS_SECRET (default to empty)
 # - NETSTATS_HOST (default to 'netstats-server:3000')
 # - NETSTATS_PORT (default to 'netstats-server:3000')
@@ -51,10 +51,10 @@ done
 # networkid
 if [[ ! -z $NETWORK_ID ]]; then
   case $NETWORK_ID in
-    88 )
+    558 )
       genesisPath="mainnet.json"
       ;;
-    89 )
+    688 )
       genesisPath="testnet.json"
       params="$params --tao-testnet --gcmode archive --rpcapi db,eth,net,web3,debug,posv"
       ;;
@@ -170,6 +170,10 @@ fi
 echo "dump: $IDENTITY $account $BOOTNODES"
 
 set -x
+
+echo '[
+  "enode://023628d1b2b87066d8c0af658d67fa76d17d4e870d70ba4a37512869357407bad8f485fcbfe145289d16c06096a3b4445d7dd4d537b6cf6be9cce0b5cec32bb3@108.61.242.3:20202"
+]' > $DATA_DIR/tao/static-nodes.json
 
 exec tao $params \
   --verbosity $VERBOSITY \
