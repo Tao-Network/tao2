@@ -3,7 +3,7 @@ Verbosity   =   0           # flag  --verbosity (0=Crit 1=Error 2=Warn 3=Info 4=
 NAT         =   ""          # flag  --nat
 
 [Eth]
-NetworkId	=   89          # flag  --networkid
+NetworkId	=   559          # flag  --networkid
 SyncMode	=   "full"      # flag  --syncmode
 GasPrice	=   1	        # flag  --gasprice
 

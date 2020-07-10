@@ -157,7 +157,7 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, taoConfig) {
 	if ctx.GlobalBool(utils.TaoTestnetFlag.Name) {
 		common.IsTestnet = true
 		common.TRC21IssuerSMC = common.TRC21IssuerSMCTestNet
-		cfg.Eth.NetworkId = 89
+		cfg.Eth.NetworkId = 559
 		common.RelayerRegistrationSMC = common.RelayerRegistrationSMCTestnet
 		common.TIPTRC21Fee = common.TIPTaoXTestnet
 	}

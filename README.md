@@ -120,7 +120,7 @@ tao account list --datadir ./  --keystore $KEYSTORE_DIR
    - $IDENTITY: the name of your node
    - $PASSWORD: the password file to unlock your account
    - $YOUR_COINBASE_ADDRESS: address of your account which generated in the previous step
-   - $NETWORK_ID: the networkId. Mainnet: 558. Testnet: 89
+   - $NETWORK_ID: the networkId. Mainnet: 558. Testnet: 559
    - $BOOTNODES: The comma separated list of bootnodes. Find them [here](https://docs.tao.network/general/networks/)
    - $WS_SECRET: The password to send data to the stats website. Find them [here](https://docs.tao.network/general/networks/)
    - $NETSTATS_HOST: The stats website to report to, regarding to your environment. Find them [here](https://docs.tao.network/general/networks/)
@@ -151,7 +151,7 @@ tao  --syncmode "full" \
 --identity: your full-node's name.
 --password: your account's password.
 --networkid: our network ID.
---tao-testnet: required when the networkid is testnet(89).
+--tao-testnet: required when the networkid is testnet(559).
 --port: your full-node's listening port (default to 20202)
 --rpc, --rpccorsdomain, --rpcaddr, --rpcport, --rpcvhosts: your full-node will accept RPC requests at 8545 TCP.
 --ws, --wsaddr, --wsport, --wsorigins: your full-node will accept Websocket requests at 8546 TCP.
