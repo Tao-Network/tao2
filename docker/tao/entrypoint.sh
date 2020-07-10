@@ -54,7 +54,7 @@ if [[ ! -z $NETWORK_ID ]]; then
     558 )
       genesisPath="mainnet.json"
       ;;
-    688 )
+    559 )
       genesisPath="testnet.json"
       params="$params --tao-testnet --gcmode archive --rpcapi db,eth,net,web3,debug,posv"
       ;;
