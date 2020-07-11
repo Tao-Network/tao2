@@ -62,32 +62,24 @@ jobs:
       - docker build -t tao2/node -f Dockerfile.node .
     script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-      - docker tag Tao-Network/tao2 Tao-Network/tao2:latest
-      - docker push Tao-Network/tao2:latest
-      - docker tag Tao-Network/tao2 Tao-Network/tao2:$TRAVIS_BUILD_ID
-      - docker push Tao-Network/tao2:$TRAVIS_BUILD_ID
-      - docker tag tao2/node tao2/node:latest
-      - docker push tao2/node:latest
-      - docker tag tao2/node tao2/node:$TRAVIS_BUILD_ID
-      - docker push tao2/node:$TRAVIS_BUILD_ID
+      - docker tag taoblockchain/node taoblockchain/node:latest
+      - docker push taoblockchain/node:latest
+      - docker tag taoblockchain/node taoblockchain/node:$TRAVIS_BUILD_ID
+      - docker push taoblockchain/node:$TRAVIS_BUILD_ID
 
   - stage: Build and push image (tagged)
     services:
       - docker
     install: skip
     before_script:
-      - docker build -t Tao-Network/tao2 .
-      - docker build -t Tao-Network/tao2 -f Dockerfile.node .
+      - docker build -t taoblockchain/node .
+      - docker build -t taoblockchain/node -f Dockerfile.node .
     script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-      - docker tag Tao-Network/tao2 Tao-Network/tao2:latest
-      - docker push Tao-Network/tao2:latest
-      - docker tag Tao-Network/tao2 Tao-Network/tao2:$TRAVIS_TAG
-      - docker push Tao-Network/tao2:$TRAVIS_TAG
-      - docker tag Tao-Network/tao2 tao2/node:latest
-      - docker push tao2/node:latest
-      - docker tag tao2/node tao2/node:$TRAVIS_TAG
-      - docker push tao2/node:$TRAVIS_TAG
+      - docker tag taoblockchain/node taoblockchain/node:latest
+      - docker push taoblockchain/node:latest
+      - docker tag taoblockchain/node taoblockchain/node:$TRAVIS_TAG
+      - docker push taoblockchain/node:$TRAVIS_TAG
 
 stages:
   - name: Lint
