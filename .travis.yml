@@ -65,6 +65,8 @@ jobs:
       - docker push taoblockchain/node:latest
       - docker tag taoblockchain/node taoblockchain/node:$TRAVIS_BUILD_ID
       - docker push taoblockchain/node:$TRAVIS_BUILD_ID
+      - docker tag taoblockchain/node taoblockchain/node:stable
+      - docker push taoblockchain/node:stable
 
   - stage: Build and push image (tagged)
     services:
@@ -79,6 +81,8 @@ jobs:
       - docker push taoblockchain/node:latest
       - docker tag taoblockchain/node taoblockchain/node:$TRAVIS_TAG
       - docker push taoblockchain/node:$TRAVIS_TAG
+      - docker tag taoblockchain/node taoblockchain/node:stable
+      - docker push taoblockchain/node:stable
 
 stages:
   - name: Lint
