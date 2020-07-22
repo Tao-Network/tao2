@@ -1,7 +1,7 @@
 # Tao
 
 [![Build Status](https://travis-ci.org/Tao-Network/tao2.svg?branch=master)](https://travis-ci.org/Tao-Network/tao2)
-[![Join the chat at https://gitter.im/Tao-Network/tao2](https://badges.gitter.im/Tao-Network/tao2.svg)](https://gitter.im/Tao-Network/tao2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/Tao-Network/community](https://badges.gitter.im/Tao-Network/community.svg)](https://gitter.im/Tao-Network/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## About Tao
 

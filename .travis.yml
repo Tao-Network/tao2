@@ -58,8 +58,7 @@ jobs:
       - docker
     install: skip
     before_script:
-      - docker build -t Tao-Network/tao2 .
-      - docker build -t tao2/node -f Dockerfile.node .
+      - docker build -t taoblockchain/node -f Dockerfile.node .
     script:
       - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
       - docker tag taoblockchain/node taoblockchain/node:latest
