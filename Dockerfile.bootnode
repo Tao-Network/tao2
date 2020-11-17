@@ -9,7 +9,7 @@ RUN chmod +x /tao2/build/bin/bootnode
 
 FROM alpine:latest
 
-LABEL maintainer="etienne@tao.network"
+LABEL maintainer="bryce@tao.network"
 
 WORKDIR /tao
 

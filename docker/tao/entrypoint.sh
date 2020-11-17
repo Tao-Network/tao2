@@ -204,4 +204,5 @@ exec tao $params \
   --mine \
   --gasprice "250000000" \
   --targetgaslimit "84000000" \
+  --store-rewards \
   "$@"
