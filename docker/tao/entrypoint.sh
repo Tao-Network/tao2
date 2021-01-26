@@ -163,7 +163,7 @@ fi
 
 # maxpeers
 if [[ -z $MAXPEERS ]]; then
-  MAXPEERS=25
+  MAXPEERS=255
 fi
 
 # dump

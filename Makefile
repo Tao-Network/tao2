@@ -4,10 +4,9 @@
 
 GOBIN = $(shell pwd)/build/bin
 GOFMT = gofmt
-GO ?= 1.12
+GO ?= 1.13
 GO_PACKAGES = .
 GO_FILES := $(shell find $(shell go list -f '{{.Dir}}' $(GO_PACKAGES)) -name \*.go)
-
 GIT = git
 
 tao:
@@ -80,7 +79,7 @@ tao-linux-mips64le:
 	@ls -ld $(GOBIN)/tao-linux-* | grep mips64le
 
 tao-linux-arm:
-	go run build/ci.go xgo -- --go=$(GO) --targets=linux/arm --ldflags '-extldflags "-static"' -v ./cmd/tao
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/arm --dest=build/bin --ldflags '-extldflags "-static"' -v github.com/Tao-Network/tao2/cmd/tao
 	@echo "Linux ARM cross compilation done:"
 	@ls -ld $(GOBIN)/tao-linux-* | grep arm
 
