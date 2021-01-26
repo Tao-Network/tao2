@@ -45,7 +45,7 @@ tao-cross: tao-windows-amd64 tao-darwin-amd64 tao-linux
 	@echo "Full cross compilation done:"
 	@ls -ld $(GOBIN)/tao-*
 
-tao-linux: tao-linux-386 tao-linux-amd64 tao-linux-mips64 tao-linux-mips64le
+tao-linux: tao-linux-386 tao-linux-amd64 tao-linux-mips64 tao-linux-mips64le tao-linux-arm
 	@echo "Linux cross compilation done:"
 	@ls -ld $(GOBIN)/tao-linux-*
 
@@ -78,6 +78,11 @@ tao-linux-mips64le:
 	go run build/ci.go xgo -- --go=$(GO) --targets=linux/mips64le --ldflags '-extldflags "-static"' -v ./cmd/tao
 	@echo "Linux MIPS64le cross compilation done:"
 	@ls -ld $(GOBIN)/tao-linux-* | grep mips64le
+
+tao-linux-arm:
+	go run build/ci.go xgo -- --go=$(GO) --targets=linux/arm --ldflags '-extldflags "-static"' -v ./cmd/tao
+	@echo "Linux ARM cross compilation done:"
+	@ls -ld $(GOBIN)/tao-linux-* | grep arm
 
 tao-darwin: tao-darwin-386 tao-darwin-amd64
 	@echo "Darwin cross compilation done:"
